@@ -1,12 +1,12 @@
 add_library(
     persistence STATIC
-    models/activity.h
-    models/applicationlist.h
-    models/application.h
+    model/activity.h
+    model/applicationlist.h
+    model/application.h
     dbconnection.cpp
     dbconnection.h
-    models/pomodoro.h
-    models/schedule.h
+    model/pomodoro.h
+    model/schedule.h
     sql/activitysql.h
     sql/applicationsql.h
     sql/applicationlistsql.h
