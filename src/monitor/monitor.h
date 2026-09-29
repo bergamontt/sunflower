@@ -1,7 +1,10 @@
 #pragma once
 
+template <typename Derived>
 class Monitor {
 public:
-    virtual void startMonitoring() = 0;
-    virtual ~Monitor() = default;
+    void startMonitoring()
+    {
+        static_cast<Derived*>(this)->startMonitoringImpl();
+    }
 };
