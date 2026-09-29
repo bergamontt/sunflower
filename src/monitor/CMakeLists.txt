@@ -1,6 +1,6 @@
 add_library(
         monitor STATIC
-        monitor.h
+        signalgenerator.h
 )
 
 target_link_libraries(

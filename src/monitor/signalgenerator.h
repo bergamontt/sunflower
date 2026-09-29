@@ -8,12 +8,12 @@ struct ProcessInfo
     QString name;
 };
 
-class Monitor : public QObject
+class SignalGenerator : public QObject
 {
     Q_OBJECT
 
 public:
-    Monitor(QObject *parent = nullptr) : QObject(parent) {}
+    SignalGenerator(QObject *parent = nullptr) : QObject(parent) {}
 
     signals:
         void usageStarted(const ProcessInfo proc);
