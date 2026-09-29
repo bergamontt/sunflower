@@ -12,6 +12,16 @@ add_library(
     sql/applicationlistsql.h
     sql/pomodorosql.h
     sql/schedulesql.h
+    dao/activitydao.h
+    dao/activitydao.cpp
+    dao/applicationdao.h
+    dao/applicationdao.cpp
+    dao/applicationlistdao.h
+    dao/applicationlistdao.cpp
+    dao/pomodorodao.h
+    dao/pomodorodao.cpp
+    dao/scheduledao.h
+    dao/scheduledao.cpp
 )
 
 target_link_libraries(

@@ -1,5 +1,7 @@
 #pragma once
+
 #include <QDateTime>
+#include <QString>
 
 namespace sun::persistence
 {
@@ -19,4 +21,30 @@ namespace sun::persistence
         QDateTime endsAt;
         State state;
     };
+
+    QString toString(const Pomodoro::State state)
+    {
+        switch (state)
+        {
+            case Pomodoro::State::Work:
+                return "WORK";
+            case Pomodoro::State::Break:
+                return "BREAK";
+            case Pomodoro::State::Inactive:
+                return "INACTIVE";
+            case Pomodoro::State::Paused:
+                return "PAUSED";
+        }
+    }
+
+    Pomodoro::State toState(const QString& str)
+    {
+        if (str == "WORK")
+            return Pomodoro::State::Work;
+        if (str == "BREAK")
+            return Pomodoro::State::Break;
+        if (str == "PAUSED")
+            return Pomodoro::State::Paused;
+        return Pomodoro::State::Inactive;
+    }
 } // sun::persistence::pomdoro
