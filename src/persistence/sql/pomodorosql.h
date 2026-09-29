@@ -1,17 +1,20 @@
 #pragma once
 
-namespace std::persistence::pomodoro
+namespace sun::persistence::pomodoro
 {
     inline const auto create =
-        "INSERT INTO pomodoro (id, work_duration, break_duration, ends_at)"
-        "VALUES (:id, :work_duration, :break_duration, :ends_at)";
+        "INSERT INTO pomodoro (work_duration, break_duration, ends_at, state)"
+        "VALUES (:work_duration, :break_duration, :ends_at, :state) "
+        "RETURNING id, work_suration, break_duration, ends_at, state";
     
     inline const auto update_by_id =
         "UPDATE pomodoro"
-        "SET work_duration = :work_duration"
-        "break_duration = :break_duration"
-        "ends_at = :ends_at"
-        "WHERE id = :id";
+        "SET work_duration = :work_duration "
+        "break_duration = :break_duration "
+        "ends_at = :ends_at "
+        "status = :status "
+        "WHERE id = :id "
+        "RETURNING id, work_suration, break_duration, ends_at, state";
     
     inline const auto delete_by_id =
         "DELETE FROM pomodoro"
@@ -36,4 +39,10 @@ namespace std::persistence::pomodoro
     inline const auto remove_all_application_lists = 
         "DELETE FROM pomodoro_application_list"
         "WHERE pomodoro_id = :pomodoro_id";
+    
+    inline const auto get_application_lists = 
+        "SELECT * FROM application "
+        "WHERE id IN("
+        "SELECT id FROM pomodoro_application_list "
+        "WHERE pomodoro_id = :pomodoro_id) "
 } // std::persistence::pomodoro

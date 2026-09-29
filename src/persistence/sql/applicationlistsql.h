@@ -3,12 +3,13 @@
 namespace sun::persistence::application_list
 {
     inline const auto create = 
-        "INSERT INTO application_list (id, name)"
-        "VALUES (:id, :name)";
+        "INSERT INTO application_list (name) "
+        "VALUES (:name) "
+        "RETURNING id, name";
 
     inline const auto get_by_id =
-        "SELECT * FROM application_list al"
-        "WHERE al.id = :id";
+        "SELECT * FROM application_list"
+        "WHERE id = :id";
     
     inline const auto get_all =
         "SELECT * FROM application_list";

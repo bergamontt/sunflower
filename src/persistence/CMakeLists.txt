@@ -1,17 +1,27 @@
 add_library(
     persistence STATIC
-    models/activity.h
-    models/applicationlist.h
-    models/application.h
+    model/activity.h
+    model/applicationlist.h
+    model/application.h
     dbconnection.cpp
     dbconnection.h
-    models/pomodoro.h
-    models/schedule.h
+    model/pomodoro.h
+    model/schedule.h
     sql/activitysql.h
     sql/applicationsql.h
     sql/applicationlistsql.h
     sql/pomodorosql.h
     sql/schedulesql.h
+    dao/activitydao.h
+    dao/activitydao.cpp
+    dao/applicationdao.h
+    dao/applicationdao.cpp
+    dao/applicationlistdao.h
+    dao/applicationlistdao.cpp
+    dao/pomodorodao.h
+    dao/pomodorodao.cpp
+    dao/scheduledao.h
+    dao/scheduledao.cpp
 )
 
 target_link_libraries(
