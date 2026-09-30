@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../model/application.h"
+#include "application.h"
 
 namespace sun::persistence 
 {

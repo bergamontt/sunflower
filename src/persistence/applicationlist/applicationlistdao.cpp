@@ -1,6 +1,5 @@
 #include "applicationlistdao.h"
-
-#include "../sql/applicationlistsql.h"
+#include "applicationlistsql.h"
 
 #include <QSqlQuery>
 #include <QList>

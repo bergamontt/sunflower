@@ -44,5 +44,5 @@ namespace sun::persistence::pomodoro
         "SELECT * FROM application "
         "WHERE id IN("
         "SELECT id FROM pomodoro_application_list "
-        "WHERE pomodoro_id = :pomodoro_id) "
+        "WHERE pomodoro_id = :pomodoro_id) ";
 } // std::persistence::pomodoro

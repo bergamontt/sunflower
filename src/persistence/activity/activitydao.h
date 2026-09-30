@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QDateTime>
+#include "activity.h"
 
-#include "../model/activity.h"
+#include <QDateTime>
 
 namespace sun::persistence
 {

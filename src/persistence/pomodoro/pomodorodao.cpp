@@ -1,6 +1,5 @@
 #include "pomodorodao.h"
-
-#include "../sql/pomodorosql.h"
+#include "pomodorosql.h"
 
 #include <QSqlQuery>
 

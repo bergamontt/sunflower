@@ -1,6 +1,5 @@
 #include "activitydao.h"
-
-#include "../sql/activitysql.h"
+#include "activitysql.h"
 
 #include <QSqlQuery>
 #include <QString>
@@ -65,4 +64,4 @@ namespace sun::persistence
         query.bindValue(":id", id);
         query.exec();
     }
-}
+} // sun::persistence
