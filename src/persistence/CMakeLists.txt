@@ -1,5 +1,6 @@
-add_library(persistence STATIC
-    
+add_library(persistence STATIC)
+
+target_sources(persistence PUBLIC
     activity/activity.h
     activity/activitysql.h
     activity/activitydao.h
@@ -29,10 +30,16 @@ add_library(persistence STATIC
     dbconnection.h
 )
 
+target_include_directories(
+    persistence
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 target_link_libraries(
     persistence
     PUBLIC
         Qt6::Core
-    PRIVATE:
+    PRIVATE
         Qt6::Sql
 )

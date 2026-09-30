@@ -1,5 +1,5 @@
-#include "applicationdao.h"
-#include "applicationsql.h"
+#include "application/applicationdao.h"
+#include "application/applicationsql.h"
 
 #include <QSqlQuery>
 

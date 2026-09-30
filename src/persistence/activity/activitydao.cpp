@@ -1,5 +1,5 @@
-#include "activitydao.h"
-#include "activitysql.h"
+#include "activity/activitydao.h"
+#include "activity/activitysql.h"
 
 #include <QSqlQuery>
 #include <QString>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "activity.h"
+#include "activity/activity.h"
 
 #include <QDateTime>
 

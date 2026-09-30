@@ -1,7 +1,7 @@
 #pragma once
 
-#include "pomodoro.h"
-#include "../applicationlist/applicationlist.h"
+#include "pomodoro/pomodoro.h"
+#include "applicationlist/applicationlist.h"
 
 #include <QList>
 

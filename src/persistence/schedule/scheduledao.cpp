@@ -1,5 +1,5 @@
-#include "scheduledao.h"
-#include "schedulesql.h"
+#include "schedule/scheduledao.h"
+#include "schedule/schedulesql.h"
 
 #include <QSqlQuery>
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "applicationlist.h"
-#include "../application/application.h"
+#include "applicationlist/applicationlist.h"
+#include "application/application.h"
 
 #include <QList>
 
