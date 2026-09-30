@@ -1,5 +1,8 @@
 #include "pomodoro/pomodorodao.h"
 #include "pomodoro/pomodorosql.h"
+#include "pomodoro/pomodoromapper.h"
+
+#include "applicationlist/applicationlistmapper.h"
 
 #include <QSqlQuery>
 
@@ -14,17 +17,10 @@ namespace sun::persistence
         query.bindValue(":ends_at", pomodoro.endsAt);
         query.bindValue(":state", pomodoro.state);
         query.exec();
-        return 
-        {
-            query.value("id").toInt(),
-            query.value("work_dauration").toInt(),
-            query.value("break_duration").toInt(),
-            query.value("ends_at").toDateTime(),
-            toState(query.value("state").toString())
-        };
+        return PomodoroMapper::toPomodoro(query);
     }
 
-    Pomodoro PomodoroDao::updateById(int id, const Pomodoro &pomodoro)
+    Pomodoro PomodoroDao::updateById(int id, const Pomodoro& pomodoro)
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::update_by_id);
@@ -34,14 +30,7 @@ namespace sun::persistence
         query.bindValue(":ends_at", pomodoro.endsAt);
         query.bindValue(":state", pomodoro.state);
         query.exec();
-        return 
-        {
-            query.value("id").toInt(),
-            query.value("work_dauration").toInt(),
-            query.value("break_duration").toInt(),
-            query.value("ends_at").toDateTime(),
-            toState(query.value("state").toString())
-        };
+        return PomodoroMapper::toPomodoro(query);
     }
 
     Pomodoro PomodoroDao::getById(int id)
@@ -49,14 +38,7 @@ namespace sun::persistence
         QSqlQuery query;
         query.bindValue(":id", id);
         query.exec();
-        return
-        {
-            query.value("id").toInt(),
-            query.value("work_dauration").toInt(),
-            query.value("break_duration").toInt(),
-            query.value("ends_at").toDateTime(),
-            toState(query.value("state").toString())
-        };
+        return PomodoroMapper::toPomodoro(query);
     }
 
     QList<Pomodoro> PomodoroDao::getAll()
@@ -66,13 +48,7 @@ namespace sun::persistence
         QList<Pomodoro> result;
         while (query.next())
         {
-            result.append({
-                query.value("id").toInt(),
-                query.value("work_dartion").toInt(),
-                query.value("break_duration").toInt(),
-                query.value("ends_at").toDateTime(),
-                toState(query.value("state").toString())
-            });
+            result.append(PomodoroMapper::toPomodoro(query));
         }
         return result;
     }
@@ -119,10 +95,7 @@ namespace sun::persistence
         QList<ApplicationList> result;
         while (query.next())
         {
-            result.append({
-                query.value("id").toInt(),
-                query.value("name").toString()
-            });
+            result.append(ApplicationListMapper::toApplicationList(query));
         }
         return result;
     }

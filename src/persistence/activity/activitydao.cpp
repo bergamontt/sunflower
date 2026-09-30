@@ -1,5 +1,6 @@
 #include "activity/activitydao.h"
 #include "activity/activitysql.h"
+#include "activity/activitymapper.h"
 
 #include <QSqlQuery>
 #include <QString>
@@ -17,13 +18,7 @@ namespace sun::persistence
             query.bindValue(":ended_at", activity.endedAt.value());
         }
         query.exec();
-        return
-        {
-            query.value("id").toInt(),
-            query.value("application_id").toInt(),
-            query.value("started_at").toDateTime(),
-            query.value("ended_at").toDateTime()
-        };
+        return ActivityMapper::toActivity(query);
     }
 
     Activity ActivityDao::updateEndedAt(int id, QDateTime& endedAt)
@@ -33,13 +28,7 @@ namespace sun::persistence
         query.bindValue(":id", id);
         query.bindValue(":ended_at", endedAt);
         query.exec();
-        return
-        {
-            query.value("id").toInt(),
-            query.value("application_id").toInt(),
-            query.value("started_at").toDateTime(),
-            query.value("ended_at").toDateTime()
-        };
+        return ActivityMapper::toActivity(query);
     }
 
     Activity ActivityDao::getById(int id)
@@ -48,13 +37,7 @@ namespace sun::persistence
         query.prepare(sun::persistence::activity::get_by_id);
         query.bindValue(":id", id);
         query.exec();
-        return
-        {
-            query.value("id").toInt(),
-            query.value("application_id").toInt(),
-            query.value("started_at").toDateTime(),
-            query.value("ended_at").toDateTime()
-        };
+        return ActivityMapper::toActivity(query);
     }
 
     void ActivityDao::deleteById(int id)

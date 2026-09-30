@@ -1,5 +1,6 @@
 #include "application/applicationdao.h"
 #include "application/applicationsql.h"
+#include "application/applicationmapper.h"
 
 #include <QSqlQuery>
 
@@ -12,12 +13,7 @@ namespace sun::persistence
         query.bindValue(":name", application.name);
         query.bindValue(":process_name", application.processName);
         query.exec();
-        return 
-        {
-            query.value("id").toInt(),
-            query.value("name").toString(),
-            query.value("process_name").toString()
-        };
+        return ApplicationMapper::toApplication(query);
     }
 
     Application ApplicationDao::updateById(int id, const Application& application)
@@ -27,12 +23,7 @@ namespace sun::persistence
         query.bindValue(":name", application.name);
         query.bindValue(":process_name", application.processName);
         query.exec();
-        return 
-        {
-            query.value("id").toInt(),
-            query.value("name").toString(),
-            query.value("process_name").toString()
-        };
+        return ApplicationMapper::toApplication(query);
     }
 
     Application ApplicationDao::getById(int id)
@@ -41,12 +32,7 @@ namespace sun::persistence
         query.prepare(sun::persistence::application::get_by_id);
         query.bindValue(":id", id);
         query.exec();
-        return 
-        {
-            query.value("id").toInt(),
-            query.value("name").toString(),
-            query.value("process_name").toString()
-        };
+        return ApplicationMapper::toApplication(query);
     }
 
     void ApplicationDao::deleteById(int id)

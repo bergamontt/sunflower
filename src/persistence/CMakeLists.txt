@@ -28,6 +28,11 @@ target_sources(persistence PUBLIC
 
     dbconnection.cpp
     dbconnection.h
+    activity/activitymapper.h
+    application/applicationmapper.h
+    applicationlist/applicationlistmapper.h
+    pomodoro/pomodoromapper.h
+    schedule/schedulemapper.h
 )
 
 target_include_directories(

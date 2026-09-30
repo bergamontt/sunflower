@@ -1,5 +1,8 @@
 #include "schedule/scheduledao.h"
 #include "schedule/schedulesql.h"
+#include "schedule/schedulemapper.h"
+
+#include "applicationlist/applicationlistmapper.h"
 
 #include <QSqlQuery>
 
@@ -20,20 +23,7 @@ namespace sun::persistence
         query.bindValue(":unlock_after", schedule.unclockAfter);
         query.bindValue(":unlock_requested_at", schedule.unlockRequestedAt.value_or(std::nullopt));
         query.exec();
-        return
-        {
-            query.value("id").toInt(),
-            query.value("name").toString(),
-            toType(query.value("type").toString()),
-            query.value("starts_at").toTime(),
-            query.value("ends_at").toTime(),
-            query.value("daily_limit").toInt(),
-            query.value("repeat_at").toInt(),
-            toLockType(query.value("lock_type").toString()),
-            query.value("lock_hash").toString(),
-            query.value("unlock_after").toInt(),
-            query.value("unclock_requested_at").toDateTime()
-        };
+        return ScheduleMapper::toSchedule(query);
     }
 
     Schedule ScheduleDao::updateById(int id, const Schedule &schedule)
@@ -51,20 +41,7 @@ namespace sun::persistence
         query.bindValue(":unlock_after", schedule.unclockAfter);
         query.bindValue(":unlock_requested_at", schedule.unlockRequestedAt.value_or(std::nullopt));
         query.exec();
-        return
-        {
-            query.value("id").toInt(),
-            query.value("name").toString(),
-            toType(query.value("type").toString()),
-            query.value("starts_at").toTime(),
-            query.value("ends_at").toTime(),
-            query.value("daily_limit").toInt(),
-            query.value("repeat_at").toInt(),
-            toLockType(query.value("lock_type").toString()),
-            query.value("lock_hash").toString(),
-            query.value("unlock_after").toInt(),
-            query.value("unclock_requested_at").toDateTime()
-        };
+        return ScheduleMapper::toSchedule(query);
     }
 
     Schedule ScheduleDao::getById(int id)
@@ -73,20 +50,7 @@ namespace sun::persistence
         query.prepare(sun::persistence::schedule::get_by_id);
         query.bindValue(":id", id);
         query.exec();
-        return
-        {
-            query.value("id").toInt(),
-            query.value("name").toString(),
-            toType(query.value("type").toString()),
-            query.value("starts_at").toTime(),
-            query.value("ends_at").toTime(),
-            query.value("daily_limit").toInt(),
-            query.value("repeat_at").toInt(),
-            toLockType(query.value("lock_type").toString()),
-            query.value("lock_hash").toString(),
-            query.value("unlock_after").toInt(),
-            query.value("unclock_requested_at").toDateTime()
-        };
+        return ScheduleMapper::toSchedule(query);
     }
 
     void ScheduleDao::deleteById(int id)
@@ -104,19 +68,7 @@ namespace sun::persistence
         QList<Schedule> result;
         while(query.next())
         {
-            result.append({
-                query.value("id").toInt(),
-                query.value("name").toString(),
-                toType(query.value("type").toString()),
-                query.value("starts_at").toTime(),
-                query.value("ends_at").toTime(),
-                query.value("daily_limit").toInt(),
-                query.value("repeat_at").toInt(),
-                toLockType(query.value("lock_type").toString()),
-                query.value("lock_hash").toString(),
-                query.value("unlock_after").toInt(),
-                query.value("unclock_requested_at").toDateTime()
-            });
+            result.append(ScheduleMapper::toSchedule(query));
         }
         return result;
     }
@@ -156,10 +108,7 @@ namespace sun::persistence
         QList<ApplicationList> result;
         while (query.next())
         {
-            result.append({
-                query.value("id").toInt(),
-                query.value("name").toString()
-            });
+            result.append(ApplicationListMapper::toApplicationList(query));
         }
         return result;
     }
