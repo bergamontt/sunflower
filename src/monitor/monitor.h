@@ -1,12 +1,28 @@
 #pragma once
 
+#include <QObject>
+#include <QString>
+
 namespace sun::monitor
 {
-    class Monitor
+    struct ProcessInfo
     {
+        QString name;
+    };
+
+    class Monitor : public QObject
+    {
+        Q_OBJECT
+
     public:
-        virtual ~Monitor() = default;
+        explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
+
+        ~Monitor() override = default;
 
         virtual void startMonitoring() = 0;
+
+    signals:
+        void usageStarted(const sun::monitor::ProcessInfo& proc);
+        void usageEnded(const sun::monitor::ProcessInfo& proc);
     };
 }

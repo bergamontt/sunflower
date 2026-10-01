@@ -1,16 +1,18 @@
 #pragma once
 
 #include "monitor.h"
-#include "signalgenerator.h"
 
 namespace sun::monitor
 {
     class LinuxMonitor : public Monitor
     {
-    public:
-        void startMonitoring() override;
+        Q_OBJECT
 
-    private:
-        SignalGenerator _signalGenerator;
+    public:
+        explicit LinuxMonitor(QObject* parent = nullptr) : Monitor(parent) {}
+
+        ~LinuxMonitor() override = default;
+
+        void startMonitoring() override;
     };
 }

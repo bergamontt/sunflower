@@ -1,6 +1,5 @@
 add_library(
         monitor STATIC
-        signalgenerator.h
         monitor.h
         linuxmonitor.h
 )
