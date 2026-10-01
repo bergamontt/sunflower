@@ -1,26 +1,30 @@
-#include "applicationlistdao.h"
+#include "applicationlist/applicationlistdao.h"
+#include "applicationlist/applicationlistsql.h"
+#include "applicationlist/applicationlistmapper.h"
 
-#include "../sql/applicationlistsql.h"
+#include "application/applicationmapper.h"
 
 #include <QSqlQuery>
 #include <QList>
 
 namespace sun::persistence
 {
-    ApplicationList ApplicationListDao::create(const ApplicationList &list)
+    ApplicationList ApplicationListDao::create(const CreateApplicationListDto& dto)
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::create);
-        if (list.name.has_value())
-        {
-            query.bindValue(":name", list.name.value());
-        }
+        ApplicationListMapper::bind(query, dto);
         query.exec();
-        return
-        {
-            query.value("id").toInt(),
-            query.value("name").toString()
-        };
+        return ApplicationListMapper::toApplicationList(query);
+    }
+
+    ApplicationList ApplicationListDao::updateById(const UpdateApplicationListDto& dto)
+    {
+        QSqlQuery query;
+        query.prepare(sun::persistence::application_list::update_by_id);
+        ApplicationListMapper::bind(query, dto);
+        query.exec();
+        return ApplicationListMapper::toApplicationList(query);
     }
 
     ApplicationList ApplicationListDao::getById(int id)
@@ -29,11 +33,7 @@ namespace sun::persistence
         query.prepare(sun::persistence::application_list::get_by_id);
         query.bindValue(":id", id);
         query.exec();
-        return 
-        {
-            query.value("id").toInt(),
-            query.value("name").toString()
-        };
+        return ApplicationListMapper::toApplicationList(query);
     }
 
     QList<ApplicationList> ApplicationListDao::getAll()
@@ -43,10 +43,7 @@ namespace sun::persistence
         QList<ApplicationList> result;
         while (query.next())
         {
-            result.append({
-                query.value("id").toInt(),
-                query.value("name").toString()
-            });
+            result.append(ApplicationListMapper::toApplicationList(query));
         };
         return result;
     }
@@ -85,11 +82,7 @@ namespace sun::persistence
         QList<Application> result;
         while (query.next()) 
         {
-            result.append({
-                query.value("id").toInt(),
-                query.value("name").toString(),
-                query.value("process_name").toString()
-            });
+            result.append(ApplicationMapper::toApplication(query));
         }
         return result;
     }

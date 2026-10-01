@@ -1,33 +1,50 @@
-add_library(
-    persistence STATIC
-    model/activity.h
-    model/applicationlist.h
-    model/application.h
+add_library(persistence STATIC)
+
+target_sources(persistence PUBLIC
+    activity/activity.h
+    activity/activitysql.h
+    activity/activitydao.h
+    activity/activitydao.cpp
+
+    application/application.h
+    application/applicationsql.h
+    application/applicationdao.h
+    application/applicationdao.cpp
+
+    applicationlist/applicationlist.h
+    applicationlist/applicationlistsql.h
+    applicationlist/applicationlistdao.h
+    applicationlist/applicationlistdao.cpp
+    
+    pomodoro/pomodoro.h
+    pomodoro/pomodorodao.h
+    pomodoro/pomodorosql.h
+    pomodoro/pomodorodao.cpp
+
+    schedule/schedule.h
+    schedule/schedulesql.h
+    schedule/scheduledao.h
+    schedule/scheduledao.cpp
+
     dbconnection.cpp
     dbconnection.h
-    model/pomodoro.h
-    model/schedule.h
-    sql/activitysql.h
-    sql/applicationsql.h
-    sql/applicationlistsql.h
-    sql/pomodorosql.h
-    sql/schedulesql.h
-    dao/activitydao.h
-    dao/activitydao.cpp
-    dao/applicationdao.h
-    dao/applicationdao.cpp
-    dao/applicationlistdao.h
-    dao/applicationlistdao.cpp
-    dao/pomodorodao.h
-    dao/pomodorodao.cpp
-    dao/scheduledao.h
-    dao/scheduledao.cpp
+    activity/activitymapper.h
+    application/applicationmapper.h
+    applicationlist/applicationlistmapper.h
+    pomodoro/pomodoromapper.h
+    schedule/schedulemapper.h
+)
+
+target_include_directories(
+    persistence
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(
     persistence
     PUBLIC
         Qt6::Core
-    PRIVATE:
+    PRIVATE
         Qt6::Sql
 )

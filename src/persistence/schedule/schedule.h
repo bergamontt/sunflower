@@ -35,7 +35,36 @@ namespace sun::persistence
         std::optional<QDateTime> unlockRequestedAt;
     };
 
-    QString toString(const Schedule::Type type)
+    struct CreateScheduleDto
+    {
+        QString name;
+        Schedule::Type type;
+        QTime startsAt;
+        QTime endsAt;
+        int dailyLimit;
+        int repeatAt;
+        Schedule::LockType lockType;
+        QString lockHash;
+        int unclockAfter;
+        std::optional<QDateTime> unlockRequestedAt;
+    };
+
+    struct UpdateScheduleDto
+    {
+        int id;
+        QString name;
+        Schedule::Type type;
+        QTime startsAt;
+        QTime endsAt;
+        int dailyLimit;
+        int repeatAt;
+        Schedule::LockType lockType;
+        QString lockHash;
+        int unclockAfter;
+        std::optional<QDateTime> unlockRequestedAt;
+    };
+
+    inline QString toString(const Schedule::Type type)
     {
         switch (type)
         {
@@ -46,14 +75,14 @@ namespace sun::persistence
         }
     }
 
-    Schedule::Type toType(const QString& str)
+    inline Schedule::Type toType(const QString& str)
     {
         if (str == "TIME_WINDOW")
             return Schedule::Type::TimeWindow;
         return Schedule::Type::DailyLimit;
     }
 
-    QString toString(const Schedule::LockType type)
+    inline QString toString(const Schedule::LockType type)
     {
         switch (type)
         {
@@ -66,7 +95,7 @@ namespace sun::persistence
         }
     }
 
-    Schedule::LockType toLockType(const QString& str)
+    inline Schedule::LockType toLockType(const QString& str)
     {
         if (str == "PASSWORD")
             return Schedule::LockType::Password;

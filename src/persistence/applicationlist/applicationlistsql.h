@@ -11,6 +11,11 @@ namespace sun::persistence::application_list
         "SELECT * FROM application_list"
         "WHERE id = :id";
     
+    inline const auto update_by_id =
+        "UPDATE application_list "
+        "SET name = :name "
+        "WHERE id = :id; ";
+    
     inline const auto get_all =
         "SELECT * FROM application_list";
 

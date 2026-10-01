@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../model/pomodoro.h"
-#include "../model/applicationlist.h"
+#include "pomodoro/pomodoro.h"
+#include "applicationlist/applicationlist.h"
 
 #include <QList>
 
@@ -10,8 +10,8 @@ namespace sun::persistence
     class PomodoroDao
     {
     public:
-        Pomodoro create(const Pomodoro& pomodoro);
-        Pomodoro updateById(int id, const Pomodoro& pomodoro);
+        Pomodoro create(const CreatePomodoroDto& dto);
+        Pomodoro updateById(const UpdatePomodoroDto& dto);
         Pomodoro getById(int id);
         
         QList<Pomodoro> getAll();

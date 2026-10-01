@@ -1,16 +1,16 @@
 #pragma once
 
-#include <QDateTime>
+#include "activity/activity.h"
 
-#include "../model/activity.h"
+#include <QDateTime>
 
 namespace sun::persistence
 {
     class ActivityDao
     {
     public:
-        Activity create(Activity& activity);
-        Activity updateEndedAt(int id, QDateTime& endedAt);
+        Activity create(const CreateActivityDto& dto);
+        Activity updateEndedAt(int id, UpdateActivityDto& dto);
         Activity getById(int id);
         void deleteById(int id);
     };
