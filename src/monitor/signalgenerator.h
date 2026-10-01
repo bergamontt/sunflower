@@ -17,9 +17,9 @@ namespace sun::monitor
     public:
         SignalGenerator(QObject *parent = nullptr) : QObject(parent) {}
 
-        signals:
-            void usageStarted(const ProcessInfo proc);
+	signals:
+        void usageStarted(const ProcessInfo proc);
 
-        void usageEnded(const ProcessInfo proc);
+		void usageEnded(const ProcessInfo proc);
     };
 }
