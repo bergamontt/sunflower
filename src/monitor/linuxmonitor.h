@@ -5,9 +5,10 @@
 
 namespace sun::monitor
 {
-    class LinuxMonitor : public Monitor<LinuxMonitor> {
+    class LinuxMonitor : public Monitor
+    {
     public:
-        void startMonitoringImpl();
+        void startMonitoring() override;
 
     private:
         SignalGenerator _signalGenerator;
