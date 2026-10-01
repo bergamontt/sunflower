@@ -8,38 +8,19 @@
 
 namespace sun::persistence
 {
-    Schedule ScheduleDao::create(const Schedule& schedule)
+    Schedule ScheduleDao::create(const CreateScheduleDto& dto)
     {
         QSqlQuery query;
-        query.prepare(sun::persistence::schedule::create);
-        query.bindValue(":name", schedule.name);
-        query.bindValue(":type", toString(schedule.type));
-        query.bindValue(":starts_at", schedule.startsAt);
-        query.bindValue(":ends_at", schedule.endsAt);
-        query.bindValue(":daily_limit", schedule.dailyLimit);
-        query.bindValue(":repeat_at", schedule.repeatAt);
-        query.bindValue(":lock_type", toString(schedule.lockType));
-        query.bindValue(":lock_hash", schedule.lockHash);
-        query.bindValue(":unlock_after", schedule.unclockAfter);
-        query.bindValue(":unlock_requested_at", schedule.unlockRequestedAt.value_or(std::nullopt));
+        ScheduleMapper::bind(query, dto);
         query.exec();
         return ScheduleMapper::toSchedule(query);
     }
 
-    Schedule ScheduleDao::updateById(int id, const Schedule &schedule)
+    Schedule ScheduleDao::updateById(const UpdateScheduleDto& dto)
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::update_by_id);
-        query.bindValue(":name", schedule.name);
-        query.bindValue(":type", toString(schedule.type));
-        query.bindValue(":starts_at", schedule.startsAt);
-        query.bindValue(":ends_at", schedule.endsAt);
-        query.bindValue(":daily_limit", schedule.dailyLimit);
-        query.bindValue(":repeat_at", schedule.repeatAt);
-        query.bindValue(":lock_type", toString(schedule.lockType));
-        query.bindValue(":lock_hash", schedule.lockHash);
-        query.bindValue(":unlock_after", schedule.unclockAfter);
-        query.bindValue(":unlock_requested_at", schedule.unlockRequestedAt.value_or(std::nullopt));
+        ScheduleMapper::bind(query, dto);
         query.exec();
         return ScheduleMapper::toSchedule(query);
     }

@@ -8,27 +8,20 @@
 
 namespace sun::persistence
 {
-    Pomodoro PomodoroDao::create(const Pomodoro& pomodoro)
+    Pomodoro PomodoroDao::create(const CreatePomodoroDto& dto)
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::create);
-        query.bindValue(":work_duration", pomodoro.workDuration);
-        query.bindValue(":break_duration", pomodoro.breakDuration);
-        query.bindValue(":ends_at", pomodoro.endsAt);
-        query.bindValue(":state", pomodoro.state);
+        PomodoroMapper::bind(query, dto);
         query.exec();
         return PomodoroMapper::toPomodoro(query);
     }
 
-    Pomodoro PomodoroDao::updateById(int id, const Pomodoro& pomodoro)
+    Pomodoro PomodoroDao::updateById(const UpdatePomodoroDto& dto)
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::update_by_id);
-        query.bindValue(":id", pomodoro.id);
-        query.bindValue(":work_duration", pomodoro.workDuration);
-        query.bindValue(":break_duration", pomodoro.breakDuration);
-        query.bindValue(":ends_at", pomodoro.endsAt);
-        query.bindValue(":state", pomodoro.state);
+        PomodoroMapper::bind(query, dto);
         query.exec();
         return PomodoroMapper::toPomodoro(query);
     }

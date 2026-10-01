@@ -22,6 +22,23 @@ namespace sun::persistence
         State state;
     };
 
+    struct CreatePomodoroDto
+    {
+        int workDuration;
+        int breakDuration;
+        QDateTime endsAt;
+        Pomodoro::State state;
+    };
+
+    struct UpdatePomodoroDto
+    {
+        int id;
+        int workDuration;
+        int breakDuration;
+        QDateTime endsAt;
+        Pomodoro::State state;
+    };
+
     QString toString(const Pomodoro::State state)
     {
         switch (state)

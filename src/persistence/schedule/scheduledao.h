@@ -10,8 +10,8 @@ namespace sun::persistence
     class ScheduleDao
     {
     public:
-        Schedule create(const Schedule& schedule);
-        Schedule updateById(int id, const Schedule& schedule);
+        Schedule create(const CreateScheduleDto& dto);
+        Schedule updateById(const UpdateScheduleDto& dto);
         Schedule getById(int id);
 
         void deleteById(int id);

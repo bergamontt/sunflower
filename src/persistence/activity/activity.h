@@ -13,4 +13,16 @@ namespace sun::persistence
         QDateTime startedAt;
         std::optional<QDateTime> endedAt;
     };
+
+    struct CreateActivityDto
+    {
+        int applicationId;
+        QDateTime startedAt;
+        std::optional<QDateTime> endedAt;
+    };
+
+    struct UpdateActivityDto
+    {
+        QDateTime endedAt;
+    };
 } // sun::persistence

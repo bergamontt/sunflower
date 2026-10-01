@@ -10,8 +10,8 @@ namespace sun::persistence
     class PomodoroDao
     {
     public:
-        Pomodoro create(const Pomodoro& pomodoro);
-        Pomodoro updateById(int id, const Pomodoro& pomodoro);
+        Pomodoro create(const CreatePomodoroDto& dto);
+        Pomodoro updateById(const UpdatePomodoroDto& dto);
         Pomodoro getById(int id);
         
         QList<Pomodoro> getAll();

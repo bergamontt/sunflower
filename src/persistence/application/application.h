@@ -11,4 +11,17 @@ namespace sun::persistence
         QString name;
         QString processName;
     };
+
+    struct CreateApplicationDto
+    {
+        QString name;
+        QString processName;
+    };
+
+    struct UpdateApplicationDto
+    {
+        int id;
+        QString name;
+        QString processName;
+    };
 } // sun::persistence

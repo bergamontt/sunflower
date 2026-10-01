@@ -7,8 +7,8 @@ namespace sun::persistence
     class ApplicationDao
     {
     public:    
-        Application create(const Application& application);
-        Application updateById(int id, const Application& application);
+        Application create(const CreateApplicationDto& dto);
+        Application updateById(const UpdateApplicationDto& dto);
         Application getById(int id);
         void deleteById(int id);
     };

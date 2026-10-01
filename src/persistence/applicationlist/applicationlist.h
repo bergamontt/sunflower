@@ -11,4 +11,15 @@ namespace sun::persistence
         int id;
         std::optional<QString> name;
     };
+
+    struct CreateApplicationListDto
+    {
+        std::optional<QString> name;
+    };
+
+    struct UpdateApplicationListDto
+    {
+        int id;
+        std::optional<QString> name;
+    };
 } // sun::persistence

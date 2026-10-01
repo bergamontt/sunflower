@@ -9,14 +9,20 @@
 
 namespace sun::persistence
 {
-    ApplicationList ApplicationListDao::create(const ApplicationList& list)
+    ApplicationList ApplicationListDao::create(const CreateApplicationListDto& dto)
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::create);
-        if (list.name.has_value())
-        {
-            query.bindValue(":name", list.name.value());
-        }
+        ApplicationListMapper::bind(query, dto);
+        query.exec();
+        return ApplicationListMapper::toApplicationList(query);
+    }
+
+    ApplicationList ApplicationListDao::updateById(const UpdateApplicationListDto& dto)
+    {
+        QSqlQuery query;
+        query.prepare(sun::persistence::application_list::update_by_id);
+        ApplicationListMapper::bind(query, dto);
         query.exec();
         return ApplicationListMapper::toApplicationList(query);
     }

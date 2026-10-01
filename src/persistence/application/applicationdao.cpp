@@ -6,22 +6,20 @@
 
 namespace sun::persistence
 {
-    Application ApplicationDao::create(const Application& application)
+    Application ApplicationDao::create(const CreateApplicationDto& dto)
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application::create);
-        query.bindValue(":name", application.name);
-        query.bindValue(":process_name", application.processName);
+        ApplicationMapper::bind(query, dto);
         query.exec();
         return ApplicationMapper::toApplication(query);
     }
 
-    Application ApplicationDao::updateById(int id, const Application& application)
+    Application ApplicationDao::updateById(const UpdateApplicationDto& dto)
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application::update_by_id);
-        query.bindValue(":name", application.name);
-        query.bindValue(":process_name", application.processName);
+        ApplicationMapper::bind(query, dto);
         query.exec();
         return ApplicationMapper::toApplication(query);
     }
