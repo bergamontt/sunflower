@@ -1,27 +1,24 @@
 #pragma once
 
-#include "schedule/schedule.h"
-#include "applicationlist/applicationlist.h"
-
-#include <QList>
+#include "schedule/ischeduledao.h"
 
 namespace sun::persistence
 {
-    class ScheduleDao
+    class ScheduleDao : public IScheduleDao
     {
-    public:
-        Schedule create(const CreateScheduleDto& dto);
-        Schedule updateById(const UpdateScheduleDto& dto);
-        Schedule getById(int id);
+    private:
+        Schedule doCreate(const CreateScheduleDto& dto) const override;
+        Schedule doUpdateById(const UpdateScheduleDto& dto) const override;
+        Schedule doGetById(int id) const override;
 
-        void deleteById(int id);
+        void doDeleteById(int id) const override;
         
-        QList<Schedule> getAll();
+        QList<Schedule> doGetAll() const override;
 
-        void addApplicationList(int scheduleId, int listId);
-        void removeApplicationList(int scheduleId, int listId);
-        void removeAllApplicationLists(int scheduleId);
+        void doAddApplicationList(int scheduleId, int listId) const override;
+        void doRemoveApplicationList(int scheduleId, int listId) const override;
+        void doRemoveAllApplicationLists(int scheduleId) const override;
 
-        QList<ApplicationList> getAllApplicationLists(int scheduleId);
+        QList<ApplicationList> doGetAllApplicationLists(int scheduleId) const override;
     };
 } // sun::persistence

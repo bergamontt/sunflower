@@ -8,7 +8,7 @@
 
 namespace sun::persistence
 {
-    Schedule ScheduleDao::create(const CreateScheduleDto& dto)
+    Schedule ScheduleDao::doCreate(const CreateScheduleDto& dto) const
     {
         QSqlQuery query;
         ScheduleMapper::bind(query, dto);
@@ -16,7 +16,7 @@ namespace sun::persistence
         return ScheduleMapper::toSchedule(query);
     }
 
-    Schedule ScheduleDao::updateById(const UpdateScheduleDto& dto)
+    Schedule ScheduleDao::doUpdateById(const UpdateScheduleDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::update_by_id);
@@ -25,7 +25,7 @@ namespace sun::persistence
         return ScheduleMapper::toSchedule(query);
     }
 
-    Schedule ScheduleDao::getById(int id)
+    Schedule ScheduleDao::doGetById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::get_by_id);
@@ -34,7 +34,7 @@ namespace sun::persistence
         return ScheduleMapper::toSchedule(query);
     }
 
-    void ScheduleDao::deleteById(int id)
+    void ScheduleDao::doDeleteById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::delete_by_id);
@@ -42,7 +42,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    QList<Schedule> ScheduleDao::getAll()
+    QList<Schedule> ScheduleDao::doGetAll() const
     {
         QSqlQuery query;
         query.exec(sun::persistence::schedule::get_all);
@@ -54,7 +54,7 @@ namespace sun::persistence
         return result;
     }
 
-    void ScheduleDao::addApplicationList(int scheduleId, int listId)
+    void ScheduleDao::doAddApplicationList(int scheduleId, int listId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::add_application_list);
@@ -63,7 +63,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    void ScheduleDao::removeApplicationList(int scheduleId, int listId)
+    void ScheduleDao::doRemoveApplicationList(int scheduleId, int listId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::remove_application_list);
@@ -72,7 +72,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    void ScheduleDao::removeAllApplicationLists(int scheduleId)
+    void ScheduleDao::doRemoveAllApplicationLists(int scheduleId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::remove_all_application_lists);
@@ -80,7 +80,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    QList<ApplicationList> ScheduleDao::getAllApplicationLists(int scheduleId)
+    QList<ApplicationList> ScheduleDao::doGetAllApplicationLists(int scheduleId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::get_all_application_lists);

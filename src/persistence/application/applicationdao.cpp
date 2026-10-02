@@ -6,7 +6,7 @@
 
 namespace sun::persistence
 {
-    Application ApplicationDao::create(const CreateApplicationDto& dto)
+    Application ApplicationDao::doCreate(const CreateApplicationDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application::create);
@@ -15,7 +15,7 @@ namespace sun::persistence
         return ApplicationMapper::toApplication(query);
     }
 
-    Application ApplicationDao::updateById(const UpdateApplicationDto& dto)
+    Application ApplicationDao::doUpdateById(const UpdateApplicationDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application::update_by_id);
@@ -24,7 +24,7 @@ namespace sun::persistence
         return ApplicationMapper::toApplication(query);
     }
 
-    Application ApplicationDao::getById(int id)
+    Application ApplicationDao::doGetById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application::get_by_id);
@@ -33,7 +33,7 @@ namespace sun::persistence
         return ApplicationMapper::toApplication(query);
     }
 
-    void ApplicationDao::deleteById(int id)
+    void ApplicationDao::doDeleteById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application::delete_by_id);

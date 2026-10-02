@@ -1,15 +1,15 @@
 #pragma once
 
-#include "application/application.h"
+#include "application/iapplicationdao.h"
 
-namespace sun::persistence 
+namespace sun::persistence
 {
-    class ApplicationDao
+    class ApplicationDao : IApplicationDao
     {
-    public:    
-        Application create(const CreateApplicationDto& dto);
-        Application updateById(const UpdateApplicationDto& dto);
-        Application getById(int id);
-        void deleteById(int id);
+    private:
+        Application doCreate(const CreateApplicationDto& dto) const override;
+        Application doUpdateById(const UpdateApplicationDto& dto) const override;
+        Application doGetById(int id) const override;
+        void doDeleteById(int id) const override;
     };
-}
+} // sun::persistence

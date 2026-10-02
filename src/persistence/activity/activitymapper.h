@@ -33,6 +33,8 @@ namespace sun::persistence
 
     inline void bind(QSqlQuery& query, const UpdateActivityDto& dto)
     {
+        query.bindValue(":id", dto.id);
+        query.bindValue(":application_id", dto.applicationId);
         query.bindValue(":ended_at", dto.endedAt);
     }
 } // sun::persistence

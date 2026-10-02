@@ -8,7 +8,7 @@
 
 namespace sun::persistence
 {
-    Pomodoro PomodoroDao::create(const CreatePomodoroDto& dto)
+    Pomodoro PomodoroDao::doCreate(const CreatePomodoroDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::create);
@@ -17,7 +17,7 @@ namespace sun::persistence
         return PomodoroMapper::toPomodoro(query);
     }
 
-    Pomodoro PomodoroDao::updateById(const UpdatePomodoroDto& dto)
+    Pomodoro PomodoroDao::doUpdateById(const UpdatePomodoroDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::update_by_id);
@@ -26,7 +26,7 @@ namespace sun::persistence
         return PomodoroMapper::toPomodoro(query);
     }
 
-    Pomodoro PomodoroDao::getById(int id)
+    Pomodoro PomodoroDao::doGetById(int id) const
     {
         QSqlQuery query;
         query.bindValue(":id", id);
@@ -34,7 +34,7 @@ namespace sun::persistence
         return PomodoroMapper::toPomodoro(query);
     }
 
-    QList<Pomodoro> PomodoroDao::getAll()
+    QList<Pomodoro> PomodoroDao::doGetAll() const
     {
         QSqlQuery query;
         query.exec(sun::persistence::pomodoro::get_all);
@@ -46,7 +46,7 @@ namespace sun::persistence
         return result;
     }
 
-    void PomodoroDao::deleteById(int id)
+    void PomodoroDao::doDeleteById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::delete_by_id);
@@ -54,7 +54,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    void PomodoroDao::addApplicationList(int pomodoroId, int listId)
+    void PomodoroDao::doAddApplicationList(int pomodoroId, int listId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::add_application_list);
@@ -63,7 +63,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    void PomodoroDao::removeApplicationList(int pomodoroId, int listId)
+    void PomodoroDao::doRemoveApplicationList(int pomodoroId, int listId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::remove_application_list);
@@ -72,7 +72,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    void PomodoroDao::removeAllAplicationLists(int pomodoroId)
+    void PomodoroDao::doRemoveAllAplicationLists(int pomodoroId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::remove_all_application_lists);
@@ -80,7 +80,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    QList<ApplicationList> PomodoroDao::getApplicationLists(int pomodoroId)
+    QList<ApplicationList> PomodoroDao::doGetApplicationLists(int pomodoroId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::pomodoro::get_application_lists);

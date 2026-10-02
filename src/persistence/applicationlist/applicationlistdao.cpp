@@ -9,7 +9,7 @@
 
 namespace sun::persistence
 {
-    ApplicationList ApplicationListDao::create(const CreateApplicationListDto& dto)
+    ApplicationList ApplicationListDao::doCreate(const CreateApplicationListDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::create);
@@ -18,7 +18,7 @@ namespace sun::persistence
         return ApplicationListMapper::toApplicationList(query);
     }
 
-    ApplicationList ApplicationListDao::updateById(const UpdateApplicationListDto& dto)
+    ApplicationList ApplicationListDao::doUpdateById(const UpdateApplicationListDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::update_by_id);
@@ -27,7 +27,7 @@ namespace sun::persistence
         return ApplicationListMapper::toApplicationList(query);
     }
 
-    ApplicationList ApplicationListDao::getById(int id)
+    ApplicationList ApplicationListDao::doGetById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::get_by_id);
@@ -36,7 +36,7 @@ namespace sun::persistence
         return ApplicationListMapper::toApplicationList(query);
     }
 
-    QList<ApplicationList> ApplicationListDao::getAll()
+    QList<ApplicationList> ApplicationListDao::doGetAll() const
     {
         QSqlQuery query;
         query.exec(sun::persistence::application_list::get_all);
@@ -48,7 +48,7 @@ namespace sun::persistence
         return result;
     }
 
-    void ApplicationListDao::addApplication(int listId, int applicationId)
+    void ApplicationListDao::doAddApplication(int listId, int applicationId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::add_application);
@@ -57,7 +57,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    void ApplicationListDao::removeApplication(int listId, int applicationId)
+    void ApplicationListDao::doRemoveApplication(int listId, int applicationId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::remove_application);
@@ -66,7 +66,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    void ApplicationListDao::removeAllApplications(int listId)
+    void ApplicationListDao::doRemoveAllApplications(int listId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::remove_all_applications);
@@ -74,7 +74,7 @@ namespace sun::persistence
         query.exec();
     }
 
-    QList<Application> ApplicationListDao::getAllApplications(int listId)
+    QList<Application> ApplicationListDao::doGetAllApplications(int listId) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::get_all_applications);
