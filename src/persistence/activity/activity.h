@@ -23,6 +23,8 @@ namespace sun::persistence
 
     struct UpdateActivityDto
     {
+        int id;
+        int applicationId;
         QDateTime endedAt;
     };
 } // sun::persistence

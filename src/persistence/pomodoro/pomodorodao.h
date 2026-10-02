@@ -1,27 +1,24 @@
 #pragma once
 
-#include "pomodoro/pomodoro.h"
-#include "applicationlist/applicationlist.h"
-
-#include <QList>
+#include "pomodoro/ipomodorodao.h"
 
 namespace sun::persistence
 {
-    class PomodoroDao
+    class PomodoroDao : public IPomodoroDao
     {
-    public:
-        Pomodoro create(const CreatePomodoroDto& dto);
-        Pomodoro updateById(const UpdatePomodoroDto& dto);
-        Pomodoro getById(int id);
-        
-        QList<Pomodoro> getAll();
+    private:
+        Pomodoro doCreate(const CreatePomodoroDto& dto) const override;
+        Pomodoro doUpdateById(const UpdatePomodoroDto& dto) const override;
+        Pomodoro doGetById(int id) const override;
 
-        void deleteById(int id);
-        
-        void addApplicationList(int pomodoroId, int listId);
-        void removeApplicationList(int pomodoroId, int listId);
-        void removeAllAplicationLists(int pomodoroId);
+        QList<Pomodoro> doGetAll() const override;
 
-        QList<ApplicationList> getApplicationLists(int pomodoroId);
+        void doDeleteById(int id) const override;
+        
+        void doAddApplicationList(int pomodoroId, int listId) const override;
+        void doRemoveApplicationList(int pomodoroId, int listId) const override;
+        void doRemoveAllAplicationLists(int pomodoroId) const override;
+
+        QList<ApplicationList> doGetApplicationLists(int pomodoroId) const override;
     };
-} // sun::persistence
+}

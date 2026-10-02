@@ -1,17 +1,15 @@
 #pragma once
 
-#include "activity/activity.h"
-
-#include <QDateTime>
+#include "activity/iactivitydao.h"
 
 namespace sun::persistence
 {
-    class ActivityDao
-    {
-    public:
-        Activity create(const CreateActivityDto& dto);
-        Activity updateEndedAt(int id, UpdateActivityDto& dto);
-        Activity getById(int id);
-        void deleteById(int id);
+    class ActivityDao : public IActivityDao
+    {  
+    private:
+        Activity doCreate(const CreateActivityDto& dto) const override;
+        Activity doUpdateGetById(const UpdateActivityDto& dto) const override;
+        Activity doGetById(int id) const override;
+        void doDeleteById(int id) const override;
     };
-} // sun::persistence
+}

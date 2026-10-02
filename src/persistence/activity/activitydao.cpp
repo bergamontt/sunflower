@@ -7,7 +7,7 @@
 
 namespace sun::persistence
 {
-    Activity ActivityDao::create(const CreateActivityDto& dto)
+    Activity ActivityDao::doCreate(const CreateActivityDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::activity::create);
@@ -16,17 +16,16 @@ namespace sun::persistence
         return ActivityMapper::toActivity(query);
     }
 
-    Activity ActivityDao::updateEndedAt(int id, UpdateActivityDto& dto)
+    Activity ActivityDao::doUpdateGetById(const UpdateActivityDto& dto) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::activity::update_ended_at);
-        query.bindValue(":id", id);
         ActivityMapper::bind(query, dto);
         query.exec();
         return ActivityMapper::toActivity(query);
     }
 
-    Activity ActivityDao::getById(int id)
+    Activity ActivityDao::doGetById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::activity::get_by_id);
@@ -35,7 +34,7 @@ namespace sun::persistence
         return ActivityMapper::toActivity(query);
     }
 
-    void ActivityDao::deleteById(int id)
+    void ActivityDao::doDeleteById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::activity::delete_by_id);
