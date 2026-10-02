@@ -6,39 +6,38 @@ target_sources(persistence PUBLIC
     activity/iactivitydao.h
     activity/activitydao.h
     activity/activitydao.cpp
+    activity/activitymapper.h
 
     application/application.h
     application/applicationsql.h
     application/applicationdao.h
     application/iapplicationdao.h
     application/applicationdao.cpp
+    application/applicationmapper.h
 
     applicationlist/applicationlist.h
     applicationlist/applicationlistsql.h
     applicationlist/applicationlistdao.h
     applicationlist/iapplicationlistdao.h
     applicationlist/applicationlistdao.cpp
+    applicationlist/applicationlistmapper.h
     
     pomodoro/pomodoro.h
     pomodoro/pomodorodao.h
     pomodoro/ipomodorodao.h
     pomodoro/pomodorosql.h
     pomodoro/pomodorodao.cpp
+    pomodoro/pomodoromapper.h
 
     schedule/schedule.h
     schedule/schedulesql.h
     schedule/ischeduledao.h
     schedule/scheduledao.h
     schedule/scheduledao.cpp
+    schedule/schedulemapper.h
 
     dbconnection.cpp
     dbconnection.h
-    
-    activity/activitymapper.h
-    application/applicationmapper.h
-    applicationlist/applicationlistmapper.h
-    pomodoro/pomodoromapper.h
-    schedule/schedulemapper.h
 )
 
 target_include_directories(
