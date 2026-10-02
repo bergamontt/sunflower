@@ -1,21 +1,28 @@
 #pragma once
-#include <concepts>
+
+#include <QObject>
+#include <QString>
 
 namespace sun::monitor
 {
-    template <typename T>
-    concept MonitorImplementation = requires(T& obj)
+    struct ProcessInfo
     {
-        { obj.startMonitoringImpl() } -> std::same_as<void>;
+        QString name;
     };
 
-    template <MonitorImplementation Derived>
-    class Monitor
+    class Monitor : public QObject
     {
+        Q_OBJECT
+
     public:
-        void startMonitoring()
-        {
-            static_cast<Derived*>(this)->startMonitoringImpl();
-        }
+        explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
+
+        ~Monitor() override = default;
+
+        virtual void startMonitoring() = 0;
+
+    signals:
+        void usageStarted(const sun::monitor::ProcessInfo& proc);
+        void usageEnded(const sun::monitor::ProcessInfo& proc);
     };
 }
