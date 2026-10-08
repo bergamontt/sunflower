@@ -22,7 +22,6 @@ namespace sun::monitor
     private:
         void handleMessages(char* buffer, ssize_t size);
         void handleMessage(nlmsghdr* header);
-        void handleEvent(const proc_event& event);
 
         void scanRunningProcesses();
 
