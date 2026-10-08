@@ -3,7 +3,8 @@
 #include "monitor.h"
 #include <QHash>
 #include <QSocketNotifier>
-#include <memory>
+#include <linux/netlink.h>
+#include <linux/cn_proc.h>
 
 namespace sun::monitor
 {
@@ -19,13 +20,16 @@ namespace sun::monitor
         void startMonitoring() override;
 
     private:
-        void handleEvents();
+        void handleMessages(char* buffer, ssize_t size);
+        void handleMessage(nlmsghdr* header);
+        void handleEvent(const proc_event& event);
+
+        void scanRunningProcesses();
 
         void processStarted(pid_t pid);
         void processEnded(pid_t pid);
 
         int _socket = -1;
-        std::unique_ptr<QSocketNotifier> _notifier;
         QHash<pid_t, ProcessInfo> _processes;
     };
 }
