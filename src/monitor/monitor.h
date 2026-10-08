@@ -7,6 +7,7 @@ namespace sun::monitor
 {
     struct ProcessInfo
     {
+        pid_t pid;
         QString name;
     };
 
