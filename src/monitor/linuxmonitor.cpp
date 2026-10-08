@@ -11,11 +11,22 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include <cerrno>
-#include <cstring>
+#include <fstream>
+
+using namespace std;
 
 namespace sun::monitor
 {
+    QString getProcessName(const pid_t pid) {
+        ifstream file("/proc/" + to_string(pid) + "/comm");
+        if (!file.is_open())
+            return "";
+        string name;
+        getline(file, name);
+        return name.data();
+    }
+
+
     LinuxMonitor::~LinuxMonitor()
     {
         if (_notifier)
@@ -45,12 +56,23 @@ namespace sun::monitor
     {
     }
 
-    void LinuxMonitor::processStarted(pid_t pid)
+    void LinuxMonitor::processStarted(const pid_t pid)
     {
+        if (_processes.contains(pid))
+            return;
+        const QString name = getProcessName(pid);
+        const ProcessInfo proc(pid, name);
+        _processes.insert(pid, proc);
+        emit usageStarted(proc);
     }
 
-    void LinuxMonitor::processEnded(pid_t pid)
+    void LinuxMonitor::processEnded(const pid_t pid)
     {
+        if (!_processes.contains(pid))
+            return;
+        const ProcessInfo proc = _processes.value(pid);
+        _processes.remove(pid);
+        emit usageEnded(proc);
     }
 
     void LinuxMonitor::handleEvents()
