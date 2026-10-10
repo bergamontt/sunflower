@@ -6,11 +6,11 @@
 
 namespace sun::blocker
 {
-    class LinuxBlocker final : public Blocker
+    class LinuxBlocker final : public Blocker<pid_t>
     {
     public:
         ~LinuxBlocker() override = default;
 
-        bool blockProcess(pid_t pid) override;
+        bool blockApplication(pid_t pid) override;
     };
 }

@@ -1,14 +1,13 @@
 #pragma once
 
-#include <sys/types.h>
-
 namespace sun::blocker
 {
+    template <typename T>
     class Blocker
     {
     public:
         virtual ~Blocker() = default;
 
-        virtual bool blockProcess(pid_t pid) = 0;
+        virtual bool blockApplication(T pid) = 0;
     };
 }
