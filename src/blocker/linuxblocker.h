@@ -11,6 +11,6 @@ namespace sun::blocker
     public:
         ~LinuxBlocker() override = default;
 
-        bool blockApplication(pid_t pid) override;
+        bool blockApplication(pid_t id) override;
     };
 }

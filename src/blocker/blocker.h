@@ -8,6 +8,6 @@ namespace sun::blocker
     public:
         virtual ~Blocker() = default;
 
-        virtual bool blockApplication(T pid) = 0;
+        virtual bool blockApplication(T id) = 0;
     };
 }

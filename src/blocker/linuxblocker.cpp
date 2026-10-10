@@ -4,11 +4,11 @@
 
 namespace sun::blocker
 {
-    bool LinuxBlocker::blockApplication(pid_t pid)
+    bool LinuxBlocker::blockApplication(pid_t id)
     {
-        if (pid <= 0)
+        if (id <= 0)
             return false;
 
-        return ::kill(pid, SIGSTOP) == 0;
+        return ::kill(id, SIGSTOP) == 0;
     }
 }
