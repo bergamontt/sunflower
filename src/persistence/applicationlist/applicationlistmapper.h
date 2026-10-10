@@ -2,6 +2,8 @@
 
 #include "applicationlist/applicationlist.h"
 
+#include "utils.h"
+
 #include <QSqlQuery>
 
 namespace sun::persistence
@@ -24,12 +26,12 @@ namespace sun::persistence
     
     inline void ApplicationListMapper::bind(QSqlQuery& query, const CreateApplicationListDto& dto)
     {
-        query.bindValue(":name", dto.name.value_or(std::nullopt));
+        query.bindValue(":name", toVariant(dto.name));
     }
 
     inline void ApplicationListMapper::bind(QSqlQuery& query, const UpdateApplicationListDto& dto)
     {
         query.bindValue(":id", dto.id);
-        query.bindValue(":name", dto.name.value_or(std::nullopt));
+        query.bindValue(":name", toVariant(dto.name));
     }
 } // sun::persistence

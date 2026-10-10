@@ -1,4 +1,4 @@
-#include "db/dbconnection.h"
+#include "dbconnection.h"
 
 namespace sun::persistence
 {

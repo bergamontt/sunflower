@@ -38,6 +38,7 @@ target_sources(persistence PUBLIC
 
     dbconnection.cpp
     dbconnection.h
+    utils.h
 )
 
 target_include_directories(
@@ -50,6 +51,5 @@ target_link_libraries(
     persistence
     PUBLIC
         Qt6::Core
-    PRIVATE
         Qt6::Sql
 )

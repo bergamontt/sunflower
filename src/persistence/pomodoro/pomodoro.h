@@ -52,6 +52,7 @@ namespace sun::persistence
             case Pomodoro::State::Paused:
                 return "PAUSED";
         }
+        return "INACTIVE";
     }
 
     Pomodoro::State toState(const QString& str)

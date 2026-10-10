@@ -2,6 +2,8 @@
 
 #include "schedule/schedule.h"
 
+#include "utils.h"
+
 #include <QSqlQuery>
 
 namespace sun::persistence
@@ -42,7 +44,7 @@ namespace sun::persistence
         query.bindValue(":lock_type", toString(dto.lockType));
         query.bindValue(":lock_hash", dto.lockHash);
         query.bindValue(":unlock_after", dto.unclockAfter);
-        query.bindValue(":unlock_requested_at", dto.unlockRequestedAt.value_or(std::nullopt));
+        query.bindValue(":unlock_requested_at", toVariant(dto.unlockRequestedAt));
     }
 
     inline void ScheduleMapper::bind(QSqlQuery& query, const UpdateScheduleDto& dto)
@@ -57,6 +59,6 @@ namespace sun::persistence
         query.bindValue(":lock_type", toString(dto.lockType));
         query.bindValue(":lock_hash", dto.lockHash);
         query.bindValue(":unlock_after", dto.unclockAfter);
-        query.bindValue(":unlock_requested_at", dto.unlockRequestedAt.value_or(std::nullopt));
+        query.bindValue(":unlock_requested_at", toVariant(dto.unlockRequestedAt));
     }
 } // sun::persistence
