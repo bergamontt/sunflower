@@ -73,6 +73,7 @@ namespace sun::persistence
             case Schedule::Type::DailyLimit:
                 return "DAILY_LIMIT";
         }
+        return "DAILY_LIMIT";
     }
 
     inline Schedule::Type toType(const QString& str)
@@ -93,6 +94,7 @@ namespace sun::persistence
             case Schedule::LockType::None:
                 return "NONE";
         }
+        return "NONE";
     }
 
     inline Schedule::LockType toLockType(const QString& str)
