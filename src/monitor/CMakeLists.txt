@@ -1,10 +1,7 @@
 add_library(
         monitor STATIC
+        window.h
         monitor.h
-        linuxmonitor.h
-        linuxmonitor.cpp
-        linuxevent.h
-        linuxevent.cpp
 )
 
 target_link_libraries(

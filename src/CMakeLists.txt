@@ -1,5 +1,4 @@
 add_subdirectory(core)
-add_subdirectory(blocker)
 add_subdirectory(monitor)
 add_subdirectory(persistence)
 add_subdirectory(gui)

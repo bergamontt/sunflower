@@ -1,29 +1,18 @@
 #pragma once
 
 #include <QObject>
-#include <QString>
 
-namespace sun::monitor
+#include "window.h"
+
+class Monitor : public QObject
 {
-    struct ProcessInfo
-    {
-        pid_t pid;
-        QString name;
-    };
+    Q_OBJECT
 
-    class Monitor : public QObject
-    {
-        Q_OBJECT
+public:
+    explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
 
-    public:
-        explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
+signals:
+    virtual void usageStarted(Window window);
 
-        ~Monitor() override = default;
-
-        virtual void startMonitoring() = 0;
-
-    signals:
-        void usageStarted(const sun::monitor::ProcessInfo& proc);
-        void usageEnded(const sun::monitor::ProcessInfo& proc);
-    };
-}
+    virtual void usageEnded(Window window);
+};
