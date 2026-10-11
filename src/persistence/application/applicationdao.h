@@ -4,7 +4,7 @@
 
 namespace sun::persistence
 {
-    class ApplicationDao : IApplicationDao
+    class ApplicationDao : public IApplicationDao
     {
     private:
         Application doCreate(const CreateApplicationDto& dto) const override;

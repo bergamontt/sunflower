@@ -2,7 +2,7 @@
 
 #include "applicationlist/applicationlist.h"
 
-#include "utils.h"
+#include "db/sqlutils.h"
 
 #include <QSqlQuery>
 

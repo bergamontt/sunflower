@@ -2,13 +2,17 @@ project(test)
 
 add_executable(
     tests
+    persistence/main.cpp
     persistence/applicationtest.cpp
+    persistence/dbtestfixture.h
 )
 
 target_link_libraries(
     tests
     persistence
-    GTest::gtest_main
+    GTest::gtest
+    Qt6::Core
+    Qt6::Sql
 )
 
 include(GoogleTest)

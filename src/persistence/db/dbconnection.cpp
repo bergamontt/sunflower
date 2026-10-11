@@ -1,4 +1,4 @@
-#include "dbconnection.h"
+#include "db/dbconnection.h"
 
 namespace sun::persistence
 {
@@ -6,6 +6,7 @@ namespace sun::persistence
     {
         QSqlDatabase db = QSqlDatabase::addDatabase(config.driverType);
         db.setDatabaseName(config.databaseName);
+        db.open();
     }
 
     DbConnection::~DbConnection()

@@ -31,7 +31,7 @@ namespace sun::persistence
 
     inline void ApplicationMapper::bind(QSqlQuery& query, const UpdateApplicationDto& dto)
     {
-        query.bindValue(":name", dto.id);
+        query.bindValue(":id", dto.id);
         query.bindValue(":name", dto.name);
         query.bindValue(":process_name", dto.processName);
     }

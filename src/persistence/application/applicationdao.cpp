@@ -12,6 +12,7 @@ namespace sun::persistence
         query.prepare(sun::persistence::application::create);
         ApplicationMapper::bind(query, dto);
         query.exec();
+        query.next();
         return ApplicationMapper::toApplication(query);
     }
 
