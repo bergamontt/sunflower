@@ -2,6 +2,10 @@
 
 #include <QObject>
 
+#ifdef CursorShape
+#undef CursorShape
+#endif
+
 #include "window.h"
 
 namespace sun::monitor
@@ -14,8 +18,8 @@ namespace sun::monitor
         explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
 
     signals:
-        virtual void usageStarted(sun::monitor::Window window);
+        virtual void usageStarted(Window window);
 
-        virtual void usageEnded(sun::monitor::Window window);
+        virtual void usageEnded(Window window);
     };
 }
