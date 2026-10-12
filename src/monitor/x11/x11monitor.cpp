@@ -1,5 +1,3 @@
-#include <QDebug>
-
 #include "x11monitor.h"
 
 using namespace std;
