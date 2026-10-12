@@ -6,7 +6,7 @@ namespace sun::monitor
     {
         Display* display = XOpenDisplay(nullptr);
         if (!display)
-            return QString();
+            return {};
 
         char* name = nullptr;
         XFetchName(display, windowId, &name);
@@ -15,15 +15,15 @@ namespace sun::monitor
         if (name)
             XFree(name);
         XCloseDisplay(display);
-        return QString(name);
+        return result;
     }
 
     X11WindowImpl::X11WindowImpl(const WindowId windowId)
-        : _windowId(windowId), _name(getNameById(_windowId)) {}
+        : windowId(windowId), name(getNameById(windowId)) {}
 
     QString X11WindowImpl::getName() const
     {
-        return _name;
+        return name;
     }
 
     void X11WindowImpl::minimize() const
@@ -32,7 +32,7 @@ namespace sun::monitor
         if (!display)
             return;
 
-        XIconifyWindow(display, _windowId, DefaultScreen(display));
+        XIconifyWindow(display, windowId, DefaultScreen(display));
 
         XCloseDisplay(display);
     }

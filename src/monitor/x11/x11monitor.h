@@ -14,16 +14,11 @@ namespace sun::monitor
 
         ~X11Monitor() override;
 
-    signals:
-        void usageStarted(Window window) override;
-
-        void usageEnded(Window window) override;
-
     private:
         void processX11Events();
 
-        Display* _display;
-        WindowId _rootWindow;
-        QSocketNotifier* _notifier;
+        Display* display;
+        WindowId rootWindow;
+        QSocketNotifier* notifier;
     };
 }

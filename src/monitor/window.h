@@ -17,15 +17,15 @@ namespace sun::monitor
     class Window
     {
     public:
-        explicit Window(std::unique_ptr<WindowImpl> impl) : _impl(std::move(impl)) {}
+        explicit Window(std::unique_ptr<WindowImpl> impl) : impl(std::move(impl)) {}
 
-        [[nodiscard]] QString getName() const { return _impl->getName(); }
+        [[nodiscard]] QString getName() const { return impl->getName(); }
 
-        void minimize() const { _impl->minimize(); }
+        void minimize() const { impl->minimize(); }
 
         ~Window() = default;
 
     private:
-        std::unique_ptr<WindowImpl> _impl;
+        std::unique_ptr<WindowImpl> impl;
     };
 }

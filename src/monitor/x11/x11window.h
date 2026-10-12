@@ -18,8 +18,8 @@ namespace sun::monitor
         void minimize() const override;
 
     private:
-        WindowId _windowId;
+        WindowId windowId;
 
-        QString _name;
+        QString name;
     };
 }

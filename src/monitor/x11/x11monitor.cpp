@@ -5,23 +5,23 @@ using namespace std;
 namespace sun::monitor
 {
     X11Monitor::X11Monitor(QObject* parent)
-        : Monitor(parent), _display(nullptr), _rootWindow(0), _notifier(nullptr)
+        : Monitor(parent), display(nullptr), rootWindow(0), notifier(nullptr)
     {
-        _display = XOpenDisplay(nullptr);
-        if (!_display)
+        display = XOpenDisplay(nullptr);
+        if (!display)
             return;
 
-        _rootWindow = DefaultRootWindow(_display);
-        XSelectInput(_display, _rootWindow, SubstructureNotifyMask);
-        XFlush(_display);
+        rootWindow = DefaultRootWindow(display);
+        XSelectInput(display, rootWindow, SubstructureNotifyMask);
+        XFlush(display);
 
-        _notifier = new QSocketNotifier(
-            ConnectionNumber(_display),
+        notifier = new QSocketNotifier(
+            ConnectionNumber(display),
             QSocketNotifier::Read,
             this
         );
         connect(
-            _notifier,
+            notifier,
             &QSocketNotifier::activated,
             this, [this](auto...) { processX11Events(); }
         );
@@ -29,28 +29,28 @@ namespace sun::monitor
 
     X11Monitor::~X11Monitor()
     {
-        if (_notifier)
+        if (notifier)
         {
-            _notifier->setEnabled(false);
-            delete _notifier;
-            _notifier = nullptr;
+            notifier->setEnabled(false);
+            delete notifier;
+            notifier = nullptr;
         }
-        if (_display)
+        if (display)
         {
-            XCloseDisplay(_display);
-            _display = nullptr;
+            XCloseDisplay(display);
+            display = nullptr;
         }
     }
 
     void X11Monitor::processX11Events()
     {
-        if (!_display)
+        if (!display)
             return;
 
-        while (XPending(_display) > 0)
+        while (XPending(display) > 0)
         {
             XEvent event;
-            XNextEvent(_display, &event);
+            XNextEvent(display, &event);
 
             switch (event.type)
             {
