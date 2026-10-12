@@ -57,14 +57,14 @@ namespace sun::monitor::x11
             case CreateNotify:
                 {
                     WindowId windowId = event.xcreatewindow.window;
-                    usageStarted(Window(make_unique<X11WindowImpl>(windowId)));
+                    usageStarted(Window(make_shared<X11WindowImpl>(windowId)));
                     break;
                 }
 
             case DestroyNotify:
                 {
                     WindowId windowId = event.xdestroywindow.window;
-                    usageEnded(Window(make_unique<X11WindowImpl>(windowId)));
+                    usageEnded(Window(make_shared<X11WindowImpl>(windowId)));
                     break;
                 }
 
