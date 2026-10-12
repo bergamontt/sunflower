@@ -15,7 +15,7 @@ namespace sun::monitor
 
         [[nodiscard]] QString getName() const override;
 
-        void minimize() const override;
+        void close() const override;
 
     private:
         WindowId windowId;

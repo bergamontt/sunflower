@@ -9,7 +9,7 @@ namespace sun::monitor
     public:
         [[nodiscard]] virtual QString getName() const;
 
-        virtual void minimize() const;
+        virtual void close() const;
 
         virtual ~WindowImpl() = 0;
     };
@@ -21,7 +21,7 @@ namespace sun::monitor
 
         [[nodiscard]] QString getName() const { return impl->getName(); }
 
-        void minimize() const { impl->minimize(); }
+        void close() const { impl->close(); }
 
         ~Window() = default;
 

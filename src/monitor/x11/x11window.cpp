@@ -26,13 +26,13 @@ namespace sun::monitor
         return name;
     }
 
-    void X11WindowImpl::minimize() const
+    void X11WindowImpl::close() const
     {
         Display* display = XOpenDisplay(nullptr);
         if (!display)
             return;
 
-        XIconifyWindow(display, windowId, DefaultScreen(display));
+        XDestroyWindow(display, windowId);
 
         XCloseDisplay(display);
     }
