@@ -1,8 +1,8 @@
 #pragma once
 
-#include <X11/Xlib.h>
-
 #include "../window.h"
+
+#include <X11/Xlib.h>
 
 namespace sun::monitor::x11
 {

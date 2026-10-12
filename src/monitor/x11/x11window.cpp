@@ -2,7 +2,7 @@
 
 namespace sun::monitor::x11
 {
-    QString getNameById(const WindowId windowId)
+    static QString getNameById(const WindowId windowId)
     {
         Display* display = XOpenDisplay(nullptr);
         if (!display)
