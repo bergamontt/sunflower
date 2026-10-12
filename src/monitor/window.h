@@ -2,27 +2,30 @@
 
 #include <QString>
 
-class WindowImpl
+namespace sun::monitor
 {
-public:
-    [[nodiscard]] virtual QString getName() const;
+    class WindowImpl
+    {
+    public:
+        [[nodiscard]] virtual QString getName() const;
 
-    virtual void minimize() const;
+        virtual void close() const;
 
-    virtual ~WindowImpl() = 0;
-};
+        virtual ~WindowImpl() = 0;
+    };
 
-class Window
-{
-public:
-    explicit Window(std::unique_ptr<WindowImpl> impl) : _impl(std::move(impl)) {}
+    class Window
+    {
+    public:
+        explicit Window(std::unique_ptr<WindowImpl> impl) : impl(std::move(impl)) {}
 
-    [[nodiscard]] QString getName() const { return _impl->getName(); }
+        [[nodiscard]] QString getName() const { return impl->getName(); }
 
-    void minimize() const { _impl->minimize(); }
+        void close() const { impl->close(); }
 
-    ~Window() = default;
+        ~Window() = default;
 
-private:
-    std::unique_ptr<WindowImpl> _impl;
-};
+    private:
+        std::unique_ptr<WindowImpl> impl;
+    };
+}

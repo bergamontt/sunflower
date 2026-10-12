@@ -2,17 +2,24 @@
 
 #include <QObject>
 
+#ifdef CursorShape
+#undef CursorShape
+#endif
+
 #include "window.h"
 
-class Monitor : public QObject
+namespace sun::monitor
 {
-    Q_OBJECT
+    class Monitor : public QObject
+    {
+        Q_OBJECT
 
-public:
-    explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
+    public:
+        explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
 
-signals:
-    virtual void usageStarted(Window window);
+    signals:
+        virtual void usageStarted(sun::monitor::Window window);
 
-    virtual void usageEnded(Window window);
-};
+        virtual void usageEnded(sun::monitor::Window window);
+    };
+}
