@@ -18,8 +18,8 @@ namespace sun::monitor
         explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
 
     signals:
-        void usageStarted(const sun::monitor::Window& window);
+        void usageStarted(sun::monitor::Window window);
 
-        void usageEnded(const sun::monitor::Window& window);
+        void usageEnded(sun::monitor::Window window);
     };
 }

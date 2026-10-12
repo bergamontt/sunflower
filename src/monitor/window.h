@@ -17,7 +17,7 @@ namespace sun::monitor
     class Window
     {
     public:
-        explicit Window(std::unique_ptr<WindowImpl> impl) : impl(std::move(impl)) {}
+        explicit Window(std::shared_ptr<WindowImpl> impl) : impl(std::move(impl)) {}
 
         [[nodiscard]] QString getName() const { return impl->getName(); }
 
@@ -26,6 +26,6 @@ namespace sun::monitor
         ~Window() = default;
 
     private:
-        std::unique_ptr<WindowImpl> impl;
+        std::shared_ptr<WindowImpl> impl;
     };
 }

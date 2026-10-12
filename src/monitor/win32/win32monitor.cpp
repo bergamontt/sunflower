@@ -76,11 +76,11 @@ namespace sun::monitor::win32
         switch (event)
         {
         case EVENT_OBJECT_CREATE:
-            usageStarted(Window(make_unique<Win32WindowImpl>(windowId)));
+            usageStarted(Window(make_shared<Win32WindowImpl>(windowId)));
             break;
 
         case EVENT_OBJECT_DESTROY:
-            usageEnded(Window(make_unique<Win32WindowImpl>(windowId)));
+            usageEnded(Window(make_shared<Win32WindowImpl>(windowId)));
             break;
 
         default:

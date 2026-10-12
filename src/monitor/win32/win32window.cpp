@@ -4,7 +4,7 @@ using namespace std;
 
 namespace sun::monitor::win32
 {
-    QString getNameById(const WindowId windowId)
+    static QString getNameById(const WindowId windowId)
     {
         if (windowId == nullptr)
             return {};
@@ -14,7 +14,7 @@ namespace sun::monitor::win32
         const int copied = GetWindowTextW(
             windowId,
             buffer.data(),
-            buffer.size()
+            static_cast<int>(buffer.size())
         );
 
         if (copied == 0)
