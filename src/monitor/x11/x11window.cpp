@@ -1,6 +1,6 @@
 #include "x11window.h"
 
-namespace sun::monitor
+namespace sun::monitor::x11
 {
     QString getNameById(const WindowId windowId)
     {

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-namespace sun::monitor
+namespace sun::monitor::x11
 {
     X11Monitor::X11Monitor(QObject* parent)
         : Monitor(parent), display(nullptr), rootWindow(0), notifier(nullptr)

@@ -4,7 +4,7 @@
 
 #include "../window.h"
 
-namespace sun::monitor
+namespace sun::monitor::x11
 {
     using WindowId = ::Window;
 

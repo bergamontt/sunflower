@@ -5,7 +5,7 @@
 
 #include <QSocketNotifier>
 
-namespace sun::monitor
+namespace sun::monitor::x11
 {
     class X11Monitor : public Monitor
     {
