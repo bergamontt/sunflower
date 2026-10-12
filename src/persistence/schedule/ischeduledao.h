@@ -12,7 +12,7 @@ namespace sun::persistence
     public:
         Schedule create(const CreateScheduleDto& dto) const;
         Schedule updateById(const UpdateScheduleDto& dto) const;
-        Schedule getById(int id) const;
+        std::optional<Schedule> getById(int id) const;
 
         void deleteById(int id) const;
         
@@ -27,7 +27,7 @@ namespace sun::persistence
     private:
         virtual Schedule doCreate(const CreateScheduleDto& dto) const = 0;
         virtual Schedule doUpdateById(const UpdateScheduleDto& dto) const = 0;
-        virtual Schedule doGetById(int id) const = 0;
+        virtual std::optional<Schedule> doGetById(int id) const = 0;
 
         virtual void doDeleteById(int id) const = 0;
         
@@ -50,7 +50,7 @@ namespace sun::persistence
         return doUpdateById(dto);
     }
 
-    inline Schedule IScheduleDao::getById(int id) const
+    inline std::optional<Schedule> IScheduleDao::getById(int id) const
     {
         return doGetById(id);
     }

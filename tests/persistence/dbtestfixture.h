@@ -31,5 +31,7 @@ namespace sun::persistence::test
         query.exec(schema::create_activity_table);
         query.exec(schema::create_application_list_table);
         query.exec(schema::create_application_list_application_table);
+        query.exec(schema::create_schedule_table);
+        query.exec(schema::create_schedule_application_list_table);
     }
-}
+} // sun::persistence::test
