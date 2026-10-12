@@ -15,6 +15,7 @@ namespace sun::persistence
         query.prepare(sun::persistence::application_list::create);
         ApplicationListMapper::bind(query, dto);
         query.exec();
+        query.next();
         return ApplicationListMapper::toApplicationList(query);
     }
 
@@ -24,16 +25,29 @@ namespace sun::persistence
         query.prepare(sun::persistence::application_list::update_by_id);
         ApplicationListMapper::bind(query, dto);
         query.exec();
+        query.next();
         return ApplicationListMapper::toApplicationList(query);
     }
 
-    ApplicationList ApplicationListDao::doGetById(int id) const
+    std::optional<ApplicationList> ApplicationListDao::doGetById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::get_by_id);
         query.bindValue(":id", id);
         query.exec();
-        return ApplicationListMapper::toApplicationList(query);
+        if (query.next())
+        {
+            return ApplicationListMapper::toApplicationList(query);
+        }
+        return std::nullopt;
+    }
+
+    void ApplicationListDao::doDeleteById(int id) const
+    {
+        QSqlQuery query;
+        query.prepare(sun::persistence::application_list::delete_by_id);
+        query.bindValue(":id", id);
+        query.exec();
     }
 
     QList<ApplicationList> ApplicationListDao::doGetAll() const
@@ -62,7 +76,7 @@ namespace sun::persistence
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::remove_application);
         query.bindValue(":application_list_id", listId);
-        query.bindValue(":applciation_id", applicationId);
+        query.bindValue(":application_id", applicationId);
         query.exec();
     }
 
@@ -70,7 +84,7 @@ namespace sun::persistence
     {
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::remove_all_applications);
-        query.bindValue(":aplication_list_id", listId);
+        query.bindValue(":application_list_id", listId);
         query.exec();
     }
 
@@ -79,6 +93,7 @@ namespace sun::persistence
         QSqlQuery query;
         query.prepare(sun::persistence::application_list::get_all_applications);
         query.bindValue(":application_list_id", listId);
+        query.exec();
         QList<Application> result;
         while (query.next()) 
         {

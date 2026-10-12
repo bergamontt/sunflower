@@ -5,6 +5,7 @@ add_executable(
     persistence/main.cpp
     persistence/applicationtest.cpp
     persistence/activitytest.cpp
+    persistence/applicationlisttest.cpp
     persistence/dbtestfixture.h
 )
 

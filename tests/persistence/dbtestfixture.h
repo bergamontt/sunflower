@@ -29,5 +29,7 @@ namespace sun::persistence::test
         QSqlQuery query;
         query.exec(schema::create_application_table);
         query.exec(schema::create_activity_table);
+        query.exec(schema::create_application_list_table);
+        query.exec(schema::create_application_list_application_table);
     }
 }
