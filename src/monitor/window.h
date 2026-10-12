@@ -7,11 +7,11 @@ namespace sun::monitor
     class WindowImpl
     {
     public:
-        [[nodiscard]] virtual QString getName() const;
+        [[nodiscard]] virtual QString getName() const = 0;
 
-        virtual void close() const;
+        virtual void close() const = 0;
 
-        virtual ~WindowImpl() = 0;
+        virtual ~WindowImpl() = default;
     };
 
     class Window
