@@ -68,7 +68,8 @@ namespace sun::monitor::x11
                     break;
                 }
 
-            default: ;
+            default:
+                    break;
             }
         }
     }

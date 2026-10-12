@@ -10,7 +10,7 @@ namespace sun::monitor::win32
     static unordered_map<HWINEVENTHOOK, Win32Monitor*> monitors;
 
     void CALLBACK Win32Monitor::winEventProc(
-        const HWINEVENTHOOK hook,
+        HWINEVENTHOOK hook,
         const DWORD event,
         const WindowId windowId,
         const LONG idObject,
