@@ -4,7 +4,7 @@
 
 #include "dbtestfixture.h"
 
-namespace sun::persistence::tests 
+namespace sun::persistence::test 
 {
     class ApplicationDaoTest : public testing::Test
     {

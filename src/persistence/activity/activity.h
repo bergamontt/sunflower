@@ -24,7 +24,12 @@ namespace sun::persistence
     struct UpdateActivityDto
     {
         int id;
-        int applicationId;
         QDateTime endedAt;
     };
+
+    inline bool operator==(const Activity& a, const Activity& b)
+    {
+        return a.id == b.id && a.applicationId == b.applicationId &&
+            a.startedAt == b.startedAt && a.endedAt == b.endedAt;
+    }
 } // sun::persistence

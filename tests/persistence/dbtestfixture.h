@@ -6,7 +6,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 
-namespace sun::persistence::tests
+namespace sun::persistence::test
 {
     class DbTestFixture
     {
@@ -18,15 +18,16 @@ namespace sun::persistence::tests
         void createSchema();
     };
 
-    DbTestFixture::DbTestFixture()
+    inline DbTestFixture::DbTestFixture()
         : connection({"QSQLITE", ":memory:"})
     {
         createSchema();   
     }
 
-    void DbTestFixture::createSchema()
+    inline void DbTestFixture::createSchema()
     {
         QSqlQuery query;
         query.exec(schema::create_application_table);
+        query.exec(schema::create_activity_table);
     }
 }

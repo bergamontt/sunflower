@@ -22,7 +22,7 @@ namespace sun::persistence
             query.value("id").toInt(),
             query.value("application_id").toInt(),
             query.value("started_at").toDateTime(),
-            query.value("ended_at").toDateTime()
+            fromVariant<QDateTime>(query.value("ended_at"))
         };
     }
 
@@ -36,7 +36,6 @@ namespace sun::persistence
     inline void ActivityMapper::bind(QSqlQuery& query, const UpdateActivityDto& dto)
     {
         query.bindValue(":id", dto.id);
-        query.bindValue(":application_id", dto.applicationId);
         query.bindValue(":ended_at", dto.endedAt);
     }
 } // sun::persistence

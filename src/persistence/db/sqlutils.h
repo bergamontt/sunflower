@@ -2,6 +2,7 @@
 
 #include <QVariant>
 #include <QMetaType>
+#include <QDateTime>
 
 #include <optional>
 
@@ -14,6 +15,16 @@ namespace sun::persistence
         {
             return QVariant::fromValue(*optional);
         }
-        return QVariant(QMetaType::fromType<T>());
+        return QVariant();
+    }
+
+    template<typename T>
+    std::optional<T> fromVariant(const QVariant& variant)
+    {
+        if (variant.isNull() || !variant.isValid())
+        {
+            return std::nullopt;
+        }
+        return variant.value<T>();
     }
 }
