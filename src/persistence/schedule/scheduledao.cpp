@@ -11,8 +11,10 @@ namespace sun::persistence
     Schedule ScheduleDao::doCreate(const CreateScheduleDto& dto) const
     {
         QSqlQuery query;
+        query.prepare(sun::persistence::schedule::create);
         ScheduleMapper::bind(query, dto);
         query.exec();
+        query.next();
         return ScheduleMapper::toSchedule(query);
     }
 
@@ -22,16 +24,21 @@ namespace sun::persistence
         query.prepare(sun::persistence::schedule::update_by_id);
         ScheduleMapper::bind(query, dto);
         query.exec();
+        query.next();
         return ScheduleMapper::toSchedule(query);
     }
 
-    Schedule ScheduleDao::doGetById(int id) const
+    std::optional<Schedule> ScheduleDao::doGetById(int id) const
     {
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::get_by_id);
         query.bindValue(":id", id);
         query.exec();
-        return ScheduleMapper::toSchedule(query);
+        if (query.next())
+        {
+            return ScheduleMapper::toSchedule(query);
+        }
+        return std::nullopt;
     }
 
     void ScheduleDao::doDeleteById(int id) const
@@ -59,7 +66,7 @@ namespace sun::persistence
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::add_application_list);
         query.bindValue(":schedule_id", scheduleId);
-        query.bindValue("application_list_id", listId);
+        query.bindValue(":application_list_id", listId);
         query.exec();
     }
 
@@ -68,7 +75,7 @@ namespace sun::persistence
         QSqlQuery query;
         query.prepare(sun::persistence::schedule::remove_application_list);
         query.bindValue(":schedule_id", scheduleId);
-        query.bindValue("application_list_id", listId);
+        query.bindValue(":application_list_id", listId);
         query.exec();
     }
 

@@ -2,6 +2,8 @@
 
 #include "activity/activity.h"
 
+#include "db/sqlutils.h"
+
 #include <QSqlQuery>
 
 namespace sun::persistence
@@ -20,21 +22,20 @@ namespace sun::persistence
             query.value("id").toInt(),
             query.value("application_id").toInt(),
             query.value("started_at").toDateTime(),
-            query.value("ended_at").toDateTime()
+            fromVariant<QDateTime>(query.value("ended_at"))
         };
     }
 
-    inline void bind(QSqlQuery& query, const CreateActivityDto& dto) 
+    inline void ActivityMapper::bind(QSqlQuery& query, const CreateActivityDto& dto) 
     {
         query.bindValue(":application_id", dto.applicationId);
         query.bindValue(":started_at", dto.startedAt);
-        query.bindValue(":ended_at", dto.endedAt.value_or(std::nullopt));
+        query.bindValue(":ended_at", toVariant(dto.endedAt));
     }
 
-    inline void bind(QSqlQuery& query, const UpdateActivityDto& dto)
+    inline void ActivityMapper::bind(QSqlQuery& query, const UpdateActivityDto& dto)
     {
         query.bindValue(":id", dto.id);
-        query.bindValue(":application_id", dto.applicationId);
         query.bindValue(":ended_at", dto.endedAt);
     }
 } // sun::persistence

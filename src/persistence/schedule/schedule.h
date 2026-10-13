@@ -24,28 +24,38 @@ namespace sun::persistence
 
         int id;
         QString name;
+        
         Type type;
-        QTime startsAt;
-        QTime endsAt;
-        int dailyLimit;
-        int repeatAt;
         LockType lockType;
-        QString lockHash;
-        int unclockAfter;
+        
+        int repeatAt;
+
+        std::optional<QTime> startsAt;
+        std::optional<QTime> endsAt;
+        
+        std::optional<int> dailyLimit;
+        
+        std::optional<QString> lockHash;
+        std::optional<int> unlockAfter;
         std::optional<QDateTime> unlockRequestedAt;
     };
 
     struct CreateScheduleDto
     {
         QString name;
+        
         Schedule::Type type;
-        QTime startsAt;
-        QTime endsAt;
-        int dailyLimit;
-        int repeatAt;
         Schedule::LockType lockType;
-        QString lockHash;
-        int unclockAfter;
+        
+        int repeatAt;
+
+        std::optional<QTime> startsAt;
+        std::optional<QTime> endsAt;
+        
+        std::optional<int> dailyLimit;
+        
+        std::optional<QString> lockHash;
+        std::optional<int> unlockAfter;
         std::optional<QDateTime> unlockRequestedAt;
     };
 
@@ -53,14 +63,19 @@ namespace sun::persistence
     {
         int id;
         QString name;
+        
         Schedule::Type type;
-        QTime startsAt;
-        QTime endsAt;
-        int dailyLimit;
-        int repeatAt;
         Schedule::LockType lockType;
-        QString lockHash;
-        int unclockAfter;
+        
+        int repeatAt;
+
+        std::optional<QTime> startsAt;
+        std::optional<QTime> endsAt;
+        
+        std::optional<int> dailyLimit;
+        
+        std::optional<QString> lockHash;
+        std::optional<int> unlockAfter;
         std::optional<QDateTime> unlockRequestedAt;
     };
 
@@ -73,6 +88,7 @@ namespace sun::persistence
             case Schedule::Type::DailyLimit:
                 return "DAILY_LIMIT";
         }
+        return "DAILY_LIMIT";
     }
 
     inline Schedule::Type toType(const QString& str)
@@ -93,6 +109,7 @@ namespace sun::persistence
             case Schedule::LockType::None:
                 return "NONE";
         }
+        return "NONE";
     }
 
     inline Schedule::LockType toLockType(const QString& str)
@@ -103,4 +120,13 @@ namespace sun::persistence
             return Schedule::LockType::Delay;
         return Schedule::LockType::None;
     }
+
+    inline bool operator==(const Schedule& a, const Schedule& b)
+    {
+        return a.id == b.id && a.name == b.name && a.type == b.type &&
+            a.lockType == b.lockType && a.repeatAt == b.repeatAt && a.startsAt == b.startsAt &&
+            a.endsAt == b.endsAt && a.dailyLimit == b.dailyLimit && a.lockHash == b.lockHash &&
+            a.unlockAfter == b.unlockAfter && a.unlockRequestedAt == b.unlockRequestedAt;
+    }
+    
 } // sun::persistence::schedule

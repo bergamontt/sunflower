@@ -22,4 +22,9 @@ namespace sun::persistence
         int id;
         std::optional<QString> name;
     };
+
+    inline bool operator==(const ApplicationList& a, const ApplicationList& b)
+    {
+        return a.id == b.id && a.name == b.name;
+    }
 } // sun::persistence

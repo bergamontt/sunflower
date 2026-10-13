@@ -12,7 +12,7 @@ namespace sun::persistence
     public:
         Pomodoro create(const CreatePomodoroDto& dto) const;
         Pomodoro updateById(const UpdatePomodoroDto& dto) const;
-        Pomodoro getById(int id) const;
+        std::optional<Pomodoro> getById(int id) const;
 
         QList<Pomodoro> getAll() const;
 
@@ -20,14 +20,14 @@ namespace sun::persistence
         
         void addApplicationList(int pomodoroId, int listId) const;
         void removeApplicationList(int pomodoroId, int listId) const;
-        void removeAllAplicationLists(int pomodoroId) const;
+        void removeAllApplicationLists(int pomodoroId) const;
 
         QList<ApplicationList> getApplicationLists(int pomodoroId) const;
 
     private:
         virtual Pomodoro doCreate(const CreatePomodoroDto& dto) const = 0;
         virtual Pomodoro doUpdateById(const UpdatePomodoroDto& dto) const = 0;
-        virtual Pomodoro doGetById(int id) const = 0;
+        virtual std::optional<Pomodoro> doGetById(int id) const = 0;
 
         virtual QList<Pomodoro> doGetAll() const = 0;
 
@@ -35,7 +35,7 @@ namespace sun::persistence
         
         virtual void doAddApplicationList(int pomodoroId, int listId) const = 0;
         virtual void doRemoveApplicationList(int pomodoroId, int listId) const = 0;
-        virtual void doRemoveAllAplicationLists(int pomodoroId) const = 0;
+        virtual void doRemoveAllApplicationLists(int pomodoroId) const = 0;
 
         virtual QList<ApplicationList> doGetApplicationLists(int pomodoroId) const = 0;
     };
@@ -50,7 +50,7 @@ namespace sun::persistence
         return doUpdateById(dto);
     }
 
-    inline Pomodoro IPomodoroDao::getById(int id) const
+    inline std::optional<Pomodoro> IPomodoroDao::getById(int id) const
     {
         return doGetById(id);
     }
@@ -75,9 +75,9 @@ namespace sun::persistence
         doRemoveApplicationList(pomodoroId, listId);
     }
 
-    inline void IPomodoroDao::removeAllAplicationLists(int pomodoroId) const
+    inline void IPomodoroDao::removeAllApplicationLists(int pomodoroId) const
     {
-        doRemoveAllAplicationLists(pomodoroId);
+        doRemoveAllApplicationLists(pomodoroId);
     }
 
     inline QList<ApplicationList> IPomodoroDao::getApplicationLists(int pomodoroId) const

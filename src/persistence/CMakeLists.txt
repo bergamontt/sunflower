@@ -36,8 +36,10 @@ target_sources(persistence PUBLIC
     schedule/scheduledao.cpp
     schedule/schedulemapper.h
 
-    dbconnection.cpp
-    dbconnection.h
+    db/dbconnection.cpp
+    db/dbconnection.h
+    db/sqlutils.h
+    db/schema.h
 )
 
 target_include_directories(
@@ -50,6 +52,5 @@ target_link_libraries(
     persistence
     PUBLIC
         Qt6::Core
-    PRIVATE
         Qt6::Sql
 )
