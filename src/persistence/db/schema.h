@@ -15,7 +15,7 @@ namespace sun::persistence::schema
         "started_at TEXT NOT NULL, "
         "ended_at TEXT) ";
 
-    inline const auto create_application_list_table = 
+    inline const auto create_application_list_table =
         "CREATE TABLE application_list ( "
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "name TEXT) ";
@@ -45,4 +45,18 @@ namespace sun::persistence::schema
         "schedule_id INTEGER NOT NULL, "
         "application_list_id INTEGER NOT NULL, "
         "PRIMARY KEY(schedule_id, application_list_id))";
+
+    inline const auto create_pomodoro_table =
+        "CREATE TABLE pomodoro ( "
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "work_duration INTEGER NOT NULL, "
+        "break_duration INTEGER NOT NULL, "
+        "ends_at TEXT NOT NULL, "
+        "state TEXT NOT NULL) ";
+
+    inline const auto create_pomodoro_application_list_table =
+        "CREATE TABLE pomodoro_application_list ("
+        "pomodoro_id INTEGER NOT NULL, "
+        "application_list_id INTEGER NOT NULL, "
+        "PRIMARY KEY(pomodoro_id, application_list_id))";
 } // sun::persistence::schema

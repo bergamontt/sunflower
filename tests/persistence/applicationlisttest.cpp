@@ -108,7 +108,7 @@ namespace sun::persistence::test
         ASSERT_TRUE(applications.isEmpty());
     }
 
-    TEST_F(ApplicationListTest, RemovesAllAplicationsFromList)
+    TEST_F(ApplicationListTest, RemovesAllApplicationsFromList)
     {
         ApplicationList created = applicationListDao.create(createDto);
         Application createdApplication = applicationDao.create(createApp);

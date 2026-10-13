@@ -7,6 +7,7 @@ add_executable(
     persistence/activitytest.cpp
     persistence/applicationlisttest.cpp
     persistence/scheduletest.cpp
+    persistence/pomodorotest.cpp
     persistence/dbtestfixture.h
 )
 

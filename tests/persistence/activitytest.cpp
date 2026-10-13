@@ -54,7 +54,7 @@ namespace sun::persistence::test
         ASSERT_EQ(updated, updatedExpected);
     }
 
-    TEST_F(ActivityDaoTest, DeletesActiivty)
+    TEST_F(ActivityDaoTest, DeletesActivity)
     {
         Activity created = activityDao.create(createDto);
         activityDao.deleteById(created.id);

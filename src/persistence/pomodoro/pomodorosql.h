@@ -5,44 +5,44 @@ namespace sun::persistence::pomodoro
     inline const auto create =
         "INSERT INTO pomodoro (work_duration, break_duration, ends_at, state)"
         "VALUES (:work_duration, :break_duration, :ends_at, :state) "
-        "RETURNING id, work_suration, break_duration, ends_at, state";
+        "RETURNING id, work_duration, break_duration, ends_at, state";
     
     inline const auto update_by_id =
-        "UPDATE pomodoro"
-        "SET work_duration = :work_duration "
-        "break_duration = :break_duration "
-        "ends_at = :ends_at "
-        "status = :status "
+        "UPDATE pomodoro "
+        "SET work_duration = :work_duration, "
+        "break_duration = :break_duration, "
+        "ends_at = :ends_at, "
+        "state = :state "
         "WHERE id = :id "
-        "RETURNING id, work_suration, break_duration, ends_at, state";
+        "RETURNING id, work_duration, break_duration, ends_at, state";
     
     inline const auto delete_by_id =
-        "DELETE FROM pomodoro"
+        "DELETE FROM pomodoro "
         "WHERE id = :id";
     
     inline const auto get_by_id =
-        "SELECT * FROM pomodoro"
+        "SELECT * FROM pomodoro "
         "WHERE id = :id";
     
     inline const auto get_all = 
         "SELECT * FROM pomodoro";
     
     inline const auto add_application_list =
-        "INSERT INTO pomodoro_application_list (pomodoro_id, application_list_id)"
+        "INSERT INTO pomodoro_application_list (pomodoro_id, application_list_id) "
         "VALUES (:pomodoro_id, :application_list_id)";
     
     inline const auto remove_application_list =
-        "DELETE FROM pomodoro_application_list"
-        "WHERE pomodoro_id = :pomodoro_id"
-        "application_list_id = :application_list_id";
+        "DELETE FROM pomodoro_application_list "
+        "WHERE pomodoro_id = :pomodoro_id "
+        "AND application_list_id = :application_list_id";
     
     inline const auto remove_all_application_lists = 
-        "DELETE FROM pomodoro_application_list"
+        "DELETE FROM pomodoro_application_list "
         "WHERE pomodoro_id = :pomodoro_id";
     
     inline const auto get_application_lists = 
-        "SELECT * FROM application "
+        "SELECT * FROM application_list "
         "WHERE id IN("
-        "SELECT id FROM pomodoro_application_list "
+        "SELECT application_list_id FROM pomodoro_application_list "
         "WHERE pomodoro_id = :pomodoro_id) ";
 } // std::persistence::pomodoro

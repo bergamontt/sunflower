@@ -18,7 +18,7 @@ namespace sun::persistence
         return 
         {
             query.value("id").toInt(),
-            query.value("work_dauration").toInt(),
+            query.value("work_duration").toInt(),
             query.value("break_duration").toInt(),
             query.value("ends_at").toDateTime(),
             toState(query.value("state").toString())
@@ -30,7 +30,7 @@ namespace sun::persistence
         query.bindValue(":work_duration", dto.workDuration);
         query.bindValue(":break_duration", dto.breakDuration);
         query.bindValue(":ends_at", dto.endsAt);
-        query.bindValue(":state", dto.state);
+        query.bindValue(":state", toString(dto.state));
     }
 
     inline void PomodoroMapper::bind(QSqlQuery& query, const UpdatePomodoroDto& dto)
@@ -39,6 +39,6 @@ namespace sun::persistence
         query.bindValue(":work_duration", dto.workDuration);
         query.bindValue(":break_duration", dto.breakDuration);
         query.bindValue(":ends_at", dto.endsAt);
-        query.bindValue(":state", dto.state);
+        query.bindValue(":state", toString(dto.state));
     }
 } // sun::persistence

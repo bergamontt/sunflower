@@ -39,7 +39,7 @@ namespace sun::persistence
         Pomodoro::State state;
     };
 
-    QString toString(const Pomodoro::State state)
+    inline QString toString(const Pomodoro::State state)
     {
         switch (state)
         {
@@ -55,7 +55,7 @@ namespace sun::persistence
         return "INACTIVE";
     }
 
-    Pomodoro::State toState(const QString& str)
+    inline Pomodoro::State toState(const QString& str)
     {
         if (str == "WORK")
             return Pomodoro::State::Work;
@@ -65,4 +65,11 @@ namespace sun::persistence
             return Pomodoro::State::Paused;
         return Pomodoro::State::Inactive;
     }
-} // sun::persistence::pomdoro
+
+    inline bool operator==(const Pomodoro& a, const Pomodoro& b)
+    {
+        return a.id == b.id && a.workDuration == b.workDuration &&
+            a.breakDuration == b.breakDuration && a.endsAt == b.endsAt &&
+            a.state == b.state;
+    }
+} // sun::persistence::pomodoro

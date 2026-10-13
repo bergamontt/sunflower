@@ -4,7 +4,6 @@
 #include "db/schema.h"
 
 #include <QSqlQuery>
-#include <QSqlError>
 
 namespace sun::persistence::test
 {
@@ -33,5 +32,7 @@ namespace sun::persistence::test
         query.exec(schema::create_application_list_application_table);
         query.exec(schema::create_schedule_table);
         query.exec(schema::create_schedule_application_list_table);
+        query.exec(schema::create_pomodoro_table);
+        query.exec(schema::create_pomodoro_application_list_table);
     }
 } // sun::persistence::test
