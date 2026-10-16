@@ -23,4 +23,17 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Sql)
 qt_standard_project_setup()
 
 add_subdirectory(src)
+add_custom_target(run
+    COMMAND $<TARGET_FILE:sunflower>
+    DEPENDS sunflower
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+    USES_TERMINAL
+)
+
 add_subdirectory(tests)
+add_custom_target(test
+    COMMAND $<TARGET_FILE:tests>
+    DEPENDS tests
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+    USES_TERMINAL
+)
