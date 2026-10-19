@@ -15,4 +15,12 @@ target_link_libraries(
     gui 
     PUBLIC 
         Qt6::Widgets
+    PRIVATE
+        Qt6::Svg
+)
+
+qt_add_resources(gui "gui"
+    PREFIX "/gui"
+    BASE "resources"
+    FILES resources/sunflower.svg
 )
