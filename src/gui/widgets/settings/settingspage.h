@@ -4,19 +4,19 @@
 #include <QWidget>
 
 namespace Ui {
-class SettingsWidget;
+class SettingsPage;
 }
 
-class SettingsWidget : public QWidget
+class SettingsPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SettingsWidget(QWidget *parent = nullptr);
-    ~SettingsWidget();
+    explicit SettingsPage(QWidget *parent = nullptr);
+    ~SettingsPage();
 
 private:
-    Ui::SettingsWidget *ui;
+    Ui::SettingsPage *ui;
 };
 
 #endif // SETTINGSPAGE_H

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BlockWidget</class>
- <widget class="QWidget" name="BlockWidget">
+ <class>BlockPage</class>
+ <widget class="QWidget" name="BlockPage">
   <property name="geometry">
    <rect>
     <x>0</x>

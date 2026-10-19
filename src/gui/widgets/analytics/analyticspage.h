@@ -4,19 +4,19 @@
 #include <QWidget>
 
 namespace Ui {
-class AnalyticsWidget;
+class AnalyticsPage;
 }
 
-class AnalyticsWidget : public QWidget
+class AnalyticsPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AnalyticsWidget(QWidget *parent = nullptr);
-    ~AnalyticsWidget();
+    explicit AnalyticsPage(QWidget *parent = nullptr);
+    ~AnalyticsPage();
 
 private:
-    Ui::AnalyticsWidget *ui;
+    Ui::AnalyticsPage *ui;
 };
 
 #endif // ANALYTICSPAGE_H

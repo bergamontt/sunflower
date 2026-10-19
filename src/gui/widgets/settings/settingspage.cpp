@@ -1,14 +1,14 @@
 #include "settingspage.h"
 #include "ui_settingspage.h"
 
-SettingsWidget::SettingsWidget(QWidget *parent) :
+SettingsPage::SettingsPage(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::SettingsWidget)
+    ui(new Ui::SettingsPage)
 {
     ui->setupUi(this);
 }
 
-SettingsWidget::~SettingsWidget()
+SettingsPage::~SettingsPage()
 {
     delete ui;
 }

@@ -4,19 +4,19 @@
 #include <QWidget>
 
 namespace Ui {
-class BlockWidget;
+class BlockPage;
 }
 
-class BlockWidget : public QWidget
+class BlockPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit BlockWidget(QWidget *parent = nullptr);
-    ~BlockWidget();
+    explicit BlockPage(QWidget *parent = nullptr);
+    ~BlockPage();
 
 private:
-    Ui::BlockWidget *ui;
+    Ui::BlockPage *ui;
 };
 
 #endif // BLOCKPAGE_H

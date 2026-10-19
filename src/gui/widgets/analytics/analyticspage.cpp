@@ -1,14 +1,14 @@
 #include "analyticspage.h"
 #include "ui_analyticspage.h"
 
-AnalyticsWidget::AnalyticsWidget(QWidget *parent) :
+AnalyticsPage::AnalyticsPage(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::AnalyticsWidget)
+    ui(new Ui::AnalyticsPage)
 {
     ui->setupUi(this);
 }
 
-AnalyticsWidget::~AnalyticsWidget()
+AnalyticsPage::~AnalyticsPage()
 {
     delete ui;
 }

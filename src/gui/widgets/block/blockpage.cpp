@@ -1,14 +1,14 @@
 #include "blockpage.h"
 #include "ui_blockpage.h"
 
-BlockWidget::BlockWidget(QWidget *parent) :
+BlockPage::BlockPage(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::BlockWidget)
+    ui(new Ui::BlockPage)
 {
     ui->setupUi(this);
 }
 
-BlockWidget::~BlockWidget()
+BlockPage::~BlockPage()
 {
     delete ui;
 }

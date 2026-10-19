@@ -78,21 +78,21 @@
       <widget class="QWidget" name="page_analytics">
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="AnalyticsWidget" name="widget" native="true"/>
+         <widget class="AnalyticsPage" name="widget" native="true"/>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="page_blocks">
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="BlockWidget" name="widget_2" native="true"/>
+         <widget class="BlockPage" name="widget_2" native="true"/>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="page_settings">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="SettingsWidget" name="widget_3" native="true"/>
+         <widget class="SettingsPage" name="widget_3" native="true"/>
         </item>
        </layout>
       </widget>
@@ -103,21 +103,21 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>AnalyticsWidget</class>
+   <class>AnalyticsPage</class>
    <extends>QWidget</extends>
-   <header>analyticswidget.h</header>
+   <header>analyticspage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>BlockWidget</class>
+   <class>BlockPage</class>
    <extends>QWidget</extends>
-   <header>blockwidget.h</header>
+   <header>blockpage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SettingsWidget</class>
+   <class>SettingsPage</class>
    <extends>QWidget</extends>
-   <header>settingswidget.h</header>
+   <header>settingspage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
