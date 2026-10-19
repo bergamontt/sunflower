@@ -1,8 +1,8 @@
 add_library(gui STATIC)
     
 target_sources(gui PUBLIC
-    main_window.h
-    main_window.cpp
+    mainwindow.h
+    mainwindow.cpp
 )
 
 target_include_directories(
@@ -15,4 +15,12 @@ target_link_libraries(
     gui 
     PUBLIC 
         Qt6::Widgets
+    PRIVATE
+        Qt6::Svg
+)
+
+qt_add_resources(gui "gui"
+    PREFIX "/gui"
+    BASE "resources"
+    FILES resources/sunflower.svg
 )
