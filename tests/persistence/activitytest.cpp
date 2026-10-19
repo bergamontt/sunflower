@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "activity/activitydao.h"
+#include "application/applicationdao.h"
 
 #include "dbtestfixture.h"
 
@@ -12,13 +13,19 @@ namespace sun::persistence::test
     {
     protected:
         ActivityDaoTest()
-            : createDto({1, QDateTime::currentDateTime(), std::nullopt})
+            : createApp({"Firefox", "firefox"})
+            , application(applicationDao.create(createApp))
+            , createDto({application.id, QDateTime::currentDateTime(), std::nullopt})
             , updateDto({1, QDateTime::currentDateTime().addSecs(60)})
             , expected({1, createDto.applicationId, createDto.startedAt, createDto.endedAt})
             , updatedExpected({expected.id, expected.applicationId, expected.startedAt, updateDto.endedAt})
         {}
     private:
         DbTestFixture db;
+    protected:
+        ApplicationDao applicationDao;
+        CreateApplicationDto createApp;
+        Application application;
     protected:
         ActivityDao activityDao;
         CreateActivityDto createDto;

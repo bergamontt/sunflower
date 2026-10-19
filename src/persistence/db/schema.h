@@ -11,7 +11,7 @@ namespace sun::persistence::schema
     inline const auto create_activity_table =
         "CREATE TABLE activity ( "
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "application_id INTEGER NOT NULL, "
+        "application_id INTEGER NOT NULL REFERENCES application(id), "
         "started_at TEXT NOT NULL, "
         "ended_at TEXT) ";
 
@@ -22,8 +22,8 @@ namespace sun::persistence::schema
     
     inline const auto create_application_list_application_table =
         "CREATE TABLE application_list_application ( "
-        "application_list_id INTEGER NOT NULL, "
-        "application_id INTEGER NOT NULL, "
+        "application_list_id INTEGER NOT NULL REFERENCES application_list(id), "
+        "application_id INTEGER NOT NULL REFERENCES application(id), "
         "PRIMARY KEY (application_list_id, application_id)) ";
 
     inline const auto create_schedule_table =
@@ -42,8 +42,8 @@ namespace sun::persistence::schema
 
     inline const auto create_schedule_application_list_table =
         "CREATE TABLE schedule_application_list ("
-        "schedule_id INTEGER NOT NULL, "
-        "application_list_id INTEGER NOT NULL, "
+        "schedule_id INTEGER NOT NULL REFERENCES schedule(id), "
+        "application_list_id INTEGER NOT NULL REFERENCES application_list(id), "
         "PRIMARY KEY(schedule_id, application_list_id))";
 
     inline const auto create_pomodoro_table =
@@ -56,7 +56,10 @@ namespace sun::persistence::schema
 
     inline const auto create_pomodoro_application_list_table =
         "CREATE TABLE pomodoro_application_list ("
-        "pomodoro_id INTEGER NOT NULL, "
-        "application_list_id INTEGER NOT NULL, "
+        "pomodoro_id INTEGER NOT NULL REFERENCES pomodoro(id), "
+        "application_list_id INTEGER NOT NULL REFERENCES application_list(id), "
         "PRIMARY KEY(pomodoro_id, application_list_id))";
+
+    inline const auto enable_foreign_key_constrains = 
+        "PRAGMA foreign_keys = ON;";
 } // sun::persistence::schema
