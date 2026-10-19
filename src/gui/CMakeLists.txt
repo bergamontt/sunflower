@@ -8,26 +8,26 @@ target_sources(
         mainwindow.cpp
         mainwindow.ui
 
-        analytics_widget/analyticswidget.h
-        analytics_widget/analyticswidget.cpp
-        analytics_widget/analyticswidget.ui
+        widgets/analytics/analyticswidget.h
+        widgets/analytics/analyticswidget.cpp
+        widgets/analytics/analyticswidget.ui
 
-        block_widget/blockwidget.h
-        block_widget/blockwidget.cpp
-        block_widget/blockwidget.ui
+        widgets/block/blockwidget.h
+        widgets/block/blockwidget.cpp
+        widgets/block/blockwidget.ui
 
-        settings_widget/settingswidget.h
-        settings_widget/settingswidget.cpp
-        settings_widget/settingswidget.ui
+        widgets/settings/settingswidget.h
+        widgets/settings/settingswidget.cpp
+        widgets/settings/settingswidget.ui
 )   
 
 target_include_directories(
     gui
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/analytics_widget
-        ${CMAKE_CURRENT_SOURCE_DIR}/block_widget
-        ${CMAKE_CURRENT_SOURCE_DIR}/settings_widget
+        ${CMAKE_CURRENT_SOURCE_DIR}/widgets/analytics
+        ${CMAKE_CURRENT_SOURCE_DIR}/widgets/block
+        ${CMAKE_CURRENT_SOURCE_DIR}/widgets/settings
 )
 
 target_link_libraries(
