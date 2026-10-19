@@ -1,8 +1,8 @@
 add_library(gui STATIC)
     
 target_sources(gui PUBLIC
-    main_window.h
-    main_window.cpp
+    mainwindow.h
+    mainwindow.cpp
 )
 
 target_include_directories(
