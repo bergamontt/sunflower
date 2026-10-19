@@ -34,5 +34,6 @@ namespace sun::persistence::test
         query.exec(schema::create_schedule_application_list_table);
         query.exec(schema::create_pomodoro_table);
         query.exec(schema::create_pomodoro_application_list_table);
+        query.exec(schema::enable_foreign_key_constrains);
     }
 } // sun::persistence::test

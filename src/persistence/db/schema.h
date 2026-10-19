@@ -59,4 +59,7 @@ namespace sun::persistence::schema
         "pomodoro_id INTEGER NOT NULL REFERENCES pomodoro(id), "
         "application_list_id INTEGER NOT NULL REFERENCES application_list(id), "
         "PRIMARY KEY(pomodoro_id, application_list_id))";
+
+    inline const auto enable_foreign_key_constrains = 
+        "PRAGMA foreign_keys = ON;";
 } // sun::persistence::schema
