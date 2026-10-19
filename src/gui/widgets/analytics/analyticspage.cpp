@@ -1,5 +1,5 @@
-#include "analyticswidget.h"
-#include "ui_analyticswidget.h"
+#include "analyticspage.h"
+#include "ui_analyticspage.h"
 
 AnalyticsWidget::AnalyticsWidget(QWidget *parent) :
     QWidget(parent),

@@ -1,5 +1,5 @@
-#ifndef ANALYTICSWIDGET_H
-#define ANALYTICSWIDGET_H
+#ifndef ANALYTICSPAGE_H
+#define ANALYTICSPAGE_H
 
 #include <QWidget>
 
@@ -19,4 +19,4 @@ private:
     Ui::AnalyticsWidget *ui;
 };
 
-#endif // ANALYTICSWIDGET_H
+#endif // ANALYTICSPAGE_H

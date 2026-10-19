@@ -8,17 +8,17 @@ target_sources(
         mainwindow.cpp
         mainwindow.ui
 
-        widgets/analytics/analyticswidget.h
-        widgets/analytics/analyticswidget.cpp
-        widgets/analytics/analyticswidget.ui
+        widgets/analytics/analyticspage.h
+        widgets/analytics/analyticspage.cpp
+        widgets/analytics/analyticspage.ui
 
-        widgets/block/blockwidget.h
-        widgets/block/blockwidget.cpp
-        widgets/block/blockwidget.ui
+        widgets/block/blockpage.h
+        widgets/block/blockpage.cpp
+        widgets/block/blockpage.ui
 
-        widgets/settings/settingswidget.h
-        widgets/settings/settingswidget.cpp
-        widgets/settings/settingswidget.ui
+        widgets/settings/settingspage.h
+        widgets/settings/settingspage.cpp
+        widgets/settings/settingspage.ui
 )   
 
 target_include_directories(

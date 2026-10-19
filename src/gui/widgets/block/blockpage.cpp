@@ -1,5 +1,5 @@
-#include "blockwidget.h"
-#include "ui_blockwidget.h"
+#include "blockpage.h"
+#include "ui_blockpage.h"
 
 BlockWidget::BlockWidget(QWidget *parent) :
     QWidget(parent),

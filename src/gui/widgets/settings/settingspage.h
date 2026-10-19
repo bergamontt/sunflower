@@ -1,5 +1,5 @@
-#ifndef SETTINGSWIDGET_H
-#define SETTINGSWIDGET_H
+#ifndef SETTINGSPAGE_H
+#define SETTINGSPAGE_H
 
 #include <QWidget>
 
@@ -19,4 +19,4 @@ private:
     Ui::SettingsWidget *ui;
 };
 
-#endif // SETTINGSWIDGET_H
+#endif // SETTINGSPAGE_H

@@ -1,5 +1,5 @@
-#ifndef BLOCKWIDGET_H
-#define BLOCKWIDGET_H
+#ifndef BLOCKPAGE_H
+#define BLOCKPAGE_H
 
 #include <QWidget>
 
@@ -19,4 +19,4 @@ private:
     Ui::BlockWidget *ui;
 };
 
-#endif // BLOCKWIDGET_H
+#endif // BLOCKPAGE_H
