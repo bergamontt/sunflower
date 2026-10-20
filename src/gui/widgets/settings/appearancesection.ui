@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AppearanceSection</class>
+ <widget class="QFrame" name="AppearanceSection">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>86</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <property name="frameShape">
+   <enum>QFrame::Shape::Box</enum>
+  </property>
+  <property name="lineWidth">
+   <number>1</number>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="appearanceLabel">
+     <property name="minimumSize">
+      <size>
+       <width>160</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Зовнішній вигляд</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="appearanceLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="themeLabel">
+       <property name="minimumSize">
+        <size>
+         <width>64</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Тема</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QComboBox" name="themeComboBox">
+       <property name="minimumSize">
+        <size>
+         <width>64</width>
+         <height>32</height>
+        </size>
+       </property>
+       <item>
+        <property name="text">
+         <string>Breeze</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Oxygen</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <spacer name="themeSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
