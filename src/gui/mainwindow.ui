@@ -31,7 +31,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QListWidget" name="listWidget">
+     <widget class="QListWidget" name="navigationList">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -65,7 +65,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QStackedWidget" name="stackedWidget">
+     <widget class="QStackedWidget" name="pageStack">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -75,24 +75,24 @@
       <property name="currentIndex">
        <number>2</number>
       </property>
-      <widget class="QWidget" name="page_analytics">
+      <widget class="QWidget" name="analyticsPageContainer">
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="AnalyticsPage" name="widget" native="true"/>
+         <widget class="AnalyticsPage" name="analyticsPage" native="true"/>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_blocks">
+      <widget class="QWidget" name="blockPageContainer">
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="BlockPage" name="widget_2" native="true"/>
+         <widget class="BlockPage" name="blockPage" native="true"/>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_settings">
+      <widget class="QWidget" name="settingsPageContainer">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="SettingsPage" name="widget_3" native="true"/>
+         <widget class="SettingsPage" name="settingsPage" native="true"/>
         </item>
        </layout>
       </widget>
