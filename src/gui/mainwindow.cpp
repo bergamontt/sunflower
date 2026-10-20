@@ -10,9 +10,9 @@ MainWindow::MainWindow(QWidget* parent)
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->listWidget,
+    connect(ui->navigationList,
         &QListWidget::currentRowChanged,
-        ui->stackedWidget,
+        ui->pageStack,
         &QStackedWidget::setCurrentIndex);
 
     QMenu* trayMenu = new QMenu(this);
