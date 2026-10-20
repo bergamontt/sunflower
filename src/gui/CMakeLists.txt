@@ -1,4 +1,5 @@
-add_library(gui STATIC)
+add_library(gui STATIC
+    widgets/block/scheduleitem.h widgets/block/scheduleitem.cpp widgets/block/scheduleitem.ui)
     
 target_sources(
     gui
@@ -12,9 +13,9 @@ target_sources(
         widgets/analytics/analyticspage.cpp
         widgets/analytics/analyticspage.ui
 
-        widgets/block/blockpage.h
-        widgets/block/blockpage.cpp
-        widgets/block/blockpage.ui
+        widgets/block/schedulepage.h
+        widgets/block/schedulepage.cpp
+        widgets/block/schedulepage.ui
 
         widgets/settings/settingspage.h
         widgets/settings/settingspage.cpp
@@ -49,5 +50,16 @@ target_link_libraries(
 qt_add_resources(gui "gui"
     PREFIX "/gui"
     BASE "resources"
-    FILES resources/sunflower.svg
+    FILES
+        resources/delete.svg
+        resources/done.svg
+        resources/edit.svg
+        resources/chart.svg
+        resources/clock.svg
+        resources/lock.svg
+        resources/pause.svg
+        resources/play.svg
+        resources/plus.svg
+        resources/settings.svg
+        resources/sunflower.svg
 )
