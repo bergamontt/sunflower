@@ -19,6 +19,14 @@ target_sources(
         widgets/settings/settingspage.h
         widgets/settings/settingspage.cpp
         widgets/settings/settingspage.ui
+
+        widgets/settings/appearancesection.h
+        widgets/settings/appearancesection.cpp
+        widgets/settings/appearancesection.ui
+
+        widgets/settings/strictmodesection.h
+        widgets/settings/strictmodesection.cpp
+        widgets/settings/strictmodesection.ui
 )   
 
 target_include_directories(
