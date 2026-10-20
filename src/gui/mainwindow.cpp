@@ -1,12 +1,20 @@
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 
 #include <QCloseEvent>
 #include <QMenu>
 #include <QAction>
 
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
+    ui->setupUi(this);
+    connect(ui->listWidget,
+        &QListWidget::currentRowChanged,
+        ui->stackedWidget,
+        &QStackedWidget::setCurrentIndex);
+
     QMenu* trayMenu = new QMenu(this);
     trayMenu->addAction("Open Sunflower", this, [this]
     {
