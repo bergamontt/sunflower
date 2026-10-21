@@ -18,7 +18,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Sql Svg)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Sql Svg Charts)
 
 qt_standard_project_setup()
 

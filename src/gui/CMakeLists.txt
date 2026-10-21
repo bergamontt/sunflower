@@ -12,6 +12,10 @@ target_sources(
         widgets/statistics/statisticspage.cpp
         widgets/statistics/statisticspage.ui
 
+        widgets/statistics/windowstatistics.h
+        widgets/statistics/windowstatistics.cpp
+        widgets/statistics/windowstatistics.ui
+
         widgets/schedule/schedulepage.h
         widgets/schedule/schedulepage.cpp
         widgets/schedule/schedulepage.ui
@@ -23,7 +27,6 @@ target_sources(
         widgets/schedule/scheduledialog.h
         widgets/schedule/scheduledialog.cpp
         widgets/schedule/scheduledialog.ui
-
 
         widgets/schedule/applicationshortlist.h
         widgets/schedule/applicationshortlist.cpp
@@ -57,6 +60,7 @@ target_link_libraries(
         Qt6::Widgets
     PRIVATE
         Qt6::Svg
+        Qt6::Charts
 )
 
 qt_add_resources(gui "gui"
@@ -64,6 +68,9 @@ qt_add_resources(gui "gui"
     BASE "resources"
     FILES
         resources/sunflower.svg
+        resources/alarm-yellow.svg
+        resources/pause-grey.svg
+        resources/play-green.svg
         resources/style.qss
         resources/arrow.svg
         resources/delete.svg
