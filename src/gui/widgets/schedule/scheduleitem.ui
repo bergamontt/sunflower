@@ -27,6 +27,9 @@
        <property name="text">
         <string>Schedule name</string>
        </property>
+       <property name="labelClass" stdset="0">
+        <string>h2</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -54,7 +57,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
+        <iconset resource="../../../../build/Desktop_Debug/src/gui/.qt/rcc/gui.qrc">
          <normaloff>:/gui/delete.svg</normaloff>:/gui/delete.svg</iconset>
        </property>
        <property name="iconSize">
@@ -71,7 +74,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
+        <iconset resource="../../../../build/Desktop_Debug/src/gui/.qt/rcc/gui.qrc">
          <normaloff>:/gui/edit.svg</normaloff>:/gui/edit.svg</iconset>
        </property>
        <property name="iconSize">
@@ -124,6 +127,9 @@
        <property name="text">
         <string>Schedule status</string>
        </property>
+       <property name="labelClass" stdset="0">
+        <string>h3</string>
+       </property>
       </widget>
      </item>
     </layout>
@@ -131,7 +137,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
+  <include location="../../../../build/Desktop_Debug/src/gui/.qt/rcc/gui.qrc"/>
  </resources>
  <connections/>
 </ui>
