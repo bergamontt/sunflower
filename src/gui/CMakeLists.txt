@@ -1,5 +1,4 @@
-add_library(gui STATIC
-    widgets/block/scheduleitem.h widgets/block/scheduleitem.cpp widgets/block/scheduleitem.ui)
+add_library(gui STATIC)
     
 target_sources(
     gui
@@ -13,9 +12,22 @@ target_sources(
         widgets/analytics/analyticspage.cpp
         widgets/analytics/analyticspage.ui
 
-        widgets/block/schedulepage.h
-        widgets/block/schedulepage.cpp
-        widgets/block/schedulepage.ui
+        widgets/schedule/schedulepage.h
+        widgets/schedule/schedulepage.cpp
+        widgets/schedule/schedulepage.ui
+
+        widgets/schedule/scheduleitem.h
+        widgets/schedule/scheduleitem.cpp
+        widgets/schedule/scheduleitem.ui
+
+        widgets/schedule/scheduledialog.h
+        widgets/schedule/scheduledialog.cpp
+        widgets/schedule/scheduledialog.ui
+
+
+        widgets/schedule/applicationshortlist.h
+        widgets/schedule/applicationshortlist.cpp
+        widgets/schedule/applicationshortlist.ui
 
         widgets/settings/settingspage.h
         widgets/settings/settingspage.cpp
@@ -35,7 +47,7 @@ target_include_directories(
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets/analytics
-        ${CMAKE_CURRENT_SOURCE_DIR}/widgets/block
+        ${CMAKE_CURRENT_SOURCE_DIR}/widgets/schedule
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets/settings
 )
 
