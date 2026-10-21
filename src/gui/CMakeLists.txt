@@ -1,4 +1,13 @@
 add_library(gui STATIC)
+
+target_link_libraries(
+    gui 
+    PUBLIC 
+        Qt6::Widgets
+        core
+    PRIVATE
+        Qt6::Svg
+)
     
 target_sources(
     gui
@@ -49,14 +58,6 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets/schedule
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets/statistics
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets/settings
-)
-
-target_link_libraries(
-    gui 
-    PUBLIC 
-        Qt6::Widgets
-    PRIVATE
-        Qt6::Svg
 )
 
 qt_add_resources(gui "gui"

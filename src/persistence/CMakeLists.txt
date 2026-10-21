@@ -1,5 +1,12 @@
 add_library(persistence STATIC)
 
+target_link_libraries(
+    persistence
+    PUBLIC
+        Qt6::Core
+        Qt6::Sql
+)
+
 target_sources(persistence PUBLIC
     activity/activity.h
     activity/activitysql.h
@@ -46,11 +53,9 @@ target_include_directories(
     persistence
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-target_link_libraries(
-    persistence
-    PUBLIC
-        Qt6::Core
-        Qt6::Sql
+        ${CMAKE_CURRENT_SOURCE_DIR}/activity
+        ${CMAKE_CURRENT_SOURCE_DIR}/application
+        ${CMAKE_CURRENT_SOURCE_DIR}/applicationlist
+        ${CMAKE_CURRENT_SOURCE_DIR}/pomodoro
+        ${CMAKE_CURRENT_SOURCE_DIR}/schedule
 )
