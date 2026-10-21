@@ -47,6 +47,9 @@
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
+      <property name="listClass" stdset="0">
+       <string>sidebar</string>
+      </property>
       <item>
        <property name="text">
         <string>Statistics</string>
@@ -73,7 +76,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="statisticsPageContainer">
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -90,6 +93,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="settingsPageContainer">
+       <property name="widgetClass" stdset="0">
+        <string>background</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="SettingsPage" name="settingsPage" native="true"/>
