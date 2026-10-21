@@ -22,11 +22,17 @@
   <property name="frameShape">
    <enum>QFrame::Shape::Box</enum>
   </property>
+  <property name="frameClass" stdset="0">
+   <string>section</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="strictModeLabel">
      <property name="text">
       <string>Strict mode</string>
+     </property>
+     <property name="labelClass" stdset="0">
+      <string>h2</string>
      </property>
     </widget>
    </item>
@@ -37,10 +43,16 @@
        <property name="text">
         <string>Enable strict mode</string>
        </property>
+       <property name="labelClass" stdset="0">
+        <string>h3</string>
+       </property>
       </widget>
      </item>
      <item row="0" column="2">
       <widget class="QComboBox" name="strictModeComboBox">
+       <property name="comboClass" stdset="0">
+        <string>default</string>
+       </property>
        <item>
         <property name="text">
          <string>Disabled</string>
@@ -142,12 +154,18 @@
            <property name="text">
             <string>Password</string>
            </property>
+           <property name="labelClass" stdset="0">
+            <string>h3</string>
+           </property>
           </widget>
          </item>
          <item row="1" column="1">
           <widget class="QLabel" name="repeatPasswordLabel">
            <property name="text">
             <string>Confirm password</string>
+           </property>
+           <property name="labelClass" stdset="0">
+            <string>h3</string>
            </property>
           </widget>
          </item>
@@ -178,6 +196,9 @@
            <property name="placeholderText">
             <string>Repeat password...</string>
            </property>
+           <property name="lineClass" stdset="0">
+            <string>default</string>
+           </property>
           </widget>
          </item>
          <item row="2" column="3">
@@ -190,6 +211,9 @@
            </property>
            <property name="placeholderText">
             <string>New password...</string>
+           </property>
+           <property name="lineClass" stdset="0">
+            <string>default</string>
            </property>
           </widget>
          </item>
@@ -217,12 +241,18 @@
            <property name="placeholderText">
             <string>Enter password...</string>
            </property>
+           <property name="lineClass" stdset="0">
+            <string>default</string>
+           </property>
           </widget>
          </item>
          <item row="2" column="1">
           <widget class="QLabel" name="newPasswordLabel">
            <property name="text">
             <string>New password</string>
+           </property>
+           <property name="labelClass" stdset="0">
+            <string>h3</string>
            </property>
           </widget>
          </item>
@@ -243,6 +273,9 @@
           <widget class="QPushButton" name="pushButton">
            <property name="text">
             <string>Save</string>
+           </property>
+           <property name="buttonClass" stdset="0">
+            <string>green</string>
            </property>
           </widget>
          </item>
@@ -274,6 +307,9 @@
            <property name="text">
             <string>Waiting time</string>
            </property>
+           <property name="labelClass" stdset="0">
+            <string>h3</string>
+           </property>
           </widget>
          </item>
          <item row="0" column="1">
@@ -290,7 +326,10 @@
           </spacer>
          </item>
          <item row="0" column="2">
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QComboBox" name="delayStrictModeComboBox">
+           <property name="comboClass" stdset="0">
+            <string>default</string>
+           </property>
            <item>
             <property name="text">
              <string>30 sec</string>

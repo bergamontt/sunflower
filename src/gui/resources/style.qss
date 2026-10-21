@@ -1,0 +1,231 @@
+QWidget[widgetClass="background"] {
+    background: #C5C8CB;
+}
+
+QScrollArea[areaClass="background"] {
+    background: #C5C8CB;
+    border: none;
+}
+
+QFrame[frameClass="section"] {
+    padding: 10px;
+    background: #EAECF0;
+    border-radius: 20px;
+}
+
+QLabel[labelClass="h1"] {
+    font-style: normal;
+    font-size: 24px;
+    line-height: 29px;
+    font-family: 'Instrument Sans';
+    color: #3A3C45;
+}
+
+QLabel[labelClass="h2"] {
+    font-style: normal;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    font-family: 'Instrument Sans';
+}
+
+QLabel[labelClass="h3"] {
+    font-style: normal;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    font-family: 'Instrument Sans';
+}
+
+QComboBox[comboClass="default"] {
+    padding: 10px;
+    background: #C5C8CB;
+    border-radius: 15px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    padding: 8px 36px 8px 16px;
+}
+
+QComboBox[comboClass="default"]:hover {
+    background-color: #b8bbbe;
+}
+
+QComboBox[comboClass="default"]::drop-down {
+   subcontrol-position: top left;
+   border: none;
+}
+
+QComboBox[comboClass="default"]::down-arrow {
+    image: url(:/gui/arrow.svg);
+    padding-left: 1em;
+}
+
+QComboBox[comboClass="default"] QAbstractItemView {
+    padding: 10px;
+    background: #C5C8CB;
+    border-radius: 15px;
+    color: #000000;
+}
+
+QLineEdit[lineClass="default"] {
+    padding: 10px;
+    background: #F3F3F3;
+    border: 1px solid #3A3C45;
+    border-radius: 15px;
+    color: #3A3C45;
+    font-family: 'Instrument Sans';
+}
+
+QPushButton[buttonClass="green"] {
+    padding: 10px 10px;
+    background: #009081;
+    border-radius: 10px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #F3F3F3;
+}
+
+QPushButton[buttonClass="green"]:hover {
+    background: #00796d
+}
+
+QScrollArea[areaClass="backgound"] {
+    background: #C5C8CB;
+}
+
+QListWidget[listClass="sidebar"] {
+    padding: 0px;
+    background: #AAAEB4;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #23242a;
+    outline: none;
+}
+
+QListWidget[listClass="sidebar"]::item {
+    padding: 10px;
+}
+
+QListWidget[listClass="sidebar"]::item:hover,
+QListWidget[listClass="sidebar"]::item:selected {
+    background-color: #878B91;
+    color: #000000;
+}
+
+QGroupBox[groupBoxClass="default"] {
+    padding: 5px;
+    background: #AAAEB4;
+    border-radius: 25px;
+    color: #3A3C45;
+}
+
+QGroupBox[groupBoxClass="default"] QPushButton:checked {
+    background: #EAECF0;
+}
+
+QGroupBox[groupBoxClass="default"] QPushButton {
+    padding: 10px;
+    background: #AAAEB4;
+    border-radius: 20px;
+    color: #3A3C45;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+QPushButton[buttonClass="add"] {
+    padding: 10px;
+    width: 1em;
+    height: 1em;
+    background: #009081;
+    border-radius: 20px;
+}
+
+QGroupBox[groupBoxClass="week"] {
+    background: #C5C8CB;
+    padding: 10px;
+}
+
+QPushButton[buttonClass="day"] {
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    background: #00C8B3;
+    border-radius: 20px;
+}
+
+QPushButton[buttonClass="day"]:checked {
+    background: #00C8B3;
+}
+
+QPushButton[buttonClass="day"] {
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    padding: 5px;
+    border-radius: 25px;
+    background: #878B91;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #F3F3F3;
+}
+
+QPushButton[buttonClass="cancel"] {
+    padding: 10px;
+    background: #C5C8CB;
+    border-radius: 20px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #030303;
+}
+
+QPushButton[buttonClass="cancel"]:hover {
+    background-color: #AAAEB4;
+}
+
+QPushButton[buttonClass="create"] {
+    padding: 10px;
+    background: #AAAEB4;
+    border-radius: 20px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #030303;
+}
+
+QTimeEdit[timeClass="default"] {
+    padding: 10px;
+    background: #AAAEB4;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Instrument Sans';
+    font-weight: 500;
+    font-size: 16px;
+    color: #030303;
+}
+
+QTimeEdit[timeClass="default"]::up-button,
+QTimeEdit[timeClass="default"]::down-button {
+    width: 0px;
+}

@@ -47,6 +47,9 @@
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
+      <property name="listClass" stdset="0">
+       <string>sidebar</string>
+      </property>
       <item>
        <property name="text">
         <string>Statistics</string>
@@ -54,7 +57,7 @@
       </item>
       <item>
        <property name="text">
-        <string>Blocking</string>
+        <string>Schedules</string>
        </property>
       </item>
       <item>
@@ -73,7 +76,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="statisticsPageContainer">
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -83,13 +86,19 @@
        </layout>
       </widget>
       <widget class="QWidget" name="blockPageContainer">
+       <property name="widgetClass" stdset="0">
+        <string>background</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="BlockPage" name="blockPage" native="true"/>
+         <widget class="SchedulePage" name="schedulePage" native="true"/>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="settingsPageContainer">
+       <property name="widgetClass" stdset="0">
+        <string>background</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="SettingsPage" name="settingsPage" native="true"/>
@@ -109,15 +118,15 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>BlockPage</class>
-   <extends>QWidget</extends>
-   <header>blockpage.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>SettingsPage</class>
    <extends>QWidget</extends>
    <header>settingspage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SchedulePage</class>
+   <extends>QWidget</extends>
+   <header>schedulepage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
