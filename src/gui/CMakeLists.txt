@@ -63,6 +63,9 @@ qt_add_resources(gui "gui"
     PREFIX "/gui"
     BASE "resources"
     FILES
+        resources/sunflower.svg
+        resources/style.qss
+        resources/arrow.svg
         resources/delete.svg
         resources/done.svg
         resources/edit.svg
@@ -73,5 +76,4 @@ qt_add_resources(gui "gui"
         resources/play.svg
         resources/plus.svg
         resources/settings.svg
-        resources/sunflower.svg
 )

@@ -1,0 +1,116 @@
+QWidget[widgetClass="background"] {
+    background: #C5C8CB;
+}
+
+QFrame[frameClass="section"] {
+    padding: 10px;
+    background: #EAECF0;
+    border-radius: 20px;
+}
+
+QLabel[labelClass="h1"] {
+    font-style: normal;
+    font-size: 24px;
+    line-height: 29px;
+    font-family: 'Instrument Sans';
+    color: #3A3C45;
+}
+
+QLabel[labelClass="h2"] {
+    font-style: normal;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    font-family: 'Instrument Sans';
+}
+
+QLabel[labelClass="h3"] {
+    font-style: normal;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    font-family: 'Instrument Sans';
+}
+
+QComboBox[comboClass="default"] {
+    padding: 10px;
+    background: #C5C8CB;
+    border-radius: 15px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    padding: 8px 36px 8px 16px;
+}
+
+QComboBox[comboClass="default"]:hover {
+    background-color: #b8bbbe;
+}
+
+QComboBox[comboClass="default"]::drop-down {
+   subcontrol-position: top left;
+   border: none;
+}
+
+QComboBox[comboClass="default"]::down-arrow {
+    image: url(:/gui/arrow.svg);
+    padding-left: 1em;
+}
+
+QComboBox[comboClass="default"] QAbstractItemView {
+    padding: 10px;
+    background: #C5C8CB;
+    border-radius: 15px;
+    color: #000000;
+}
+
+QLineEdit[lineClass="default"] {
+    padding: 10px;
+    background: #F3F3F3;
+    border: 1px solid #3A3C45;
+    border-radius: 15px;
+    font-family: 'Instrument Sans';
+}
+
+QPushButton[buttonClass="green"] {
+    padding: 10px 10px;
+    background: #009081;
+    border-radius: 10px;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #F3F3F3;
+}
+
+QPushButton[buttonClass="green"]:hover {
+    background: #00796d
+}
+
+QScrollArea[areaClass="backgound"] {
+    background: #C5C8CB;
+}
+
+QListWidget[listClass="sidebar"] {
+    padding: 0px;
+    background: #AAAEB4;
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #23242a;
+}
+
+QListWidget[listClass="sidebar"]::item {
+    padding: 10px;
+}
+
+QListWidget[listClass="sidebar"]::item:hover,
+QListWidget[listClass="sidebar"]::item:selected {
+    background-color: #878B91;
+    color: #000000;
+}
