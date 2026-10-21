@@ -57,7 +57,7 @@
       </item>
       <item>
        <property name="text">
-        <string>Blocking</string>
+        <string>Schedules</string>
        </property>
       </item>
       <item>
@@ -86,6 +86,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="blockPageContainer">
+       <property name="widgetClass" stdset="0">
+        <string>background</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="SchedulePage" name="schedulePage" native="true"/>
