@@ -26,7 +26,7 @@
    <item>
     <widget class="QLabel" name="strictModeLabel">
      <property name="text">
-      <string>Суворий режим</string>
+      <string>Strict mode</string>
      </property>
     </widget>
    </item>
@@ -35,7 +35,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="enableStrictModeLabel">
        <property name="text">
-        <string>Увімкнути суворий режим</string>
+        <string>Enable strict mode</string>
        </property>
       </widget>
      </item>
@@ -43,17 +43,17 @@
       <widget class="QComboBox" name="strictModeComboBox">
        <item>
         <property name="text">
-         <string>Вимк.</string>
+         <string>Disabled</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Пароль</string>
+         <string>Password</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Затримка</string>
+         <string>Delay</string>
         </property>
        </item>
       </widget>
@@ -140,14 +140,14 @@
          <item row="0" column="1">
           <widget class="QLabel" name="passwordLabel">
            <property name="text">
-            <string>Пароль</string>
+            <string>Password</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
           <widget class="QLabel" name="repeatPasswordLabel">
            <property name="text">
-            <string>Повторіть пароль</string>
+            <string>Confirm password</string>
            </property>
           </widget>
          </item>
@@ -172,8 +172,11 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="text">
+            <string/>
+           </property>
            <property name="placeholderText">
-            <string>Повторіть пароль...</string>
+            <string>Repeat password...</string>
            </property>
           </widget>
          </item>
@@ -186,7 +189,7 @@
             </sizepolicy>
            </property>
            <property name="placeholderText">
-            <string>Новий пароль...</string>
+            <string>New password...</string>
            </property>
           </widget>
          </item>
@@ -212,14 +215,14 @@
             </sizepolicy>
            </property>
            <property name="placeholderText">
-            <string>Введіть пароль...</string>
+            <string>Enter password...</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
           <widget class="QLabel" name="newPasswordLabel">
            <property name="text">
-            <string>Новий пароль</string>
+            <string>New password</string>
            </property>
           </widget>
          </item>
@@ -239,7 +242,7 @@
          <item row="3" column="3">
           <widget class="QPushButton" name="pushButton">
            <property name="text">
-            <string>Зберегти</string>
+            <string>Save</string>
            </property>
           </widget>
          </item>
@@ -269,7 +272,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="delayStrictModeLabel">
            <property name="text">
-            <string>Час очікування</string>
+            <string>Waiting time</string>
            </property>
           </widget>
          </item>
@@ -290,32 +293,32 @@
           <widget class="QComboBox" name="comboBox">
            <item>
             <property name="text">
-             <string>30 сек</string>
+             <string>30 sec</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>1 хв</string>
+             <string>1 min</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>3 хв</string>
+             <string>3 min</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>5 хв</string>
+             <string>5 min</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>10 хв</string>
+             <string>10 min</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>15 хв</string>
+             <string>15 min</string>
             </property>
            </item>
           </widget>
