@@ -8,9 +8,9 @@ target_sources(
         mainwindow.cpp
         mainwindow.ui
 
-        widgets/analytics/analyticspage.h
-        widgets/analytics/analyticspage.cpp
-        widgets/analytics/analyticspage.ui
+        widgets/statistics/statisticspage.h
+        widgets/statistics/statisticspage.cpp
+        widgets/statistics/statisticspage.ui
 
         widgets/block/blockpage.h
         widgets/block/blockpage.cpp
@@ -33,7 +33,7 @@ target_include_directories(
     gui
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/widgets/analytics
+        ${CMAKE_CURRENT_SOURCE_DIR}/widgets/statistics
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets/block
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets/settings
 )
