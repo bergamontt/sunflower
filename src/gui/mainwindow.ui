@@ -49,17 +49,17 @@
       </property>
       <item>
        <property name="text">
-        <string>Аналітика</string>
+        <string>Statistics</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Блокування</string>
+        <string>Blocking</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Налаштування</string>
+        <string>Settings</string>
        </property>
       </item>
      </widget>
@@ -73,12 +73,12 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="analyticsPageContainer">
+      <widget class="QWidget" name="statisticsPageContainer">
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="AnalyticsPage" name="analyticsPage" native="true"/>
+         <widget class="StatisticsPage" name="statisticsPage" native="true"/>
         </item>
        </layout>
       </widget>
@@ -103,9 +103,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>AnalyticsPage</class>
+   <class>StatisticsPage</class>
    <extends>QWidget</extends>
-   <header>analyticspage.h</header>
+   <header>statisticspage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

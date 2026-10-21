@@ -30,15 +30,15 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>812</width>
-        <height>628</height>
+        <width>804</width>
+        <height>620</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QLabel" name="settingsLabel">
          <property name="text">
-          <string>Налаштування</string>
+          <string>Settings</string>
          </property>
         </widget>
        </item>
