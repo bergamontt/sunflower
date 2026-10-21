@@ -85,7 +85,7 @@
       <widget class="QWidget" name="blockPageContainer">
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="BlockPage" name="blockPage" native="true"/>
+         <widget class="SchedulePage" name="schedulePage" native="true"/>
         </item>
        </layout>
       </widget>
@@ -109,15 +109,15 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>BlockPage</class>
-   <extends>QWidget</extends>
-   <header>blockpage.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>SettingsPage</class>
    <extends>QWidget</extends>
    <header>settingspage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SchedulePage</class>
+   <extends>QWidget</extends>
+   <header>schedulepage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
