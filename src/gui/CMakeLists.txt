@@ -12,6 +12,10 @@ target_sources(
         widgets/statistics/statisticspage.cpp
         widgets/statistics/statisticspage.ui
 
+        widgets/statistics/windowstatistics.h
+        widgets/statistics/windowstatistics.cpp
+        widgets/statistics/windowstatistics.ui
+
         widgets/block/blockpage.h
         widgets/block/blockpage.cpp
         widgets/block/blockpage.ui
@@ -44,10 +48,15 @@ target_link_libraries(
         Qt6::Widgets
     PRIVATE
         Qt6::Svg
+        Qt6::Charts
 )
 
 qt_add_resources(gui "gui"
     PREFIX "/gui"
     BASE "resources"
-    FILES resources/sunflower.svg
+    FILES
+        resources/alarm-yellow.svg
+        resources/pause-grey.svg
+        resources/play-green.svg
+        resources/sunflower.svg
 )
