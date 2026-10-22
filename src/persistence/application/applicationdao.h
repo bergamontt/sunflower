@@ -12,6 +12,7 @@ namespace sun::persistence
         Application doCreate(const CreateApplicationDto& dto) const override;
         Application doUpdateById(const UpdateApplicationDto& dto) const override;
         std::optional<Application> doGetById(int id) const override;
+        QList<Application> doGetAll() const override;
         void doDeleteById(int id) const override;
     };
 } // sun::persistence

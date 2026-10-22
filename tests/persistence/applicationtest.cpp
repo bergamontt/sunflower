@@ -45,6 +45,20 @@ namespace sun::persistence::test
         ASSERT_TRUE(result.has_value());
         ASSERT_EQ(created, result.value());
     }
+    
+    TEST_F(ApplicationDaoTest, GetsAllApplications)
+    {
+        Application created = applicationDao.create(createDto);
+        QList<Application> applications = applicationDao.getAll();
+        ASSERT_EQ(applications.length(), 1);
+        ASSERT_TRUE(applications.contains(created));
+    }
+
+    TEST_F(ApplicationDaoTest, GetsEmptyAllApplications)
+    {
+        QList<Application> applications = applicationDao.getAll();
+        ASSERT_TRUE(applications.isEmpty());
+    }
 
     TEST_F(ApplicationDaoTest, DeletesApplicationById)
     {
