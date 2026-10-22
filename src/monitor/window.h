@@ -14,6 +14,8 @@ namespace sun::monitor
 
         virtual void close() const = 0;
 
+        [[nodiscard]] virtual bool operator==(const WindowImpl& other) const = 0;
+
         virtual ~WindowImpl() = default;
     };
 
@@ -27,6 +29,8 @@ namespace sun::monitor
         [[nodiscard]] QIcon getIcon() const { return impl->getIcon(); }
 
         void close() const { impl->close(); }
+
+        bool operator==(const Window& other) const { return impl.get() == other.impl.get(); }
 
         ~Window() = default;
 

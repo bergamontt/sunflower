@@ -46,4 +46,10 @@ namespace sun::monitor::x11
 
         XCloseDisplay(display);
     }
+
+    bool X11WindowImpl::operator==(const WindowImpl& other) const
+    {
+        const auto* window = dynamic_cast<const X11WindowImpl*>(&other);
+        return window && this->windowId == window->windowId;
+    }
 }

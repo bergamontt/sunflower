@@ -45,4 +45,10 @@ namespace sun::monitor::win32
         if (windowId != nullptr)
             PostMessageW(windowId, WM_CLOSE, 0, 0);
     }
+
+    bool Win32WindowImpl::operator==(const WindowImpl& other) const
+    {
+        const auto* window = dynamic_cast<const Win32WindowImpl*>(&other);
+        return window && this->windowId == window->windowId;
+    }
 }

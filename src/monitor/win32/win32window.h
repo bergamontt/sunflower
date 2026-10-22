@@ -19,6 +19,8 @@ namespace sun::monitor::win32
 
         void close() const override;
 
+        [[nodiscard]] bool operator==(const WindowImpl& other) const override;
+
     private:
         WindowId windowId;
 
