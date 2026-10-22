@@ -23,6 +23,7 @@ namespace sun::persistence
         void removeAllApplicationLists(int scheduleId) const;
 
         QList<ApplicationList> getAllApplicationLists(int scheduleId) const;
+        QList<Schedule> getAllByApplicationList(int listId) const;
 
     private:
         virtual Schedule doCreate(const CreateScheduleDto& dto) const = 0;
@@ -38,6 +39,7 @@ namespace sun::persistence
         virtual void doRemoveAllApplicationLists(int scheduleId) const = 0;
 
         virtual QList<ApplicationList> doGetAllApplicationLists(int scheduleId) const = 0;
+        virtual QList<Schedule> doGetAllByApplicationList(int listId) const = 0;
     };
 
     inline Schedule IScheduleDao::create(const CreateScheduleDto& dto) const
@@ -83,5 +85,10 @@ namespace sun::persistence
     inline QList<ApplicationList> IScheduleDao::getAllApplicationLists(int scheduleId) const
     {
         return doGetAllApplicationLists(scheduleId);
+    }
+
+    inline QList<Schedule> IScheduleDao::getAllByApplicationList(int listId) const
+    {
+        return doGetAllByApplicationList(listId);
     }
 } // sun::persistence

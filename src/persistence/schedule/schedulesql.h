@@ -51,4 +51,10 @@ namespace sun::persistence::schedule
         "WHERE id IN ( "
         "SELECT application_list_id FROM schedule_application_list "
         "WHERE schedule_id = :schedule_id)";
+
+    inline const auto get_all_by_application_list =
+        "SELECT * FROM schedule "
+        "WHERE id IN ( "
+        "SELECT schedule_id FROM schedule_application_list "
+        "WHERE application_list_id = :application_list_id)";
 } // sun::persistence::schedule

@@ -115,4 +115,14 @@ namespace sun::persistence::test
         QList<ApplicationList> lists = scheduleDao.getAllApplicationLists(created.id);
         ASSERT_TRUE(lists.isEmpty());
     }
+
+    TEST_F(ScheduleDaoTest, GetsAllSchedulesByApplicationListId)
+    {
+        Schedule created = scheduleDao.create(createDto);
+        ApplicationList list = applicationListDao.create(createList);
+        scheduleDao.addApplicationList(created.id, list.id);
+        QList<Schedule> schedules = scheduleDao.getAllByApplicationList(list.id);
+        ASSERT_EQ(schedules.length(), 1);
+        ASSERT_TRUE(schedules.contains(created));
+    }
 } // sun::persistence::test
