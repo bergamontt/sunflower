@@ -54,6 +54,14 @@ namespace sun::persistence::test
         ASSERT_FALSE(found.has_value());
     }
 
+    TEST_F(ActivityDaoTest, GetsAllActivitiesByApplicationId)
+    {
+        Activity created = activityDao.create(createDto);
+        QList<Activity> activities = activityDao.getAllByApplicationId(application.id);
+        ASSERT_EQ(activities.length(), 1);
+        ASSERT_TRUE(activities.contains(created));
+    }
+
     TEST_F(ActivityDaoTest, UpdatesActivity)
     {
         Activity created = activityDao.create(createDto);

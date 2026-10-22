@@ -40,6 +40,20 @@ namespace sun::persistence
         return std::nullopt;
     }
 
+    QList<Activity> ActivityDao::doGetAllByApplicationId(int id) const
+    {
+        QSqlQuery query;
+        query.prepare(sun::persistence::activity::get_all_by_application_id);
+        query.bindValue(":application_id", id);
+        query.exec();
+        QList<Activity> result;
+        while(query.next())
+        {
+            result.append(ActivityMapper::toActivity(query));
+        }
+        return result;
+    }
+
     void ActivityDao::doDeleteById(int id) const
     {
         QSqlQuery query;

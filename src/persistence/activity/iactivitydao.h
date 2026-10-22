@@ -12,11 +12,13 @@ namespace sun::persistence
         Activity create(const CreateActivityDto& dto) const;
         Activity updateById(const UpdateActivityDto& dto) const;
         std::optional<Activity> getById(int id) const;
+        QList<Activity> getAllByApplicationId(int id) const;
         void deleteById(int id) const;
     private:
         virtual Activity doCreate(const CreateActivityDto& dto) const = 0;
         virtual Activity doUpdateGetById(const UpdateActivityDto& dto) const = 0;
         virtual std::optional<Activity> doGetById(int id) const = 0;
+        virtual QList<Activity> doGetAllByApplicationId(int id) const = 0;
         virtual void doDeleteById(int id) const = 0;
     };
 
@@ -33,6 +35,11 @@ namespace sun::persistence
     inline std::optional<Activity> IActivityDao::getById(int id) const
     {
         return doGetById(id);
+    }
+
+    inline QList<Activity> IActivityDao::getAllByApplicationId(int id) const
+    {
+        return doGetAllByApplicationId(id);
     }
 
     inline void IActivityDao::deleteById(int id) const
