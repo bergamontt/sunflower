@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QString>
 #include <QTime>
 
 #include <optional>
@@ -22,19 +21,30 @@ namespace sun::persistence
             Delay
         };
 
+        enum Day
+        {
+            MON = 0b0000001,
+            TUE = 0b0000010,
+            WED = 0b0000100,
+            THU = 0b0001000,
+            FRI = 0b0010000,
+            SAT = 0b0100000,
+            SUN = 0b1000000
+        };
+
         int id;
         QString name;
-        
+
         Type type;
         LockType lockType;
-        
+
         int repeatAt;
 
         std::optional<QTime> startsAt;
         std::optional<QTime> endsAt;
-        
+
         std::optional<int> dailyLimit;
-        
+
         std::optional<QString> lockHash;
         std::optional<int> unlockAfter;
         std::optional<QDateTime> unlockRequestedAt;
@@ -43,17 +53,17 @@ namespace sun::persistence
     struct CreateScheduleDto
     {
         QString name;
-        
+
         Schedule::Type type;
         Schedule::LockType lockType;
-        
+
         int repeatAt;
 
         std::optional<QTime> startsAt;
         std::optional<QTime> endsAt;
-        
+
         std::optional<int> dailyLimit;
-        
+
         std::optional<QString> lockHash;
         std::optional<int> unlockAfter;
         std::optional<QDateTime> unlockRequestedAt;
@@ -63,17 +73,17 @@ namespace sun::persistence
     {
         int id;
         QString name;
-        
+
         Schedule::Type type;
         Schedule::LockType lockType;
-        
+
         int repeatAt;
 
         std::optional<QTime> startsAt;
         std::optional<QTime> endsAt;
-        
+
         std::optional<int> dailyLimit;
-        
+
         std::optional<QString> lockHash;
         std::optional<int> unlockAfter;
         std::optional<QDateTime> unlockRequestedAt;
@@ -128,5 +138,5 @@ namespace sun::persistence
             a.endsAt == b.endsAt && a.dailyLimit == b.dailyLimit && a.lockHash == b.lockHash &&
             a.unlockAfter == b.unlockAfter && a.unlockRequestedAt == b.unlockRequestedAt;
     }
-    
+
 } // sun::persistence::schedule
