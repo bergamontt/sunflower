@@ -22,6 +22,17 @@ namespace sun::persistence
             Delay
         };
 
+        enum WeekDay : int
+        {
+            MON = 0b0000001,
+            TUE = 0b0000010,
+            WED = 0b0000100,
+            THU = 0b0001000,
+            FRI = 0b0010000,
+            SAT = 0b0100000,
+            SUN = 0b1000000
+        };
+
         int id;
         QString name;
         
