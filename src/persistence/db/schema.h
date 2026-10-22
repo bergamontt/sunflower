@@ -31,14 +31,10 @@ namespace sun::persistence::schema
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "name TEXT NOT NULL, "
         "type TEXT NOT NULL, "
-        "lock_type TEXT NOT NULL, "
         "repeat_at INTEGER NOT NULL, "
         "starts_at TEXT, "
         "ends_at TEXT, "
-        "daily_limit INTEGER, "
-        "lock_hash TEXT, "
-        "unlock_after INTEGER, "
-        "unlock_requested_at TEXT) ";
+        "daily_limit INTEGER) ";
 
     inline const auto create_schedule_application_list_table =
         "CREATE TABLE schedule_application_list ("

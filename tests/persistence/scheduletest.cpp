@@ -11,10 +11,10 @@ namespace sun::persistence::test
     {
     protected:
         ScheduleDaoTest()
-            : createDto({"name", Schedule::Type::DailyLimit, Schedule::LockType::None, 0})
-            , updateDto({1, "updated", Schedule::Type::TimeWindow, Schedule::LockType::Delay, 0})
-            , expected({1, createDto.name, createDto.type, createDto.lockType, createDto.repeatAt})
-            , updatedExpected({updateDto.id, updateDto.name, updateDto.type, updateDto.lockType, updateDto.repeatAt})
+            : createDto({"name", Schedule::Type::DailyLimit, 0})
+            , updateDto({1, "updated", Schedule::Type::TimeWindow, 0})
+            , expected({1, createDto.name, createDto.type, createDto.repeatAt})
+            , updatedExpected({updateDto.id, updateDto.name, updateDto.type, updateDto.repeatAt})
         {}
     private:
         DbTestFixture db;
