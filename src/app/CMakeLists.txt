@@ -11,4 +11,5 @@ target_link_libraries(
     PRIVATE
         gui
         core
+        persistence
 )

@@ -38,16 +38,14 @@ namespace sun::persistence
         Type type;
         LockType lockType;
 
+        int id;
+        QString name;
+        Type type;
         int repeatAt;
 
         std::optional<QTime> startsAt;
         std::optional<QTime> endsAt;
-
         std::optional<int> dailyLimit;
-
-        std::optional<QString> lockHash;
-        std::optional<int> unlockAfter;
-        std::optional<QDateTime> unlockRequestedAt;
     };
 
     struct CreateScheduleDto
@@ -55,38 +53,24 @@ namespace sun::persistence
         QString name;
 
         Schedule::Type type;
-        Schedule::LockType lockType;
-
+        
         int repeatAt;
 
         std::optional<QTime> startsAt;
         std::optional<QTime> endsAt;
-
         std::optional<int> dailyLimit;
-
-        std::optional<QString> lockHash;
-        std::optional<int> unlockAfter;
-        std::optional<QDateTime> unlockRequestedAt;
     };
 
     struct UpdateScheduleDto
     {
         int id;
         QString name;
-
         Schedule::Type type;
-        Schedule::LockType lockType;
-
         int repeatAt;
 
         std::optional<QTime> startsAt;
         std::optional<QTime> endsAt;
-
         std::optional<int> dailyLimit;
-
-        std::optional<QString> lockHash;
-        std::optional<int> unlockAfter;
-        std::optional<QDateTime> unlockRequestedAt;
     };
 
     inline QString toString(const Schedule::Type type)
@@ -108,35 +92,11 @@ namespace sun::persistence
         return Schedule::Type::DailyLimit;
     }
 
-    inline QString toString(const Schedule::LockType type)
-    {
-        switch (type)
-        {
-            case Schedule::LockType::Password:
-                return "PASSWORD";
-            case Schedule::LockType::Delay:
-                return "DELAY";
-            case Schedule::LockType::None:
-                return "NONE";
-        }
-        return "NONE";
-    }
-
-    inline Schedule::LockType toLockType(const QString& str)
-    {
-        if (str == "PASSWORD")
-            return Schedule::LockType::Password;
-        else if (str == "DELAY")
-            return Schedule::LockType::Delay;
-        return Schedule::LockType::None;
-    }
-
     inline bool operator==(const Schedule& a, const Schedule& b)
     {
         return a.id == b.id && a.name == b.name && a.type == b.type &&
-            a.lockType == b.lockType && a.repeatAt == b.repeatAt && a.startsAt == b.startsAt &&
-            a.endsAt == b.endsAt && a.dailyLimit == b.dailyLimit && a.lockHash == b.lockHash &&
-            a.unlockAfter == b.unlockAfter && a.unlockRequestedAt == b.unlockRequestedAt;
+            a.repeatAt == b.repeatAt && a.startsAt == b.startsAt &&
+            a.endsAt == b.endsAt && a.dailyLimit == b.dailyLimit;
     }
 
 } // sun::persistence::schedule
