@@ -23,14 +23,10 @@ namespace sun::persistence
             query.value("id").toInt(),
             query.value("name").toString(),
             toType(query.value("type").toString()),
-            toLockType(query.value("lock_type").toString()),
             query.value("repeat_at").toInt(),
             fromVariant<QTime>(query.value("starts_at")),
             fromVariant<QTime>(query.value("ends_at")),
-            fromVariant<int>(query.value("daily_limit")),
-            fromVariant<QString>(query.value("lock_hash")),
-            fromVariant<int>(query.value("unlock_after")),
-            fromVariant<QDateTime>(query.value("unlock_requested_at"))
+            fromVariant<int>(query.value("daily_limit"))
         };
     }
 
@@ -38,14 +34,10 @@ namespace sun::persistence
     {
         query.bindValue(":name", dto.name);
         query.bindValue(":type", toString(dto.type));
-        query.bindValue(":lock_type", toString(dto.lockType));
         query.bindValue(":repeat_at", dto.repeatAt);
         query.bindValue(":starts_at", toVariant(dto.startsAt));
         query.bindValue(":ends_at", toVariant(dto.endsAt));
         query.bindValue(":daily_limit", toVariant(dto.dailyLimit));
-        query.bindValue(":lock_hash", toVariant(dto.lockHash));
-        query.bindValue(":unlock_after", toVariant(dto.unlockAfter));
-        query.bindValue(":unlock_requested_at", toVariant(dto.unlockRequestedAt));
     }
 
     inline void ScheduleMapper::bind(QSqlQuery& query, const UpdateScheduleDto& dto)
@@ -57,9 +49,5 @@ namespace sun::persistence
         query.bindValue(":ends_at", toVariant(dto.endsAt));
         query.bindValue(":daily_limit", toVariant(dto.dailyLimit));
         query.bindValue(":repeat_at", dto.repeatAt);
-        query.bindValue(":lock_type", toString(dto.lockType));
-        query.bindValue(":lock_hash", toVariant(dto.lockHash));
-        query.bindValue(":unlock_after", toVariant(dto.unlockAfter));
-        query.bindValue(":unlock_requested_at", toVariant(dto.unlockRequestedAt));
     }
 } // sun::persistence
