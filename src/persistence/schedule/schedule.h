@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QString>
 #include <QTime>
 
 #include <optional>
@@ -14,13 +15,6 @@ namespace sun::persistence
             DailyLimit
         };
 
-        enum LockType
-        {
-            None,
-            Password,
-            Delay
-        };
-
         enum Day
         {
             MON = 0b0000001,
@@ -31,12 +25,6 @@ namespace sun::persistence
             SAT = 0b0100000,
             SUN = 0b1000000
         };
-
-        int id;
-        QString name;
-
-        Type type;
-        LockType lockType;
 
         int id;
         QString name;
@@ -53,7 +41,7 @@ namespace sun::persistence
         QString name;
 
         Schedule::Type type;
-        
+
         int repeatAt;
 
         std::optional<QTime> startsAt;
