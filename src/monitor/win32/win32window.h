@@ -15,11 +15,15 @@ namespace sun::monitor::win32
 
         [[nodiscard]] QString getName() const override;
 
+        [[nodiscard]] QIcon getIcon() const override;
+
         void close() const override;
 
     private:
         WindowId windowId;
 
         QString name;
+
+        QIcon icon;
     };
 }

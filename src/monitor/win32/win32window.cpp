@@ -22,13 +22,22 @@ namespace sun::monitor::win32
         return QString::fromWCharArray(buffer.data(), copied);
     }
 
+    static QIcon getIconById(const WindowId windowId)
+    {
+        return {};
+    }
 
     Win32WindowImpl::Win32WindowImpl(const WindowId windowId)
-        : windowId(windowId), name(getNameById(windowId)) {}
+        : windowId(windowId), name(getNameById(windowId)), icon(getIconById(windowId)) {}
 
     QString Win32WindowImpl::getName() const
     {
         return name;
+    }
+
+    QIcon Win32WindowImpl::getIcon() const
+    {
+        return icon;
     }
 
     void Win32WindowImpl::close() const
