@@ -103,7 +103,7 @@ ScheduleDialog::~ScheduleDialog()
 void ScheduleDialog::setSchedule(const sun::persistence::Schedule& schedule, const QList<sun::persistence::ApplicationList>& applicationLists) {
     this->applicationLists = applicationLists;
   
-    setWindowTitle("Edit " + schedule.name + " schedule");
+    setWindowTitle("Edit \"" + schedule.name + "\" schedule");
 
     ui->scheduleNameEdit->setText(schedule.name);
     ui->applicationShortList->setApplicationList(applicationLists);

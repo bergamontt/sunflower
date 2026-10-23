@@ -13,6 +13,7 @@ ApplicationsDialog::ApplicationsDialog(QWidget *parent) :
     ui(new Ui::ApplicationsDialog)
 {
     ui->setupUi(this);
+    setWindowTitle("New Application List");
 
     connect(
         ui->doneButton,

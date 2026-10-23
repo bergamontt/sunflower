@@ -24,7 +24,7 @@ void ApplicationShortList::resizeEvent(QResizeEvent *event)
 void ApplicationShortList::setApplicationList(QList<sun::persistence::ApplicationList> appicationLists)
 {
     for(const sun::persistence::ApplicationList& applicationList : appicationLists) {
-        if(applicationList.name) {
+        if(applicationList.name.has_value() && !applicationList.name->isEmpty()) {
             listNames.append(*applicationList.name);
         } else {
             const QList<sun::persistence::Application>& applications = applicationListService.getAllApplications(applicationList.id);

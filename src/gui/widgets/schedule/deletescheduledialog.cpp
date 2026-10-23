@@ -6,6 +6,7 @@ DeleteScheduleDialog::DeleteScheduleDialog(QWidget *parent) :
     ui(new Ui::DeleteScheduleDialog)
 {
     ui->setupUi(this);
+    setWindowTitle("Schedule deletion confirmation");
 
     connect(
         ui->deleteButton,
