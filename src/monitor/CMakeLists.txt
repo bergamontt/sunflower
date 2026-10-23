@@ -1,6 +1,8 @@
 add_library(monitor STATIC
         window.h
         monitor.h
+        monitorfactory.h
+        monitorfactory.cpp
 )
 
 target_include_directories(monitor PUBLIC
