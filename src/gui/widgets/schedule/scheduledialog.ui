@@ -335,7 +335,6 @@
  </customwidgets>
  <resources>
   <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
-  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -23,7 +23,7 @@
    <item>
     <layout class="QHBoxLayout" name="scheduleItemHeader">
      <item>
-      <widget class="QLabel" name="scheduleItemName">
+      <widget class="QLabel" name="scheduleName">
        <property name="text">
         <string>Schedule name</string>
        </property>
@@ -100,11 +100,7 @@
    <item>
     <layout class="QHBoxLayout" name="sheduleItemFooter">
      <item>
-      <layout class="QHBoxLayout" name="scheduleItemAppsContainer">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-      </layout>
+      <widget class="ApplicationShortList" name="applicationList" native="true"/>
      </item>
      <item>
       <spacer name="scheduleItemFooterSpacer">
@@ -120,7 +116,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="scheduleItemStatusLabel">
+      <widget class="QLabel" name="scheduleStatus">
        <property name="text">
         <string>Schedule status</string>
        </property>
@@ -130,6 +126,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ApplicationShortList</class>
+   <extends>QWidget</extends>
+   <header>applicationshortlist.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
  </resources>

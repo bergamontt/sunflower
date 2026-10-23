@@ -2,7 +2,7 @@ add_library(core STATIC)
 
 target_link_libraries(
     core
-    PRIVATE 
+    PUBLIC
         monitor
         persistence
 )

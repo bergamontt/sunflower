@@ -33,10 +33,18 @@ target_sources(
         widgets/schedule/scheduledialog.cpp
         widgets/schedule/scheduledialog.ui
 
+        widgets/schedule/deletescheduledialog.h
+        widgets/schedule/deletescheduledialog.cpp
+        widgets/schedule/deletescheduledialog.ui
+
 
         widgets/schedule/applicationshortlist.h
         widgets/schedule/applicationshortlist.cpp
         widgets/schedule/applicationshortlist.ui
+
+        widgets/schedule/applicationdialog.h
+        widgets/schedule/applicationdialog.cpp
+        widgets/schedule/applicationdialog.ui
 
         widgets/settings/settingspage.h
         widgets/settings/settingspage.cpp
