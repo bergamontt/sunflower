@@ -20,5 +20,6 @@ namespace sun::persistence
         void doRemoveAllApplicationLists(int scheduleId) const override;
 
         QList<ApplicationList> doGetAllApplicationLists(int scheduleId) const override;
+        QList<Schedule> doGetAllByApplicationList(int listId) const override;
     };
 } // sun::persistence

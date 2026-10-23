@@ -10,6 +10,7 @@ namespace sun::persistence
         Activity doCreate(const CreateActivityDto& dto) const override;
         Activity doUpdateGetById(const UpdateActivityDto& dto) const override;
         std::optional<Activity> doGetById(int id) const override;
+        QList<Activity> doGetAllByApplicationId(int id) const override;
         void doDeleteById(int id) const override;
     };
 }

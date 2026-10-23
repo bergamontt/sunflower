@@ -16,6 +16,10 @@ namespace sun::persistence::activity
     inline const auto get_by_id =
         "SELECT * FROM activity "
         "WHERE id = :id; ";
+
+    inline const auto get_all_by_application_id =
+        "SELECT * FROM activity "
+        "WHERE application_id = :application_id; ";
     
     inline const auto delete_by_id =
         "DELETE FROM activity "

@@ -100,4 +100,18 @@ namespace sun::persistence
         }
         return result;
     }
+
+    QList<Schedule> ScheduleDao::doGetAllByApplicationList(int listId) const
+    {
+        QSqlQuery query;
+        query.prepare(sun::persistence::schedule::get_all_by_application_list);
+        query.bindValue(":application_list_id", listId);
+        query.exec();
+        QList<Schedule> result;
+        while (query.next())
+        {
+            result.append(ScheduleMapper::toSchedule(query));
+        }
+        return result;
+    }
 } // sun::persistence

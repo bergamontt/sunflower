@@ -18,12 +18,22 @@ namespace sun::monitor::x11
         return result;
     }
 
+    static QIcon getIconById(const WindowId windowId)
+    {
+        return {};
+    }
+
     X11WindowImpl::X11WindowImpl(const WindowId windowId)
-        : windowId(windowId), name(getNameById(windowId)) {}
+        : windowId(windowId), name(getNameById(windowId)), icon(getIconById(windowId)) {}
 
     QString X11WindowImpl::getName() const
     {
         return name;
+    }
+
+    QIcon X11WindowImpl::getIcon() const
+    {
+        return icon;
     }
 
     void X11WindowImpl::close() const
@@ -35,5 +45,11 @@ namespace sun::monitor::x11
         XDestroyWindow(display, windowId);
 
         XCloseDisplay(display);
+    }
+
+    bool X11WindowImpl::operator==(const WindowImpl& other) const
+    {
+        const auto* window = dynamic_cast<const X11WindowImpl*>(&other);
+        return window && this->windowId == window->windowId;
     }
 }

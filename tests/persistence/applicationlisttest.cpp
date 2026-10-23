@@ -118,4 +118,14 @@ namespace sun::persistence::test
         ASSERT_TRUE(applications.isEmpty());
     }
 
+    TEST_F(ApplicationListTest, GetsApplicationListsByApplicationId)
+    {
+        ApplicationList created = applicationListDao.create(createDto);
+        Application createdApplication = applicationDao.create(createApp);
+        applicationListDao.addApplication(created.id, createdApplication.id);
+        QList<ApplicationList> lists = applicationListDao.getAllByApplication(createdApplication.id);
+        ASSERT_EQ(lists.length(), 1);
+        ASSERT_TRUE(lists.contains(created));
+    }
+
 } // sun::persistence::test
