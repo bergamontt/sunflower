@@ -29,6 +29,7 @@ private:
     sun::core::ApplicationListService applicationListService;
 
     void loadApplicationLists();
+    void insertApplicationList(const sun::persistence::ApplicationList& list);
 };
 
 #endif // APPLICATIONDIALOG_H

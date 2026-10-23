@@ -50,6 +50,10 @@ target_sources(
         widgets/schedule/applicationdialog.cpp
         widgets/schedule/applicationdialog.ui
 
+        widgets/schedule/applicationsdialog.h
+        widgets/schedule/applicationsdialog.cpp
+        widgets/schedule/applicationsdialog.ui
+
         widgets/settings/settingspage.h
         widgets/settings/settingspage.cpp
         widgets/settings/settingspage.ui

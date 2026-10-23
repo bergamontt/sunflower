@@ -1,5 +1,6 @@
 #include "applicationdialog.h"
 #include "applicationlist.h"
+#include "applicationsdialog.h"
 #include "ui_applicationdialog.h"
 #include <optional>
 #include <qnamespace.h>
@@ -38,6 +39,21 @@ ApplicationDialog::ApplicationDialog(QWidget *parent) :
         &ApplicationDialog::onItemChanged
     );
 
+    connect(
+        ui->newListButton,
+        &QPushButton::clicked,
+        this,
+        [this](){
+            ApplicationsDialog applicationsDialog;
+            if(applicationsDialog.exec() == QDialog::Accepted) {
+                sun::persistence::ApplicationList applicationList = applicationsDialog.getApplicationList();
+                ui->title->setText("Choose applications to block");
+                insertApplicationList(applicationList);
+            }
+        }
+
+    );
+
     loadApplicationLists();
 }
 
@@ -51,33 +67,38 @@ void ApplicationDialog::loadApplicationLists()
     ui->applicationTree->clear();
     QList<sun::persistence::ApplicationList> allApplicationLists = applicationListService.getAll();
 
+    if(allApplicationLists.empty()) ui->title->setText("Create your first application list");
+
     for (const sun::persistence::ApplicationList& list : allApplicationLists) {
-        if(!list.name.has_value()) continue;
-
-        QTreeWidgetItem* listItem = new QTreeWidgetItem(ui->applicationTree);
-
-        listItem->setText(0, *list.name);
-        listItem->setFlags(listItem->flags() | Qt::ItemIsUserCheckable);
-        listItem->setCheckState(0, Qt::Unchecked);
-        listItem->setData(0, ItemTypeRole, ListItemType);
-        listItem->setData(0, ListIdRole, list.id);
-
-        const QList<sun::persistence::Application> applications = applicationListService.getAllApplications(list.id);
-
-        for (const sun::persistence::Application& application : applications) {
-            QTreeWidgetItem* applicationItem = new QTreeWidgetItem(listItem);
-
-            applicationItem->setText(0, application.name);
-            applicationItem->setFlags(applicationItem->flags() | Qt::ItemIsUserCheckable);
-            applicationItem->setCheckState(0, Qt::Unchecked);
-
-            applicationItem->setData(0, ItemTypeRole, ApplicationItemType);
-            applicationItem->setData(0, ListIdRole, list.id);
-            applicationItem->setData(0, ApplicationIdRole, application.id);
-        }
-
-        listItem->setExpanded(false);
+        if(!list.name.has_value() || list.name->isEmpty()) continue;
+        insertApplicationList(list);
     }
+}
+
+void ApplicationDialog::insertApplicationList(const sun::persistence::ApplicationList& list)
+{
+    QTreeWidgetItem* listItem = new QTreeWidgetItem(ui->applicationTree);
+
+    listItem->setText(0, *list.name);
+    listItem->setFlags(listItem->flags() | Qt::ItemIsUserCheckable);
+    listItem->setCheckState(0, Qt::Unchecked);
+    listItem->setData(0, ItemTypeRole, ListItemType);
+    listItem->setData(0, ListIdRole, list.id);
+
+    const QList<sun::persistence::Application> applications = applicationListService.getAllApplications(list.id);
+    for (const sun::persistence::Application& application : applications) {
+        QTreeWidgetItem* applicationItem = new QTreeWidgetItem(listItem);
+
+        applicationItem->setText(0, application.name);
+        applicationItem->setFlags(applicationItem->flags() | Qt::ItemIsUserCheckable);
+        applicationItem->setCheckState(0, Qt::Unchecked);
+
+        applicationItem->setData(0, ItemTypeRole, ApplicationItemType);
+        applicationItem->setData(0, ListIdRole, list.id);
+        applicationItem->setData(0, ApplicationIdRole, application.id);
+    }
+
+    listItem->setExpanded(false);
 }
 
 void ApplicationDialog::onItemChanged(QTreeWidgetItem* item, int column)

@@ -12,6 +12,9 @@ target_sources(
     PUBLIC
         schedule/scheduleservice.h
         schedule/scheduleservice.cpp
+
+        application/applicationservice.h
+        application/applicationservice.cpp
         
         applicationlist/applicationlistservice.h
         applicationlist/applicationlistservice.cpp
@@ -35,6 +38,7 @@ target_include_directories(
     core
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/application
         ${CMAKE_CURRENT_SOURCE_DIR}/applicationlist
         ${CMAKE_CURRENT_SOURCE_DIR}/schedule
         ${CMAKE_CURRENT_SOURCE_DIR}/monitoring
