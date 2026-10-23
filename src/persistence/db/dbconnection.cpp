@@ -13,8 +13,11 @@ namespace sun::persistence
         {
             db = QSqlDatabase::addDatabase(config.driverType);
         }
-        db.setDatabaseName(config.databaseName);
-        db.open();
+        if (!db.isOpen())
+        {
+            db.setDatabaseName(config.databaseName);
+            db.open();
+        }
     }
 
     DbConnection::~DbConnection()
