@@ -5,6 +5,9 @@
 #include <qdialog.h>
 #include <qpushbutton.h>
 
+#include <QButtonGroup>
+#include <QStyle>
+
 ScheduleDialog::ScheduleDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ScheduleDialog)
@@ -81,6 +84,15 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
             }
         });
     }
+    setWindowTitle("Create new Schedule");
+
+    for (QWidget *widget : ui->blockTypeContainer->findChildren<QWidget *>()) {
+        widget->style()->unpolish(widget);
+        widget->style()->polish(widget);
+        widget->update();
+    }
+
+    resize(435, 463);
 }
 
 ScheduleDialog::~ScheduleDialog()
@@ -90,6 +102,8 @@ ScheduleDialog::~ScheduleDialog()
 
 void ScheduleDialog::setSchedule(const sun::persistence::Schedule& schedule, const QList<sun::persistence::ApplicationList>& applicationLists) {
     this->applicationLists = applicationLists;
+  
+    setWindowTitle("Edit " + schedule.name + " schedule");
 
     ui->scheduleNameEdit->setText(schedule.name);
     ui->applicationShortList->setApplicationList(applicationLists);
@@ -102,31 +116,31 @@ void ScheduleDialog::setSchedule(const sun::persistence::Schedule& schedule, con
         ui->toTime->setTime(*schedule.endsAt);
     }
 
-    if (schedule.repeatAt & sun::persistence::Schedule::WeekDay::MON) {
+    if (schedule.repeatAt & sun::persistence::Schedule::Day::MON) {
         ui->mondayButton->setChecked(true);
     }
 
-    if (schedule.repeatAt & sun::persistence::Schedule::WeekDay::TUE) {
+    if (schedule.repeatAt & sun::persistence::Schedule::Day::TUE) {
         ui->tuesdayButton->setChecked(true);
     }
 
-    if (schedule.repeatAt & sun::persistence::Schedule::WeekDay::WED) {
+    if (schedule.repeatAt & sun::persistence::Schedule::Day::WED) {
         ui->wednesdayButton->setChecked(true);
     }
 
-    if (schedule.repeatAt & sun::persistence::Schedule::WeekDay::THU) {
+    if (schedule.repeatAt & sun::persistence::Schedule::Day::THU) {
         ui->thursdayButton->setChecked(true);
     }
 
-    if (schedule.repeatAt & sun::persistence::Schedule::WeekDay::FRI) {
+    if (schedule.repeatAt & sun::persistence::Schedule::Day::FRI) {
         ui->fridayButton->setChecked(true);
     }
 
-    if (schedule.repeatAt & sun::persistence::Schedule::WeekDay::SAT) {
+    if (schedule.repeatAt & sun::persistence::Schedule::Day::SAT) {
         ui->saturdayButton->setChecked(true);
     }
 
-    if (schedule.repeatAt & sun::persistence::Schedule::WeekDay::SUN) {
+    if (schedule.repeatAt & sun::persistence::Schedule::Day::SUN) {
         ui->sundayButton->setChecked(true);
     }
 };
@@ -149,31 +163,31 @@ sun::persistence::CreateScheduleDto ScheduleDialog::getSchedule() const
     schedule.repeatAt = 0;
 
     if (ui->mondayButton->isChecked()) {
-        schedule.repeatAt |= sun::persistence::Schedule::WeekDay::MON;
+        schedule.repeatAt |= sun::persistence::Schedule::Day::MON;
     }
 
     if (ui->tuesdayButton->isChecked()) {
-        schedule.repeatAt |= sun::persistence::Schedule::WeekDay::TUE;
+        schedule.repeatAt |= sun::persistence::Schedule::Day::TUE;
     }
 
     if (ui->wednesdayButton->isChecked()) {
-        schedule.repeatAt |= sun::persistence::Schedule::WeekDay::WED;
+        schedule.repeatAt |= sun::persistence::Schedule::Day::WED;
     }
 
     if (ui->thursdayButton->isChecked()) {
-        schedule.repeatAt |= sun::persistence::Schedule::WeekDay::THU;
+        schedule.repeatAt |= sun::persistence::Schedule::Day::THU;
     }
 
     if (ui->fridayButton->isChecked()) {
-        schedule.repeatAt |= sun::persistence::Schedule::WeekDay::FRI;
+        schedule.repeatAt |= sun::persistence::Schedule::Day::FRI;
     }
 
     if (ui->saturdayButton->isChecked()) {
-        schedule.repeatAt |= sun::persistence::Schedule::WeekDay::SAT;
+        schedule.repeatAt |= sun::persistence::Schedule::Day::SAT;
     }
 
     if (ui->sundayButton->isChecked()) {
-        schedule.repeatAt |= sun::persistence::Schedule::WeekDay::SUN;
+        schedule.repeatAt |= sun::persistence::Schedule::Day::SUN;
     }
 
     return schedule;

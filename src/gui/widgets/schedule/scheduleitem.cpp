@@ -33,7 +33,7 @@ void ScheduleItem::setSchedule(const sun::persistence::Schedule& schedule, const
     if (schedule.type == sun::persistence::Schedule::TimeWindow) {
         status = QString("Active from %1 to %2").arg(schedule.startsAt->toString("HH:mm"), schedule.endsAt->toString("HH:mm"));
     } else if (schedule.type == sun::persistence::Schedule::DailyLimit) {
-        status = QString("%1 per day").arg(*schedule.dailyLimit);
+        status = QString("%1h per day").arg(*schedule.dailyLimit / 3600);
     }
     ui->scheduleStatus->setText(status);
 }

@@ -3,10 +3,11 @@ add_library(gui STATIC)
 target_link_libraries(
     gui 
     PUBLIC 
-        Qt6::Widgets
         core
+        Qt6::Widgets
     PRIVATE
         Qt6::Svg
+        Qt6::Charts
 )
     
 target_sources(
@@ -20,6 +21,10 @@ target_sources(
         widgets/statistics/statisticspage.h
         widgets/statistics/statisticspage.cpp
         widgets/statistics/statisticspage.ui
+
+        widgets/statistics/windowstatistics.h
+        widgets/statistics/windowstatistics.cpp
+        widgets/statistics/windowstatistics.ui
 
         widgets/schedule/schedulepage.h
         widgets/schedule/schedulepage.cpp
@@ -37,7 +42,6 @@ target_sources(
         widgets/schedule/deletescheduledialog.cpp
         widgets/schedule/deletescheduledialog.ui
 
-
         widgets/schedule/applicationshortlist.h
         widgets/schedule/applicationshortlist.cpp
         widgets/schedule/applicationshortlist.ui
@@ -54,9 +58,11 @@ target_sources(
         widgets/settings/appearancesection.cpp
         widgets/settings/appearancesection.ui
 
+        widgets/settings/strictmodetext.h
         widgets/settings/strictmodesection.h
         widgets/settings/strictmodesection.cpp
         widgets/settings/strictmodesection.ui
+        widgets/settings/strictmodeutils.h
 )   
 
 target_include_directories(
@@ -72,6 +78,12 @@ qt_add_resources(gui "gui"
     PREFIX "/gui"
     BASE "resources"
     FILES
+        resources/sunflower.svg
+        resources/alarm-yellow.svg
+        resources/pause-grey.svg
+        resources/play-green.svg
+        resources/style.qss
+        resources/arrow.svg
         resources/delete.svg
         resources/done.svg
         resources/edit.svg
@@ -82,5 +94,4 @@ qt_add_resources(gui "gui"
         resources/play.svg
         resources/plus.svg
         resources/settings.svg
-        resources/sunflower.svg
 )

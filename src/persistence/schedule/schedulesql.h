@@ -3,9 +3,9 @@
 namespace sun::persistence::schedule
 {
     inline const auto create =
-        "INSERT INTO schedule (name, type, starts_at, ends_at, daily_limit, repeat_at, lock_type, lock_hash, unlock_after, unlock_requested_at)"
-        "VALUES (:name, :type, :starts_at, :ends_at, :daily_limit, :repeat_at, :lock_type, :lock_hash, :unlock_after, :unlock_requested_at) "
-        "RETURNING id, name, type, starts_at, ends_at, daily_limit, repeat_at, lock_type, lock_hash, unlock_after, unlock_requested_at ";
+        "INSERT INTO schedule (name, type, starts_at, ends_at, daily_limit, repeat_at)"
+        "VALUES (:name, :type, :starts_at, :ends_at, :daily_limit, :repeat_at) "
+        "RETURNING id, name, type, starts_at, ends_at, daily_limit, repeat_at";
 
     inline const auto update_by_id =
         "UPDATE schedule "
@@ -14,13 +14,9 @@ namespace sun::persistence::schedule
         "starts_at = :starts_at, "
         "ends_at = :ends_at, "
         "daily_limit = :daily_limit, "
-        "repeat_at = :repeat_at, "
-        "lock_type = :lock_type, "
-        "lock_hash = :lock_hash, "
-        "unlock_after = :unlock_after, "
-        "unlock_requested_at = :unlock_requested_at "
+        "repeat_at = :repeat_at "
         "WHERE id = :id "
-        "RETURNING id, name, type, starts_at, ends_at, daily_limit, repeat_at, lock_type, lock_hash, unlock_after, unlock_requested_at ";
+        "RETURNING id, name, type, starts_at, ends_at, daily_limit, repeat_at";
     
     inline const auto delete_by_id = 
         "DELETE FROM schedule "
@@ -51,4 +47,10 @@ namespace sun::persistence::schedule
         "WHERE id IN ( "
         "SELECT application_list_id FROM schedule_application_list "
         "WHERE schedule_id = :schedule_id)";
+
+    inline const auto get_all_by_application_list =
+        "SELECT * FROM schedule "
+        "WHERE id IN ( "
+        "SELECT schedule_id FROM schedule_application_list "
+        "WHERE application_list_id = :application_list_id)";
 } // sun::persistence::schedule

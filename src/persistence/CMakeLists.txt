@@ -47,6 +47,8 @@ target_sources(persistence PUBLIC
     db/dbconnection.h
     db/sqlutils.h
     db/schema.h
+    db/database.h
+    db/database.cpp
 )
 
 target_include_directories(

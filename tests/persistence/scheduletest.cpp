@@ -11,10 +11,10 @@ namespace sun::persistence::test
     {
     protected:
         ScheduleDaoTest()
-            : createDto({"name", Schedule::Type::DailyLimit, Schedule::LockType::None, 0})
-            , updateDto({1, "updated", Schedule::Type::TimeWindow, Schedule::LockType::Delay, 0})
-            , expected({1, createDto.name, createDto.type, createDto.lockType, createDto.repeatAt})
-            , updatedExpected({updateDto.id, updateDto.name, updateDto.type, updateDto.lockType, updateDto.repeatAt})
+            : createDto({"name", Schedule::Type::DailyLimit, 0})
+            , updateDto({1, "updated", Schedule::Type::TimeWindow, 0})
+            , expected({1, createDto.name, createDto.type, createDto.repeatAt})
+            , updatedExpected({updateDto.id, updateDto.name, updateDto.type, updateDto.repeatAt})
         {}
     private:
         DbTestFixture db;
@@ -114,5 +114,15 @@ namespace sun::persistence::test
         scheduleDao.removeAllApplicationLists(created.id);
         QList<ApplicationList> lists = scheduleDao.getAllApplicationLists(created.id);
         ASSERT_TRUE(lists.isEmpty());
+    }
+
+    TEST_F(ScheduleDaoTest, GetsAllSchedulesByApplicationListId)
+    {
+        Schedule created = scheduleDao.create(createDto);
+        ApplicationList list = applicationListDao.create(createList);
+        scheduleDao.addApplicationList(created.id, list.id);
+        QList<Schedule> schedules = scheduleDao.getAllByApplicationList(list.id);
+        ASSERT_EQ(schedules.length(), 1);
+        ASSERT_TRUE(schedules.contains(created));
     }
 } // sun::persistence::test

@@ -10,4 +10,6 @@ target_link_libraries(
     sunflower
     PRIVATE
         gui
+        core
+        persistence
 )

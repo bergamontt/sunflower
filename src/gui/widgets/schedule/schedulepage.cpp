@@ -5,20 +5,23 @@
 #include "deletescheduledialog.h"
 #include "scheduleitem.h"
 #include "ui_schedulepage.h"
+#include "scheduledialog.h"
+#include <qnamespace.h>
 
 SchedulePage::SchedulePage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SchedulePage)
 {
     ui->setupUi(this);
+    ui->scheduleList->setAlignment(Qt::AlignTop);
     loadSchedules();
 
     connect(
-    ui->newScheduleButton,
-    &QPushButton::clicked,
-    this,
-    &SchedulePage::onCreateScheduleButtonClicked
-);
+        ui->newScheduleButton,
+        &QPushButton::clicked,
+        this,
+        &SchedulePage::onCreateScheduleButtonClicked
+    );
 }
 
 SchedulePage::~SchedulePage()
@@ -36,6 +39,9 @@ void SchedulePage::loadSchedules()
         QList<sun::persistence::ApplicationList> applicationlists = scheduleService.getAllApplicationLists(schedule.id);
         item->setSchedule(schedule, applicationlists);
 
+        connect(item, &ScheduleItem::deleteRequested, this, &SchedulePage::onDeleteScheduleRequested);
+        connect(item, &ScheduleItem::editRequested, this, &SchedulePage::onEditScheduleRequested);
+
         ui->scheduleList->addWidget(item);
     }
 }
@@ -50,6 +56,12 @@ void SchedulePage::onCreateScheduleButtonClicked()
         for(sun::persistence::ApplicationList applicationlist : applicationLists) {
             scheduleService.addApplicationList(schedule.id, applicationlist.id);
         }
+        ScheduleItem* item = new ScheduleItem(this);
+        item->setObjectName("scheduleItem-" + QString::number(schedule.id));
+        item->setSchedule(schedule, applicationLists);
+        connect(item, &ScheduleItem::deleteRequested, this, &SchedulePage::onDeleteScheduleRequested);
+        connect(item, &ScheduleItem::editRequested, this, &SchedulePage::onEditScheduleRequested);
+        ui->scheduleList->addWidget(item);
     }
 }
 
@@ -102,7 +114,8 @@ void SchedulePage::onEditScheduleRequested(sun::persistence::Schedule schedule, 
                 }
             }
         }
-        ui->scheduleList->findChild<ScheduleItem*>("scheduleItem-" + QString::number(schedule.id))->setSchedule(newSchedule, newApplicationLists);
+        ScheduleItem *item = findChild<ScheduleItem *>("scheduleItem-" + QString::number(schedule.id));
+        if (item) item->setSchedule(newSchedule, newApplicationLists);
     }
 }
 
@@ -113,6 +126,7 @@ void SchedulePage::onDeleteScheduleRequested(int scheduleId, QString scheduleNam
 
     if(deleteDialog->exec() == QDialog::Accepted) {
         scheduleService.deleteById(scheduleId);
-        ui->scheduleList->findChild<ScheduleItem*>("scheduleItem-" + QString::number(scheduleId))->deleteLater();
+        QWidget *item = findChild<QWidget *>("scheduleItem-" + QString::number(scheduleId));
+        if (item) item->deleteLater();
     }
 }

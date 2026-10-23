@@ -3,6 +3,10 @@ add_library(monitor STATIC
         monitor.h
 )
 
+target_include_directories(monitor PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 if(WIN32)
     target_sources(monitor PRIVATE
             win32/win32window.h
@@ -22,4 +26,4 @@ else()
     target_link_libraries(monitor PRIVATE X11::X11)
 endif()
 
-target_link_libraries(monitor PUBLIC Qt6::Core)
+target_link_libraries(monitor PUBLIC Qt6::Core Qt6::Gui)

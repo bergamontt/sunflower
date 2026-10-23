@@ -6,6 +6,17 @@ DeleteScheduleDialog::DeleteScheduleDialog(QWidget *parent) :
     ui(new Ui::DeleteScheduleDialog)
 {
     ui->setupUi(this);
+
+    connect(
+        ui->deleteButton,
+        &QPushButton::clicked,
+        this,
+        &QDialog::accept);
+
+    connect(ui->cancelButton, 
+        &QPushButton::clicked,
+        this,
+        &QDialog::reject);
 }
 
 DeleteScheduleDialog::~DeleteScheduleDialog()

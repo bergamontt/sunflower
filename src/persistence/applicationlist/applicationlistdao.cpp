@@ -101,4 +101,18 @@ namespace sun::persistence
         }
         return result;
     }
+
+    QList<ApplicationList> ApplicationListDao::doGetAllByApplication(int applicationId) const
+    {
+        QSqlQuery query;
+        query.prepare(sun::persistence::application_list::get_all_by_application);
+        query.bindValue(":application_id", applicationId);
+        query.exec();
+        QList<ApplicationList> result;
+        while (query.next())
+        {
+            result.append(ApplicationListMapper::toApplicationList(query));
+        }
+        return result;
+    }
 } // sun::persistence

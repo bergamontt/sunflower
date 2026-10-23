@@ -25,6 +25,9 @@
   <property name="lineWidth">
    <number>1</number>
   </property>
+  <property name="frameClass" stdset="0">
+   <string>section</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="appearanceLabel">
@@ -36,6 +39,9 @@
      </property>
      <property name="text">
       <string>Appearance</string>
+     </property>
+     <property name="labelClass" stdset="0">
+      <string>h2</string>
      </property>
     </widget>
    </item>
@@ -52,6 +58,9 @@
        <property name="text">
         <string>Theme</string>
        </property>
+       <property name="labelClass" stdset="0">
+        <string>h3</string>
+       </property>
       </widget>
      </item>
      <item row="0" column="2">
@@ -62,14 +71,12 @@
          <height>32</height>
         </size>
        </property>
+       <property name="comboClass" stdset="0">
+        <string>default</string>
+       </property>
        <item>
         <property name="text">
          <string>Breeze</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Oxygen</string>
         </property>
        </item>
       </widget>

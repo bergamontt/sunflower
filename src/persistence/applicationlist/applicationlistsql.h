@@ -41,4 +41,9 @@ namespace sun::persistence::application_list
         "SELECT a.* FROM application a "
         "JOIN application_list_application ala ON ala.application_id = a.id "
         "WHERE ala.application_list_id = :application_list_id";
+
+    inline const auto get_all_by_application =
+        "SELECT al.* FROM application_list al "
+        "JOIN application_list_application ala ON ala.application_list_id = al.id "
+        "WHERE ala.application_id = :application_id";
 } // sun::persistence::application_list
