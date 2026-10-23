@@ -71,8 +71,7 @@ void ApplicationDialog::loadApplicationLists()
     if(allApplicationLists.empty()) ui->title->setText("Create your first application list");
 
     for (const sun::persistence::ApplicationList& list : allApplicationLists) {
-        if(!list.name.has_value() || list.name->isEmpty()) continue;
-        insertApplicationList(list);
+        if(list.name.has_value() && !list.name->isEmpty()) insertApplicationList(list);
     }
 }
 
@@ -160,7 +159,7 @@ void ApplicationDialog::setApplicationLists(const QList<sun::persistence::Applic
     }
 
     for (const sun::persistence::ApplicationList& selectedList : applicationLists) {
-        if (selectedList.name.has_value()) {
+        if (selectedList.name.has_value() && !selectedList.name->isEmpty()) {
             for (int i = 0; i < ui->applicationTree->topLevelItemCount(); ++i) {
                 QTreeWidgetItem* listItem = ui->applicationTree->topLevelItem(i);
                 const int listId = listItem->data(0, ListIdRole).toInt();

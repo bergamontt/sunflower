@@ -13,6 +13,14 @@ ScheduleItem::ScheduleItem(QWidget *parent) :
 
     connect(ui->deleteScheduleButton, &QPushButton::clicked, 
         this, [this]() {emit deleteRequested(schedule.id, schedule.name);});
+
+    connect(ui->onButton, &QPushButton::clicked, this, [this](){
+        if(ui->onButton->isChecked()) {
+            
+        } else {
+            
+        }
+    });
 }
 
 ScheduleItem::~ScheduleItem()
