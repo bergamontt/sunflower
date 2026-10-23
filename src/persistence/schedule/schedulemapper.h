@@ -23,6 +23,7 @@ namespace sun::persistence
             query.value("id").toInt(),
             query.value("name").toString(),
             toType(query.value("type").toString()),
+            query.value("is_active").toBool(),
             query.value("repeat_at").toInt(),
             fromVariant<QTime>(query.value("starts_at")),
             fromVariant<QTime>(query.value("ends_at")),
@@ -34,6 +35,7 @@ namespace sun::persistence
     {
         query.bindValue(":name", dto.name);
         query.bindValue(":type", toString(dto.type));
+        query.bindValue(":is_active", dto.isActive);
         query.bindValue(":repeat_at", dto.repeatAt);
         query.bindValue(":starts_at", toVariant(dto.startsAt));
         query.bindValue(":ends_at", toVariant(dto.endsAt));
@@ -45,6 +47,7 @@ namespace sun::persistence
         query.bindValue(":id", dto.id);
         query.bindValue(":name", dto.name);
         query.bindValue(":type", toString(dto.type));
+        query.bindValue(":is_active", dto.isActive);
         query.bindValue(":starts_at", toVariant(dto.startsAt));
         query.bindValue(":ends_at", toVariant(dto.endsAt));
         query.bindValue(":daily_limit", toVariant(dto.dailyLimit));

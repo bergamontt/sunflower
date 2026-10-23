@@ -29,6 +29,7 @@ namespace sun::persistence
         int id;
         QString name;
         Type type;
+        bool isActive;
         int repeatAt;
 
         std::optional<QTime> startsAt;
@@ -39,9 +40,8 @@ namespace sun::persistence
     struct CreateScheduleDto
     {
         QString name;
-
         Schedule::Type type;
-
+        bool isActive;
         int repeatAt;
 
         std::optional<QTime> startsAt;
@@ -54,6 +54,7 @@ namespace sun::persistence
         int id;
         QString name;
         Schedule::Type type;
+        bool isActive;
         int repeatAt;
 
         std::optional<QTime> startsAt;
@@ -84,7 +85,8 @@ namespace sun::persistence
     {
         return a.id == b.id && a.name == b.name && a.type == b.type &&
             a.repeatAt == b.repeatAt && a.startsAt == b.startsAt &&
-            a.endsAt == b.endsAt && a.dailyLimit == b.dailyLimit;
+            a.endsAt == b.endsAt && a.dailyLimit == b.dailyLimit &&
+            a.isActive == b.isActive;
     }
 
 } // sun::persistence::schedule

@@ -28,6 +28,17 @@ namespace sun::persistence
         return ScheduleMapper::toSchedule(query);
     }
 
+    Schedule ScheduleDao::doUpdateIsActiveById(int id, bool isActive) const
+    {
+        QSqlQuery query;
+        query.prepare(sun::persistence::schedule::update_is_active_by_id);
+        query.bindValue(":id", id);
+        query.bindValue(":is_active", isActive);
+        query.exec();
+        query.next();
+        return ScheduleMapper::toSchedule(query);
+    }
+
     std::optional<Schedule> ScheduleDao::doGetById(int id) const
     {
         QSqlQuery query;
