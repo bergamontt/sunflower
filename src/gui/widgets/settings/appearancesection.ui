@@ -79,11 +79,6 @@
          <string>Breeze</string>
         </property>
        </item>
-       <item>
-        <property name="text">
-         <string>Oxygen</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="0" column="1">

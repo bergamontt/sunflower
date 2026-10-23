@@ -9,6 +9,15 @@ add_library(core
         settings/settingskeys.h
         settings/lockpolicy.h
         settings/lockpolicy.cpp
+
+        password/passwordservice.h
+        password/passwordservice.cpp
+)
+
+target_include_directories(
+    core
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(
