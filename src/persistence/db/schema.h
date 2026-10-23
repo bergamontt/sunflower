@@ -31,6 +31,7 @@ namespace sun::persistence::schema
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "name TEXT NOT NULL, "
         "type TEXT NOT NULL, "
+        "is_active INTEGER NOT NULL, "
         "repeat_at INTEGER NOT NULL, "
         "starts_at TEXT, "
         "ends_at TEXT, "

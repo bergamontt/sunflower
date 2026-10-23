@@ -11,10 +11,10 @@ namespace sun::persistence::test
     {
     protected:
         ScheduleDaoTest()
-            : createDto({"name", Schedule::Type::DailyLimit, 0})
-            , updateDto({1, "updated", Schedule::Type::TimeWindow, 0})
-            , expected({1, createDto.name, createDto.type, createDto.repeatAt})
-            , updatedExpected({updateDto.id, updateDto.name, updateDto.type, updateDto.repeatAt})
+            : createDto({"name", Schedule::Type::DailyLimit, true, 0})
+            , updateDto({1, "updated", Schedule::Type::TimeWindow, true, 0})
+            , expected({1, createDto.name, createDto.type, createDto.isActive, createDto.repeatAt})
+            , updatedExpected({updateDto.id, updateDto.name, updateDto.type, updateDto.isActive, updateDto.repeatAt})
         {}
     private:
         DbTestFixture db;
@@ -41,6 +41,13 @@ namespace sun::persistence::test
         Schedule created = scheduleDao.create(createDto);
         Schedule updated = scheduleDao.updateById(updateDto);
         ASSERT_EQ(updated, updatedExpected);
+    }
+
+    TEST_F(ScheduleDaoTest, UpdatesIsActive)
+    {
+        Schedule created = scheduleDao.create(createDto);
+        Schedule updated = scheduleDao.updateIsActiveById(created.id, false);
+        ASSERT_FALSE(updated.isActive);
     }
 
     TEST_F(ScheduleDaoTest, GetsScheduleById)

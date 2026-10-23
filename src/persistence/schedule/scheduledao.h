@@ -9,6 +9,7 @@ namespace sun::persistence
     private:
         Schedule doCreate(const CreateScheduleDto& dto) const override;
         Schedule doUpdateById(const UpdateScheduleDto& dto) const override;
+        Schedule doUpdateIsActiveById(int id, bool isActive) const override;
         std::optional<Schedule> doGetById(int id) const override;
 
         void doDeleteById(int id) const override;
