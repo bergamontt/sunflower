@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "schedule.h"
 #include "applicationlist.h"
+#include "scheduleservice.h"
 
 namespace Ui {
 class ScheduleItem;
@@ -23,6 +24,8 @@ private:
     Ui::ScheduleItem *ui;
     sun::persistence::Schedule schedule;
     QList<sun::persistence::ApplicationList> applicationLists;
+
+    sun::core::ScheduleService scheduleService;
 
 signals:
     void editRequested(const sun::persistence::Schedule& schedule, const QList<sun::persistence::ApplicationList>& applicationLists);

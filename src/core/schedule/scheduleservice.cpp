@@ -13,6 +13,11 @@ namespace sun::core
         return scheduleDao.updateById(dto);
     }
 
+    sun::persistence::Schedule ScheduleService::updateIsActiveById(int id, bool isActive) const
+    {
+        return scheduleDao.updateIsActiveById(id, isActive);
+    }
+
     std::optional<sun::persistence::Schedule> ScheduleService::getById(int id) const
     {
         return scheduleDao.getById(id);

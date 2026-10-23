@@ -10,6 +10,7 @@ namespace sun::core
     public:
         sun::persistence::Schedule create(const sun::persistence::CreateScheduleDto& dto) const;
         sun::persistence::Schedule updateById(const sun::persistence::UpdateScheduleDto& dto) const;
+        sun::persistence::Schedule updateIsActiveById(int id, bool isActive) const;
         std::optional<sun::persistence::Schedule> getById(int id) const;
         void deleteById(int id) const;
         QList<sun::persistence::Schedule> getAll() const;

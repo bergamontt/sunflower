@@ -1,5 +1,6 @@
 #include "scheduleitem.h"
 #include "applicationlist.h"
+#include "scheduleservice.h"
 #include "ui_scheduleitem.h"
 
 ScheduleItem::ScheduleItem(QWidget *parent) :
@@ -16,9 +17,9 @@ ScheduleItem::ScheduleItem(QWidget *parent) :
 
     connect(ui->onButton, &QPushButton::clicked, this, [this](){
         if(ui->onButton->isChecked()) {
-            
+            scheduleService.updateIsActiveById(schedule.id, true);
         } else {
-            
+            scheduleService.updateIsActiveById(schedule.id, false);
         }
     });
 }
