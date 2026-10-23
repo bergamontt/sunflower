@@ -40,9 +40,11 @@ target_sources(
         widgets/settings/appearancesection.cpp
         widgets/settings/appearancesection.ui
 
+        widgets/settings/strictmodetext.h
         widgets/settings/strictmodesection.h
         widgets/settings/strictmodesection.cpp
         widgets/settings/strictmodesection.ui
+        widgets/settings/strictmodeutils.h
 )   
 
 target_include_directories(
@@ -56,7 +58,8 @@ target_include_directories(
 
 target_link_libraries(
     gui 
-    PUBLIC 
+    PUBLIC
+        core
         Qt6::Widgets
     PRIVATE
         Qt6::Svg

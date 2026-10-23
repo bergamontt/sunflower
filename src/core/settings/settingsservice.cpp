@@ -10,7 +10,7 @@ namespace sun::core
         QSettings settings;
         settings.beginGroup(settings::restrictions);
         const int type = settings.value(settings::type_key, static_cast<int>(LockType::None)).toInt();
-        const QVariant value = settings.value(settings::type_key);
+        const QVariant value = settings.value(settings::value_key);
         settings.endGroup();
         switch (static_cast<LockType>(type))
         {
