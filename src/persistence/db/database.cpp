@@ -12,10 +12,7 @@ namespace sun::persistence
         : path (path)
         , connection({"QSQLITE", path})
     {
-        if (!QFile::exists(path))
-        {
-            createSchema();
-        }
+        createSchema();
     }
 
     void sun::persistence::Database::createSchema()
