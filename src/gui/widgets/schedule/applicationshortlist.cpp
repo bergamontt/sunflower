@@ -48,27 +48,31 @@ void ApplicationShortList::updateText()
         names.append(name);
     }
 
-    const int availableWidth = ui->text->contentsRect().width();
-    const QFontMetrics metrics(ui->text->font());
+    if(names.empty()) {
+         ui->text->setText("No applications selected.");
+    } else {
+        const int availableWidth = ui->text->contentsRect().width();
+        const QFontMetrics metrics(ui->text->font());
 
-    for (int fitted = names.size(); fitted >= 0; --fitted) {
-        QString text = names.mid(0, fitted).join(", ");
+        for (int fitted = names.size(); fitted >= 0; --fitted) {
+            QString text = names.mid(0, fitted).join(", ");
 
-        const int omitted = names.size() - fitted;
+            const int omitted = names.size() - fitted;
 
-        if (omitted > 0) {
-            if (!text.isEmpty()) {
-                text += ", ";
+            if (omitted > 0) {
+                if (!text.isEmpty()) {
+                    text += ", ";
+                }
+
+                text += QString("+%1").arg(omitted);
             }
 
-            text += QString("+%1").arg(omitted);
+            if (metrics.horizontalAdvance(text) <= availableWidth) {
+                ui->text->setText(text);
+                return;
+            }
         }
 
-        if (metrics.horizontalAdvance(text) <= availableWidth) {
-            ui->text->setText(text);
-            return;
-        }
+        ui->text->clear();
     }
-
-    ui->text->clear();
 }

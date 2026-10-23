@@ -115,7 +115,14 @@
    <item>
     <layout class="QHBoxLayout" name="sheduleItemFooter">
      <item>
-      <widget class="ApplicationShortList" name="applicationList" native="true"/>
+      <widget class="ApplicationShortList" name="applicationList" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="scheduleItemFooterSpacer">
@@ -132,6 +139,12 @@
      </item>
      <item>
       <widget class="QLabel" name="scheduleStatus">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Schedule status</string>
        </property>
@@ -153,6 +166,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
   <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
  </resources>
  <connections/>
