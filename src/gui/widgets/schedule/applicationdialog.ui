@@ -15,11 +15,32 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="title">
-     <property name="text">
-      <string>Choose applications </string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="title">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Choose application lists</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="newListButton">
+       <property name="text">
+        <string>New</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
+         <normaloff>:/gui/plus.svg</normaloff>:/gui/plus.svg</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QTreeWidget" name="applicationTree">

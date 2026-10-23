@@ -84,7 +84,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../../build/Desktop_Debug/src/gui/.qt/rcc/gui.qrc">
+          <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
            <normaloff>:/gui/plus.svg</normaloff>:/gui/plus.svg</iconset>
          </property>
          <property name="buttonClass" stdset="0">
@@ -134,7 +134,7 @@
    <item>
     <widget class="QStackedWidget" name="blockTypeContainer">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="blockPage">
       <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -153,6 +153,13 @@
        </item>
        <item>
         <widget class="QTimeEdit" name="fromTime">
+         <property name="time">
+          <time>
+           <hour>10</hour>
+           <minute>0</minute>
+           <second>0</second>
+          </time>
+         </property>
          <property name="timeClass" stdset="0">
           <string>default</string>
          </property>
@@ -170,6 +177,13 @@
        </item>
        <item>
         <widget class="QTimeEdit" name="toTime">
+         <property name="time">
+          <time>
+           <hour>18</hour>
+           <minute>0</minute>
+           <second>0</second>
+          </time>
+         </property>
          <property name="timeClass" stdset="0">
           <string>default</string>
          </property>
@@ -207,6 +221,13 @@
        </item>
        <item>
         <widget class="QTimeEdit" name="timeAllowed">
+         <property name="time">
+          <time>
+           <hour>1</hour>
+           <minute>30</minute>
+           <second>0</second>
+          </time>
+         </property>
          <property name="timeClass" stdset="0">
           <string>default</string>
          </property>
@@ -430,7 +451,7 @@
         <string>Done</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../build/Desktop_Debug/src/gui/.qt/rcc/gui.qrc">
+        <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
          <normaloff>:/gui/done.svg</normaloff>:/gui/done.svg</iconset>
        </property>
        <property name="buttonClass" stdset="0">
@@ -451,7 +472,8 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../../../build/Desktop_Debug/src/gui/.qt/rcc/gui.qrc"/>
+  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
+  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
  </resources>
  <connections/>
 </ui>

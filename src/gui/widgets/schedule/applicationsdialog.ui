@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ApplicationsDialog</class>
+ <widget class="QDialog" name="ApplicationsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="listNameTitle">
+     <property name="text">
+      <string>List name</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="listName">
+     <property name="text">
+      <string>New Application List</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="applicationListTitle">
+     <property name="text">
+      <string>Applications to add to the list</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="applicationList"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="footer">
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="doneButton">
+       <property name="text">
+        <string>Done</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
+         <normaloff>:/gui/done.svg</normaloff>:/gui/done.svg</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
+ </resources>
+ <connections/>
+</ui>

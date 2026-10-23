@@ -24,12 +24,12 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="schedulePageHeader">
+    <layout class="QHBoxLayout" name="header">
      <property name="spacing">
       <number>0</number>
      </property>
      <item>
-      <widget class="QLabel" name="schedulePageTitle">
+      <widget class="QLabel" name="title">
        <property name="text">
         <string>Schedules</string>
        </property>
@@ -68,14 +68,11 @@
     </layout>
    </item>
    <item>
-    <widget class="QScrollArea" name="scheduleList">
+    <widget class="QScrollArea" name="scheduleScrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
-     <property name="areaClass" stdset="0">
-      <string>background</string>
-     </property>
-     <widget class="QWidget" name="scheduleListContents">
+     <widget class="QWidget" name="scheduleScrollAreaContents">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -84,10 +81,11 @@
         <height>580</height>
        </rect>
       </property>
-      <property name="widgetClass" stdset="0">
-       <string>background</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QVBoxLayout" name="scheduleList"/>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

@@ -1,4 +1,14 @@
 add_library(gui STATIC)
+
+target_link_libraries(
+    gui 
+    PUBLIC 
+        core
+        Qt6::Widgets
+    PRIVATE
+        Qt6::Svg
+        Qt6::Charts
+)
     
 target_sources(
     gui
@@ -28,9 +38,21 @@ target_sources(
         widgets/schedule/scheduledialog.cpp
         widgets/schedule/scheduledialog.ui
 
+        widgets/schedule/deletescheduledialog.h
+        widgets/schedule/deletescheduledialog.cpp
+        widgets/schedule/deletescheduledialog.ui
+
         widgets/schedule/applicationshortlist.h
         widgets/schedule/applicationshortlist.cpp
         widgets/schedule/applicationshortlist.ui
+
+        widgets/schedule/applicationdialog.h
+        widgets/schedule/applicationdialog.cpp
+        widgets/schedule/applicationdialog.ui
+
+        widgets/schedule/applicationsdialog.h
+        widgets/schedule/applicationsdialog.cpp
+        widgets/schedule/applicationsdialog.ui
 
         widgets/settings/settingspage.h
         widgets/settings/settingspage.cpp
@@ -56,16 +78,6 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets/settings
 )
 
-target_link_libraries(
-    gui 
-    PUBLIC
-        core
-        Qt6::Widgets
-    PRIVATE
-        Qt6::Svg
-        Qt6::Charts
-)
-
 qt_add_resources(gui "gui"
     PREFIX "/gui"
     BASE "resources"
@@ -86,4 +98,5 @@ qt_add_resources(gui "gui"
         resources/play.svg
         resources/plus.svg
         resources/settings.svg
+        resources/on.svg
 )

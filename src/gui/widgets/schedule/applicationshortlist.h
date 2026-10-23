@@ -2,6 +2,8 @@
 #define APPLICATIONSHORTLIST_H
 
 #include <QWidget>
+#include "applicationlist/applicationlist.h"
+#include "applicationlist/applicationlistservice.h"
 
 namespace Ui {
 class ApplicationShortList;
@@ -15,8 +17,19 @@ public:
     explicit ApplicationShortList(QWidget *parent = nullptr);
     ~ApplicationShortList();
 
+    void setApplicationList(QList<sun::persistence::ApplicationList>);
+
+protected:
+    void resizeEvent(QResizeEvent *event) override;
+
 private:
     Ui::ApplicationShortList *ui;
+    QList<QString> applicationNames;
+    QList<QString> listNames;
+
+    void updateText();
+
+    sun::core::ApplicationListService applicationListService;
 };
 
 #endif // APPLICATIONSHORTLIST_H

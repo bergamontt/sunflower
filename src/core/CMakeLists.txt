@@ -1,4 +1,24 @@
-add_library(core
+add_library(core STATIC)
+
+target_link_libraries(
+    core
+    PUBLIC
+        monitor
+        persistence
+)
+
+target_sources(
+    core
+    PUBLIC
+        schedule/scheduleservice.h
+        schedule/scheduleservice.cpp
+
+        application/applicationservice.h
+        application/applicationservice.cpp
+        
+        applicationlist/applicationlistservice.h
+        applicationlist/applicationlistservice.cpp
+        
         monitoring/applicationmonitor.cpp
         monitoring/applicationmonitor.h
         monitoring/applicationinfo.h
@@ -18,11 +38,10 @@ target_include_directories(
     core
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-target_link_libraries(
-    core
-    PRIVATE 
-        monitor
-        persistence
+        ${CMAKE_CURRENT_SOURCE_DIR}/application
+        ${CMAKE_CURRENT_SOURCE_DIR}/applicationlist
+        ${CMAKE_CURRENT_SOURCE_DIR}/schedule
+        ${CMAKE_CURRENT_SOURCE_DIR}/monitoring
+        ${CMAKE_CURRENT_SOURCE_DIR}/settings
+        ${CMAKE_CURRENT_SOURCE_DIR}/password
 )
