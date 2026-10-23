@@ -13,6 +13,7 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
     ui(new Ui::ScheduleDialog)
 {
     ui->setupUi(this);
+    setWindowTitle("Create new Schedule");
 
     connect(ui->addApplicationsButton, &QPushButton::clicked, this, [this](){
         ApplicationDialog appliactionDialog;
@@ -22,6 +23,7 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
         if(appliactionDialog.exec() == QDialog::Accepted) {
             applicationLists = appliactionDialog.getSelectedApplicationListsIds();
             ui->applicationShortList->setApplicationList(applicationLists);
+            validateForm();
         }
     });
 
@@ -35,30 +37,45 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
         &QPushButton::clicked,
         this,
         &QDialog::reject);
+
+    connect(ui->scheduleNameEdit,
+        &QLineEdit::textChanged,
+        this,
+        &ScheduleDialog::validateForm);   
     
     connect(ui->blockButton, &QPushButton::clicked, this, [this]() {
             ui->blockTypeContainer->setCurrentIndex(0);
             ui->blockButton->setChecked(true);
             ui->limitButton->setChecked(false);
+            validateForm();
         });
 
     connect(ui->limitButton, &QPushButton::clicked, this, [this]() {
-                ui->blockTypeContainer->setCurrentIndex(1);
-                ui->blockButton->setChecked(false);
-                ui->limitButton->setChecked(true);
-            });
+            ui->blockTypeContainer->setCurrentIndex(1);
+            ui->blockButton->setChecked(false);
+            ui->limitButton->setChecked(true);
+            validateForm();
+        });
 
     connect(ui->fromTime, &QTimeEdit::timeChanged, this, [this](const QTime &time) {
-        if (ui->toTime->time() < time) {
-            ui->toTime->setTime(time);
-        }
-    });
+            if (ui->toTime->time() <= time) {
+                ui->toTime->setTime(time.addSecs(60));
+            }
+        });
 
     connect(ui->toTime, &QTimeEdit::timeChanged, this, [this](const QTime &time) {
-        if (ui->fromTime->time() > time) {
-            ui->fromTime->setTime(time);
-        }
-    });
+            if (ui->fromTime->time() >= time) {
+                ui->fromTime->setTime(time.addSecs(-60));
+            }
+        });
+
+    ui->fromTime->setMinimumTime(QTime(0, 0));
+    ui->fromTime->setMaximumTime(QTime(23, 58));
+
+    ui->toTime->setMinimumTime(QTime(0, 1));
+    ui->toTime->setMaximumTime(QTime(23, 59));
+
+    ui->timeAllowed->setMinimumTime(QTime(0, 1));
 
     QPushButton *buttons[] = {
         ui->mondayButton,
@@ -84,7 +101,6 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
             }
         });
     }
-    setWindowTitle("Create new Schedule");
 
     for (QWidget *widget : ui->blockTypeContainer->findChildren<QWidget *>()) {
         widget->style()->unpolish(widget);
@@ -198,3 +214,10 @@ QList<sun::persistence::ApplicationList> ScheduleDialog::getApplicationLists() c
     return applicationLists;
 }
 
+void ScheduleDialog::validateForm()
+{
+    ui->doneButton->setDisabled(false);
+
+    if(ui->scheduleNameEdit->text().isEmpty()) ui->doneButton->setDisabled(true);
+    if(applicationLists.empty()) ui->doneButton->setDisabled(true);
+}

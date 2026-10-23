@@ -26,6 +26,7 @@ private:
     sun::core::ApplicationListService applicationListService;
 
     void loadApplications();
+    void validateForm();
 };
 
 #endif // APPLICATIONSDIALOG_H

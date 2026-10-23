@@ -26,7 +26,22 @@ ApplicationsDialog::ApplicationsDialog(QWidget *parent) :
         this,
         &QDialog::reject);
 
+    connect(
+        ui->listName,
+        &QLineEdit::textChanged,
+        this,
+        &ApplicationsDialog::validateForm
+    );
+
+    connect(
+        ui->applicationList,
+        &QListWidget::itemChanged,
+        this,
+        &ApplicationsDialog::validateForm
+    );
+
     loadApplications();
+    validateForm();
 }
 
 ApplicationsDialog::~ApplicationsDialog()
@@ -62,4 +77,20 @@ sun::persistence::ApplicationList ApplicationsDialog::getApplicationList() const
         }
     }
     return applicationList;
+}
+
+void ApplicationsDialog::validateForm()
+{
+    ui->doneButton->setDisabled(false);
+    if(ui->listName->text().isEmpty()) ui->doneButton->setDisabled(true);
+    
+    int numChecked = 0;
+    for (int i = 0; i < ui->applicationList->count(); ++i) {
+        QListWidgetItem *item = ui->applicationList->item(i);
+
+        if (item->checkState() == Qt::Checked) {
+            ++numChecked;
+        }
+    }
+    if(numChecked == 0) ui->doneButton->setDisabled(true);
 }

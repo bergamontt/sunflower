@@ -116,7 +116,8 @@ void ApplicationDialog::onItemChanged(QTreeWidgetItem* item, int column)
         for (int i = 0; i < item->childCount(); ++i) {
             item->child(i)->setCheckState(0, state);
         }
-
+        
+        validateForm();
         return;
     }
 
@@ -141,6 +142,7 @@ void ApplicationDialog::onItemChanged(QTreeWidgetItem* item, int column)
     } else {
         parent->setCheckState(0, Qt::PartiallyChecked);
     }
+    validateForm();
 }
 
 void ApplicationDialog::setApplicationLists(const QList<sun::persistence::ApplicationList>& applicationLists)
@@ -251,4 +253,15 @@ QList<sun::persistence::ApplicationList> ApplicationDialog::getSelectedApplicati
     }
 
     return selectedLists;
+}
+
+void ApplicationDialog::validateForm()
+{
+    ui->doneButton->setDisabled(false);
+
+    int numChecked = 0;
+    for (int i = 0; i < ui->applicationTree->topLevelItemCount(); ++i) {
+        if (ui->applicationTree->topLevelItem(i)->checkState(0) != Qt::Unchecked) ++numChecked;
+    }
+    if(numChecked == 0) ui->doneButton->setDisabled(true);
 }

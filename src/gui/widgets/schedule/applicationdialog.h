@@ -30,6 +30,8 @@ private:
 
     void loadApplicationLists();
     void insertApplicationList(const sun::persistence::ApplicationList& list);
+
+    void validateForm();
 };
 
 #endif // APPLICATIONDIALOG_H

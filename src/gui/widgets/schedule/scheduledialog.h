@@ -25,6 +25,8 @@ private:
     Ui::ScheduleDialog *ui;
     QList<sun::persistence::ApplicationList> applicationLists;
 
+    void validateForm();
+
 };
 
 #endif // SCHEDULEDIALOG_H
