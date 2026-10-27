@@ -14,7 +14,14 @@ add_library(core
     password/passwordservice.cpp
 
     scanning/applicationscanner.h
-    scanning/applicationscanner.cpp
+    scanning/applicationscannerfactory.h
+    scanning/applicationscannerfactory.cpp
+
+    scanning/linux/linuxapplicationscanner.h
+    scanning/linux/linuxapplicationscanner.cpp
+
+    scanning/win32/win32applicationscanner.h
+    scanning/win32/win32applicationscanner.cpp
 
     application/applicationservice.h
     application/applicationservice.cpp

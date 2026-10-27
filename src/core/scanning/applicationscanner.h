@@ -3,10 +3,6 @@
 #include "application/application.h"
 
 #include <QList>
-#include <QString>
-
-class QSettings;
-class QDir;
 
 namespace sun::core
 {
@@ -15,8 +11,11 @@ namespace sun::core
     public:
         QList<persistence::CreateApplicationDto> findAll();
     private:
-        persistence::CreateApplicationDto parseApplication(const QSettings& file, const QString& source);
-        QString parseSource(const QDir& dir, const QString& path);
-        bool isApplicationHidden(const QSettings& file);
+        virtual QList<persistence::CreateApplicationDto> doFindAll() = 0;
     };
+
+    inline QList<persistence::CreateApplicationDto> ApplicationScanner::findAll()
+    {
+        return doFindAll();
+    }
 } // sun::core
