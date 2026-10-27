@@ -48,17 +48,17 @@ namespace sun::core
         return nullopt;
     }
 
-    ApplicationInfo::ApplicationInfo(const persistence::Application& app) :
+    ApplicationInfo::ApplicationInfo(persistence::Application app) :
         scheduleDaoPtr(make_shared<ScheduleDao>()),
         applicationListDaoPtr(make_shared<ApplicationListDao>()),
         activityDaoPtr(make_shared<ActivityDao>()),
         activitySaveTimer(make_shared<QTimer>()),
-        application(app)
+        application(move(app))
     {
-        QList<ApplicationList> appLists = applicationListDaoPtr->getAllByApplication(app.id);
+        QList<ApplicationList> appLists = applicationListDaoPtr->getAllByApplication(application.id);
         for (const auto& appList : appLists)
             schedules.append(scheduleDaoPtr->getAllByApplicationList(appList.id));
-        QList<Activity> activities = activityDaoPtr->getAllByApplicationId(app.id);
+        QList<Activity> activities = activityDaoPtr->getAllByApplicationId(application.id);
         priorActivities = activities;
 
         QObject::connect(activitySaveTimer.get(), &QTimer::timeout, [this]()
@@ -89,8 +89,7 @@ namespace sun::core
             window ? window->getIcon() : QIcon(),
             todayActivity,
             secondsLeft,
-            minSchedule ? make_optional(minSchedule->type) : nullopt,
-            priorActivities
+            minSchedule ? make_optional(minSchedule->type) : nullopt
         );
     }
 

@@ -23,11 +23,10 @@ namespace sun::core
             QIcon icon,
             const std::chrono::seconds activity,
             const std::optional<std::chrono::seconds> left,
-            const std::optional<persistence::Schedule::Type> scheduleType,
-            const QList<persistence::Activity> activityHistory
+            const std::optional<persistence::Schedule::Type> scheduleType
         )
-            : id(id), name(std::move(name)), icon(std::move(icon)), todayActivity(activity),
-              timeLeft(left), scheduleType(scheduleType), activityHistory(activityHistory)
+            : id(id), name(std::move(name)), icon(std::move(icon)),
+              todayActivity(activity), timeLeft(left), scheduleType(scheduleType)
         {
         }
 
@@ -43,8 +42,6 @@ namespace sun::core
 
         [[nodiscard]] std::optional<persistence::Schedule::Type> getScheduleType() const { return scheduleType; }
 
-        [[nodiscard]] QList<persistence::Activity> getActivityHistory() const { return activityHistory; }
-
     private:
         int id;
         QString name;
@@ -53,14 +50,12 @@ namespace sun::core
         std::chrono::seconds todayActivity;
         std::optional<std::chrono::seconds> timeLeft;
         std::optional<persistence::Schedule::Type> scheduleType;
-
-        QList<persistence::Activity> activityHistory;
     };
 
     class ApplicationInfo
     {
     public:
-        explicit ApplicationInfo(const persistence::Application& app);
+        explicit ApplicationInfo(persistence::Application app);
 
         [[nodiscard]] const persistence::Application& getApplication() const;
 
