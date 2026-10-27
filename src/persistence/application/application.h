@@ -11,6 +11,7 @@ namespace sun::persistence
         QString name;
         QString processName;
         QString icon;
+        QString source;
     };
 
     struct CreateApplicationDto
@@ -18,6 +19,7 @@ namespace sun::persistence
         QString name;
         QString processName;
         QString icon;
+        QString source;
     };
 
     struct UpdateApplicationDto
@@ -26,11 +28,13 @@ namespace sun::persistence
         QString name;
         QString processName;
         QString icon;
+        QString source;
     };
 
     inline bool operator==(const Application& a, const Application& b)
     {
         return a.id == b.id && a.name == b.name
-            && a.processName == b.processName && a.icon == b.icon;
+            && a.processName == b.processName && a.icon == b.icon
+            && a.source == b.source;
     }
 } // sun::persistence

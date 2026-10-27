@@ -7,7 +7,8 @@ namespace sun::persistence::schema
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "name TEXT NOT NULL, "
         "process_name TEXT NOT NULL, "
-        "icon TEXT )";
+        "icon TEXT, "
+        "source TEXT UNIQUE) ";
 
     inline const auto create_activity_table =
         "CREATE TABLE IF NOT EXISTS activity ( "

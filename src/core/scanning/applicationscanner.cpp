@@ -17,22 +17,30 @@ namespace sun::core
             QDirIterator it(dir, {"*.desktop"}, QDir::Files, QDirIterator::Subdirectories);
             while (it.hasNext())
             {
-                QSettings file(it.next(), QSettings::IniFormat);
+                QString path = it.next();
+                QString source = parseSource(dir, path);
+                QSettings file(path, QSettings::IniFormat);
                 file.beginGroup("Desktop Entry");
                 if (isApplicationHidden(file))
                     continue;
-                applications.append(parseApplication(file));
+                applications.append(parseApplication(file, source));
             }
         }
         return applications;
     }
 
-    persistence::CreateApplicationDto ApplicationScanner::parseApplication(const QSettings &file)
-    {
+    persistence::CreateApplicationDto ApplicationScanner::parseApplication(
+        const QSettings &file, const QString& source
+    ) {
         QString name = file.value("Name").toString();
         QString exec = file.value("Exec").toString();
         QString icon = file.value("Icon").toString();
-        return {name, exec, icon};
+        return {name, exec, icon, source};
+    }
+
+    QString ApplicationScanner::parseSource(const QDir& dir, const QString& path)
+    {
+        return dir.relativeFilePath(path).replace('/', '-');
     }
 
     bool ApplicationScanner::isApplicationHidden(const QSettings &file)
