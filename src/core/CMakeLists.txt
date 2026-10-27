@@ -14,6 +14,12 @@ target_sources(core PUBLIC
 
         password/passwordservice.h
         password/passwordservice.cpp
+
+        scanning/applicationscanner.h
+        scanning/applicationscanner.cpp
+
+        application/applicationservice.h
+        application/applicationservice.cpp
 )
 
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

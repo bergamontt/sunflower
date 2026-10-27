@@ -8,6 +8,8 @@
 #include "db/database.h"
 #include "monitorfactory.h"
 #include "monitoring/applicationmonitor.h"
+#include "scanning/applicationscanner.h"
+#include "application/applicationservice.h"
 
 int main(int argc, char* argv[])
 {
@@ -21,6 +23,11 @@ int main(int argc, char* argv[])
     QString path = data + "/sunflower.db";
 
     sun::persistence::Database db(path);
+
+    sun::core::ApplicationScanner scanner;
+    sun::core::ApplicationService applicationService;
+    QList<sun::persistence::CreateApplicationDto> applications = scanner.findAll();
+    applicationService.create(applications); 
 
     Q_INIT_RESOURCE(gui);
     QFile styleFile(":/gui/style.qss");

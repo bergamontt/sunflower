@@ -3,20 +3,27 @@
 namespace sun::persistence::schedule
 {
     inline const auto create =
-        "INSERT INTO schedule (name, type, starts_at, ends_at, daily_limit, repeat_at)"
-        "VALUES (:name, :type, :starts_at, :ends_at, :daily_limit, :repeat_at) "
-        "RETURNING id, name, type, starts_at, ends_at, daily_limit, repeat_at";
+        "INSERT INTO schedule (name, type, is_active, starts_at, ends_at, daily_limit, repeat_at)"
+        "VALUES (:name, :type, :is_active, :starts_at, :ends_at, :daily_limit, :repeat_at) "
+        "RETURNING id, name, type, is_active, starts_at, ends_at, daily_limit, repeat_at";
 
     inline const auto update_by_id =
         "UPDATE schedule "
         "SET name = :name, "
         "type = :type, "
+        "is_active = :is_active, "
         "starts_at = :starts_at, "
         "ends_at = :ends_at, "
         "daily_limit = :daily_limit, "
         "repeat_at = :repeat_at "
         "WHERE id = :id "
-        "RETURNING id, name, type, starts_at, ends_at, daily_limit, repeat_at";
+        "RETURNING id, name, type, is_active, starts_at, ends_at, daily_limit, repeat_at";
+
+    inline const auto update_is_active_by_id =
+        "UPDATE schedule "
+        "SET is_active = :is_active "
+        "WHERE id = :id "
+        "RETURNING id, name, type, is_active, starts_at, ends_at, daily_limit, repeat_at";
     
     inline const auto delete_by_id = 
         "DELETE FROM schedule "
