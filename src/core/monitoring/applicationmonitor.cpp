@@ -16,7 +16,9 @@ namespace sun::core
         applicationDaoPtr(make_unique<ApplicationDao>()),
         applicationListDaoPtr(make_unique<ApplicationListDao>()),
         activityDaoPtr(make_unique<ActivityDao>()),
-        scheduleDaoPtr(make_unique<ScheduleDao>())
+        scheduleDaoPtr(make_unique<ScheduleDao>()) {}
+
+    void ApplicationMonitor::discoverApplications()
     {
         for (const auto& app : applicationDaoPtr->getAll())
         {
@@ -33,14 +35,17 @@ namespace sun::core
     
     Application ApplicationMonitor::saveAsApplication(const Window& window) const
     {
-        return applicationDaoPtr->create({window.getName(), window.getName()});
+        auto app = applicationDaoPtr->create({window.getName(), window.getName()});
+        return app;
     }
 
     void ApplicationMonitor::handleUsageStarted(Window window)
     {
+        if (window.getName().isEmpty())
+            return;
         for (auto& appInfo : applications)
         {
-            if (represents(appInfo, window))
+            if (window == appInfo.getWindow() || represents(appInfo, window))
             {
                 appInfo.setWindow(window);
                 if (!appInfo.isActive())
@@ -61,7 +66,7 @@ namespace sun::core
     {
         for (auto& appInfo : applications)
         {
-            if (represents(appInfo, window))
+            if (window == appInfo.getWindow())
             {
                 appInfo.setInactive();
                 usageEnded(appInfo.constructDto());

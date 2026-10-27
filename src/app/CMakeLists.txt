@@ -12,4 +12,5 @@ target_link_libraries(
         gui
         core
         persistence
+        monitor
 )

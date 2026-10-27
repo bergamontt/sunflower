@@ -19,8 +19,8 @@ public:
     QString getProgramName() const;
     void setProgramName(const QString& name);
 
-    QString getProgramIconPath() const;
-    void setProgramIconPath(const QString& path);
+    QIcon getProgramIcon() const;
+    void setProgramIcon(const QIcon& icon);
 
     QString getWorkTime() const;
     void setWorkTime(const QString& time);
@@ -28,17 +28,17 @@ public:
     QString getWorkTimeIconPath() const;
     void setWorkTimeIconPath(const QString& path);
 
-    QString getStatus() const;
-    void setStatus(const QString& stat);
+    QString getTimeLeft() const;
+    void setTimeLeft(const QString& time);
 
 private:
     Ui::WindowStatistics *ui;
 
     QString programName;
-    QString programIconPath;
+    QIcon programIcon;
     QString workTime;
     QString workTimeIconPath;
-    QString status;
+    QString timeLeft;
 };
 
 #endif // WINDOWSTATISTICS_H

@@ -1,9 +1,11 @@
-add_library(core
+add_library(core)
+
+target_sources(core PUBLIC
         monitoring/applicationmonitor.cpp
         monitoring/applicationmonitor.h
         monitoring/applicationinfo.h
         monitoring/applicationinfo.cpp
-        
+
         settings/settingsservice.h
         settings/settingsservice.cpp
         settings/settingskeys.h
@@ -14,15 +16,11 @@ add_library(core
         password/passwordservice.cpp
 )
 
-target_include_directories(
-    core
-    PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}
-)
+target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(
     core
-    PRIVATE 
+    PUBLIC
         monitor
         persistence
 )

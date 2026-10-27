@@ -20,6 +20,8 @@ namespace sun::core
     public:
         explicit ApplicationMonitor(QObject* parent = nullptr);
 
+        void discoverApplications();
+
     public slots:
         void handleUsageStarted(sun::monitor::Window window);
 

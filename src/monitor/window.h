@@ -30,7 +30,12 @@ namespace sun::monitor
 
         void close() const { impl->close(); }
 
-        bool operator==(const Window& other) const { return impl.get() == other.impl.get(); }
+        bool operator==(const Window& other) const
+        {
+            if (!impl || !other.impl)
+                return !impl && !other.impl;
+            return *impl == *other.impl;
+        }
 
         ~Window() = default;
 
