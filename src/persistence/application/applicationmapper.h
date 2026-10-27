@@ -19,7 +19,8 @@ namespace sun::persistence
         {
             query.value("id").toInt(),
             query.value("name").toString(),
-            query.value("process_name").toString()
+            query.value("process_name").toString(),
+            query.value("icon").toString()
         };
     }
 
@@ -27,6 +28,7 @@ namespace sun::persistence
     {
         query.bindValue(":name", dto.name);
         query.bindValue(":process_name", dto.processName);
+        query.bindValue(":icon", dto.icon);
     }
 
     inline void ApplicationMapper::bind(QSqlQuery& query, const UpdateApplicationDto& dto)
@@ -34,5 +36,6 @@ namespace sun::persistence
         query.bindValue(":id", dto.id);
         query.bindValue(":name", dto.name);
         query.bindValue(":process_name", dto.processName);
+        query.bindValue(":icon", dto.icon);
     }
 } // sun::persistence

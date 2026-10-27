@@ -31,7 +31,8 @@ namespace sun::core
     {
         QString name = file.value("Name").toString();
         QString exec = file.value("Exec").toString();
-        return {name, exec};
+        QString icon = file.value("Icon").toString();
+        return {name, exec, icon};
     }
 
     bool ApplicationScanner::isApplicationHidden(const QSettings &file)

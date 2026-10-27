@@ -10,10 +10,10 @@ namespace sun::persistence::test
     {
     protected:
         ApplicationDaoTest()
-            : createDto({"Firefox", "firefox"})
-            , updateDto({1, "Updated", "update"})
-            , expected({1, createDto.name, createDto.processName})
-            , expectedUpdated({1, updateDto.name, updateDto.processName})
+            : createDto({"Firefox", "firefox", "firefox"})
+            , updateDto({1, "Updated", "update", "update"})
+            , expected({1, createDto.name, createDto.processName, createDto.icon})
+            , expectedUpdated({1, updateDto.name, updateDto.processName, updateDto.icon})
         {}
     private:
         DbTestFixture db;
