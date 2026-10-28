@@ -3,6 +3,7 @@
 #include "applicationlist/applicationlistdao.h"
 #include "activity/activitydao.h"
 #include "schedule/scheduledao.h"
+#include "monitorfactory.h"
 
 namespace sun::core
 {
@@ -13,6 +14,7 @@ namespace sun::core
 
     ApplicationMonitor::ApplicationMonitor(QObject* parent) :
         QObject(parent),
+        monitorPtr(sun::monitor::createMonitor()),
         applicationDaoPtr(make_unique<ApplicationDao>()),
         applicationListDaoPtr(make_unique<ApplicationListDao>()),
         activityDaoPtr(make_unique<ActivityDao>()),
@@ -26,17 +28,27 @@ namespace sun::core
             applications.append(appInfo);
             applicationDiscovered(appInfo.constructDto());
         }
+
+        QObject::connect(
+            monitorPtr.get(),
+            &sun::monitor::Monitor::usageStarted,
+            this,
+            &sun::core::ApplicationMonitor::handleUsageStarted
+        );
+
+        QObject::connect(
+            monitorPtr.get(),
+            &sun::monitor::Monitor::usageEnded,
+            this,
+            &sun::core::ApplicationMonitor::handleUsageEnded
+        );
+
+        monitorPtr->startMonitoring();
     }
 
     static bool represents(const ApplicationInfo& app, const Window& window)
     {
         return window.getName().contains(app.getApplication().name, Qt::CaseInsensitive);
-    }
-    
-    Application ApplicationMonitor::saveAsApplication(const Window& window) const
-    {
-        auto app = applicationDaoPtr->create({window.getName(), window.getName()});
-        return app;
     }
 
     void ApplicationMonitor::handleUsageStarted(Window window)
@@ -54,12 +66,6 @@ namespace sun::core
                 return;
             }
         }
-
-        auto appInfo = ApplicationInfo(saveAsApplication(window));
-        applications.append(appInfo);
-        applicationDiscovered(appInfo.constructDto());
-        appInfo.setActive();
-        usageStarted(appInfo.constructDto());
     }
 
     void ApplicationMonitor::handleUsageEnded(Window window)

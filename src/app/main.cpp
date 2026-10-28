@@ -6,7 +6,6 @@
 #include "mainwindow.h"
 
 #include "db/database.h"
-#include "monitorfactory.h"
 #include "monitoring/applicationmonitor.h"
 #include "scanning/applicationscanner.h"
 #include "application/applicationservice.h"
@@ -38,24 +37,9 @@ int main(int argc, char* argv[])
         styleFile.close();
     }
 
-    std::unique_ptr<sun::monitor::Monitor> monitorPtr = sun::monitor::createMonitor();
-    sun::core::ApplicationMonitor appMonitor;
-
-    QObject::connect(
-        monitorPtr.get(),
-        &sun::monitor::Monitor::usageStarted,
-        &appMonitor,
-        &sun::core::ApplicationMonitor::handleUsageStarted
-    );
-
-    QObject::connect(
-        monitorPtr.get(),
-        &sun::monitor::Monitor::usageEnded,
-        &appMonitor,
-        &sun::core::ApplicationMonitor::handleUsageEnded
-    );
-
     MainWindow window;
+
+    sun::core::ApplicationMonitor appMonitor;
 
     QObject::connect(
         &appMonitor,
@@ -79,7 +63,6 @@ int main(int argc, char* argv[])
     );
 
     appMonitor.discoverApplications();
-    monitorPtr->startMonitoring();
 
     window.show();
 

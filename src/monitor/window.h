@@ -10,8 +10,6 @@ namespace sun::monitor
     public:
         [[nodiscard]] virtual QString getName() const = 0;
 
-        [[nodiscard]] virtual QIcon getIcon() const = 0;
-
         virtual void close() const = 0;
 
         [[nodiscard]] virtual bool operator==(const WindowImpl& other) const = 0;
@@ -25,8 +23,6 @@ namespace sun::monitor
         explicit Window(std::shared_ptr<WindowImpl> impl) : impl(std::move(impl)) {}
 
         [[nodiscard]] QString getName() const { return impl->getName(); }
-
-        [[nodiscard]] QIcon getIcon() const { return impl->getIcon(); }
 
         void close() const { impl->close(); }
 
