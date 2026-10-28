@@ -13,7 +13,8 @@ namespace sun::core
     {
         QList<CreateApplicationDto> applications;
         auto dirs = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
-        for (const QString &dir : dirs) {
+        for (const QString &dir : dirs)
+        {
             QDirIterator it(dir, {"*.desktop"}, QDir::Files, QDirIterator::Subdirectories);
             while (it.hasNext())
             {

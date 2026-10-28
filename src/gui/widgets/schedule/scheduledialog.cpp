@@ -18,10 +18,10 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
     connect(ui->addApplicationsButton, &QPushButton::clicked, this, [this](){
         ApplicationDialog appliactionDialog;
         if(!applicationLists.empty()) {
-            appliactionDialog.setApplicationLists(applicationLists);
+            appliactionDialog.setSelectedApplicationLists(applicationLists);
         }
         if(appliactionDialog.exec() == QDialog::Accepted) {
-            applicationLists = appliactionDialog.getSelectedApplicationListsIds();
+            applicationLists = appliactionDialog.getSelectedApplicationLists();
             ui->applicationShortList->setApplicationList(applicationLists);
             validateForm();
         }

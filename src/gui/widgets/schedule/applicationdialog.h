@@ -18,19 +18,18 @@ public:
     explicit ApplicationDialog(QWidget *parent = nullptr);
     ~ApplicationDialog();
 
-    void setApplicationLists(const QList<sun::persistence::ApplicationList>& applicationLists);
-    QList<sun::persistence::ApplicationList> getSelectedApplicationListsIds() const;
+    void setSelectedApplicationLists(const QList<sun::persistence::ApplicationList>& applicationLists);
+    QList<sun::persistence::ApplicationList> getSelectedApplicationLists() const;
 
 private slots:
-    void onItemChanged(QTreeWidgetItem* item, int column);
+    void onNewListButtonClicked();
 
 private:
     Ui::ApplicationDialog *ui;
     sun::core::ApplicationListService applicationListService;
 
-    void loadApplicationLists();
+    void loadAllApplicationLists();
     void insertApplicationList(const sun::persistence::ApplicationList& list);
-
     void validateForm();
 };
 
