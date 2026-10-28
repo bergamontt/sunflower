@@ -35,7 +35,7 @@ void ScheduleItem::setSchedule(const sun::persistence::Schedule& schedule, const
     this->applicationLists = applicationLists;
 
     ui->scheduleName->setText(schedule.name);
-    ui->applicationList->setApplicationList(applicationLists);
+    ui->applicationList->setApplicationLists(applicationLists);
 
     QString status;
 

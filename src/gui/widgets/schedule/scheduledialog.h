@@ -21,6 +21,9 @@ public:
     sun::persistence::CreateScheduleDto getSchedule() const;
     QList<sun::persistence::ApplicationList> getApplicationLists() const;
 
+private slots:
+    void onAddApplicationsButtonClicked();
+
 private:
     Ui::ScheduleDialog *ui;
     QList<sun::persistence::ApplicationList> applicationLists;

@@ -17,7 +17,7 @@ public:
     explicit ApplicationShortList(QWidget *parent = nullptr);
     ~ApplicationShortList();
 
-    void setApplicationList(QList<sun::persistence::ApplicationList>);
+    void setApplicationLists(QList<sun::persistence::ApplicationList>);
 
 protected:
     void resizeEvent(QResizeEvent *event) override;

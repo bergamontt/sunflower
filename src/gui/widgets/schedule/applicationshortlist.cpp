@@ -21,7 +21,7 @@ void ApplicationShortList::resizeEvent(QResizeEvent *event)
     updateText();
 }
 
-void ApplicationShortList::setApplicationList(QList<sun::persistence::ApplicationList> appicationLists)
+void ApplicationShortList::setApplicationLists(QList<sun::persistence::ApplicationList> appicationLists)
 {
     for(const sun::persistence::ApplicationList& applicationList : appicationLists) {
         if(applicationList.name.has_value() && !applicationList.name->isEmpty()) {
