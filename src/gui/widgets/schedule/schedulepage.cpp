@@ -124,9 +124,10 @@ void SchedulePage::onDeleteScheduleRequested(int scheduleId, QString scheduleNam
     DeleteScheduleDialog* deleteDialog = new DeleteScheduleDialog(this);
     deleteDialog->setSchedule(scheduleName);
 
-    if(deleteDialog->exec() == QDialog::Accepted) {
+    if(deleteDialog->exec() == QDialog::Accepted)
+    {
         scheduleService.deleteById(scheduleId);
-        QWidget *item = findChild<QWidget *>("scheduleItem-" + QString::number(scheduleId));
+        QWidget *item = findChild<QWidget*>("scheduleItem-" + QString::number(scheduleId));
         if (item) item->deleteLater();
     }
 }
