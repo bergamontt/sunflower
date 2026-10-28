@@ -16,15 +16,6 @@ namespace sun::core
         return static_cast<Schedule::Day>(1 << dayNum);
     }
 
-    static void filterOldActivities(QList<Activity>& activities)
-    {
-        const QDate today = QDate::currentDate();
-        erase_if(activities, [today](const Activity& activity)
-        {
-            return activity.startedAt.date() != today && activity.endedAt->date() != today;
-        });
-    }
-
     static optional<seconds> timeLeft(const optional<Schedule>& schedule, const seconds currentActivity)
     {
         if (!schedule || !(schedule->repeatAt & currentDayOfWeek()))
@@ -58,19 +49,31 @@ namespace sun::core
         return nullopt;
     }
 
-    ApplicationInfo::ApplicationInfo(Application app) :
+    static QIcon loadApplicationIcon(const QString& name)
+    {
+        QIcon icon = QIcon::fromTheme(name);
+        if (!icon.isNull())
+            return icon;
+
+        icon = QIcon(name);
+        if (!icon.isNull())
+            return icon;
+
+        return QIcon();
+    }
+
+    ApplicationInfo::ApplicationInfo(persistence::Application app) :
         scheduleDaoPtr(make_shared<ScheduleDao>()),
         applicationListDaoPtr(make_shared<ApplicationListDao>()),
         activityDaoPtr(make_shared<ActivityDao>()),
         activitySaveTimer(make_shared<QTimer>()),
-        application(std::move(app))
+        application(move(app))
     {
-        QList<ApplicationList> appLists = applicationListDaoPtr->getAllByApplication(app.id);
+        QList<ApplicationList> appLists = applicationListDaoPtr->getAllByApplication(application.id);
         for (const auto& appList : appLists)
             schedules.append(scheduleDaoPtr->getAllByApplicationList(appList.id));
-        QList<Activity> activities = activityDaoPtr->getAllByApplicationId(app.id);
-        filterOldActivities(activities);
-        priorTodayActivities = activities;
+        QList<Activity> activities = activityDaoPtr->getAllByApplicationId(application.id);
+        priorActivities = activities;
 
         QObject::connect(activitySaveTimer.get(), &QTimer::timeout, [this]()
         {
@@ -95,8 +98,9 @@ namespace sun::core
         }
 
         return ApplicationInfoDto(
+            application.id,
             application.name,
-            window ? window->getIcon() : QIcon(),
+            loadApplicationIcon(application.icon),
             todayActivity,
             secondsLeft,
             minSchedule ? make_optional(minSchedule->type) : nullopt
@@ -113,13 +117,17 @@ namespace sun::core
         this->window = w;
     }
 
+    const optional<monitor::Window>& ApplicationInfo::getWindow() const
+    {
+        return this->window;
+    }
+
     seconds ApplicationInfo::getTodayActivity()
     {
-        filterOldActivities(priorTodayActivities);
         const auto now = QDateTime::currentDateTime();
         const auto midnight = QDateTime(QDate::currentDate(), QTime(0, 0));
         seconds total = seconds::zero();
-        for (const auto& activity : priorTodayActivities)
+        for (const auto& activity : priorActivities)
         {
             const auto start = max(activity.startedAt, midnight);
             total += seconds(start.secsTo(activity.endedAt.value_or(now)));
@@ -183,7 +191,7 @@ namespace sun::core
             val->stop();
         timers.clear();
         updateCurrentActivityEnd();
-        priorTodayActivities.append(*currentActivity);
+        priorActivities.append(*currentActivity);
         currentActivity.reset();
     }
 }

@@ -12,6 +12,8 @@ namespace sun::monitor::x11
     public:
         explicit X11Monitor(QObject* parent = nullptr);
 
+        void startMonitoring() override;
+
         ~X11Monitor() override;
 
     private:

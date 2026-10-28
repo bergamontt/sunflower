@@ -5,7 +5,7 @@
 #include "applicationlist/applicationlistdao.h"
 #include "activity/activitydao.h"
 #include "schedule/scheduledao.h"
-#include "window.h"
+#include "monitor.h"
 
 #include <chrono>
 #include <utility>
@@ -18,16 +18,19 @@ namespace sun::core
     {
     public:
         explicit ApplicationInfoDto(
+            int id,
             QString name,
             QIcon icon,
             const std::chrono::seconds activity,
             const std::optional<std::chrono::seconds> left,
             const std::optional<persistence::Schedule::Type> scheduleType
         )
-            : name(std::move(name)), icon(std::move(icon)), todayActivity(activity),
-              timeLeft(left), scheduleType(scheduleType)
+            : id(id), name(std::move(name)), icon(std::move(icon)),
+              todayActivity(activity), timeLeft(left), scheduleType(scheduleType)
         {
         }
+
+        [[nodiscard]] int getId() const { return id; };
 
         [[nodiscard]] QString getName() const { return name; }
 
@@ -40,6 +43,7 @@ namespace sun::core
         [[nodiscard]] std::optional<persistence::Schedule::Type> getScheduleType() const { return scheduleType; }
 
     private:
+        int id;
         QString name;
         QIcon icon;
 
@@ -53,11 +57,13 @@ namespace sun::core
     public:
         explicit ApplicationInfo(persistence::Application app);
 
-        const persistence::Application& getApplication() const;
+        [[nodiscard]] const persistence::Application& getApplication() const;
 
         void setWindow(const monitor::Window& window);
 
-        bool isActive() const;
+        const std::optional<monitor::Window>& getWindow() const;
+
+        [[nodiscard]] bool isActive() const;
 
         void setActive();
 
@@ -76,7 +82,7 @@ namespace sun::core
 
         persistence::Application application;
         std::optional<monitor::Window> window;
-        QList<persistence::Activity> priorTodayActivities;
+        QList<persistence::Activity> priorActivities;
         std::optional<persistence::Activity> currentActivity;
         QList<persistence::Schedule> schedules;
         std::map<int, std::shared_ptr<QTimer>> timers;

@@ -3,6 +3,8 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 
+#include "widgets/statistics/statisticspage.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {class MainWindow;}
 QT_END_NAMESPACE
@@ -13,6 +15,8 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget* parent = nullptr);
+
+    StatisticsPage* getStatisticsPage() const;
 
 protected:
     void closeEvent(QCloseEvent* event);

@@ -27,7 +27,9 @@ namespace sun::monitor::win32
             it->second->processWin32Event(event, windowId);
     }
 
-    Win32Monitor::Win32Monitor(QObject* parent) : Monitor(parent)
+    Win32Monitor::Win32Monitor(QObject* parent) : Monitor(parent) {}
+
+    void startMonitoring() override
     {
         createHook = SetWinEventHook(
             EVENT_OBJECT_CREATE,

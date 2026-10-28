@@ -20,6 +20,8 @@ namespace sun::core
     public:
         explicit ApplicationMonitor(QObject* parent = nullptr);
 
+        void discoverApplications();
+
     public slots:
         void handleUsageStarted(sun::monitor::Window window);
 
@@ -33,7 +35,7 @@ namespace sun::core
         void usageEnded(sun::core::ApplicationInfoDto application);
 
     private:
-        persistence::Application saveAsApplication(const monitor::Window& window) const;
+        std::unique_ptr<sun::monitor::Monitor> monitorPtr;
 
         std::unique_ptr<persistence::IApplicationDao> applicationDaoPtr;
         std::unique_ptr<persistence::IApplicationListDao> applicationListDaoPtr;

@@ -3,6 +3,7 @@
 #include "applicationlist/applicationlistdao.h"
 #include "activity/activitydao.h"
 #include "schedule/scheduledao.h"
+#include "monitorfactory.h"
 
 namespace sun::core
 {
@@ -13,10 +14,13 @@ namespace sun::core
 
     ApplicationMonitor::ApplicationMonitor(QObject* parent) :
         QObject(parent),
+        monitorPtr(sun::monitor::createMonitor()),
         applicationDaoPtr(make_unique<ApplicationDao>()),
         applicationListDaoPtr(make_unique<ApplicationListDao>()),
         activityDaoPtr(make_unique<ActivityDao>()),
-        scheduleDaoPtr(make_unique<ScheduleDao>())
+        scheduleDaoPtr(make_unique<ScheduleDao>()) {}
+
+    void ApplicationMonitor::discoverApplications()
     {
         for (const auto& app : applicationDaoPtr->getAll())
         {
@@ -24,23 +28,36 @@ namespace sun::core
             applications.append(appInfo);
             applicationDiscovered(appInfo.constructDto());
         }
+
+        QObject::connect(
+            monitorPtr.get(),
+            &sun::monitor::Monitor::usageStarted,
+            this,
+            &sun::core::ApplicationMonitor::handleUsageStarted
+        );
+
+        QObject::connect(
+            monitorPtr.get(),
+            &sun::monitor::Monitor::usageEnded,
+            this,
+            &sun::core::ApplicationMonitor::handleUsageEnded
+        );
+
+        monitorPtr->startMonitoring();
     }
 
     static bool represents(const ApplicationInfo& app, const Window& window)
     {
         return window.getName().contains(app.getApplication().name, Qt::CaseInsensitive);
     }
-    
-    Application ApplicationMonitor::saveAsApplication(const Window& window) const
-    {
-        return applicationDaoPtr->create({window.getName(), window.getName()});
-    }
 
     void ApplicationMonitor::handleUsageStarted(Window window)
     {
+        if (window.getName().isEmpty())
+            return;
         for (auto& appInfo : applications)
         {
-            if (represents(appInfo, window))
+            if (window == appInfo.getWindow() || represents(appInfo, window))
             {
                 appInfo.setWindow(window);
                 if (!appInfo.isActive())
@@ -49,19 +66,13 @@ namespace sun::core
                 return;
             }
         }
-
-        auto appInfo = ApplicationInfo(saveAsApplication(window));
-        applications.append(appInfo);
-        applicationDiscovered(appInfo.constructDto());
-        appInfo.setActive();
-        usageStarted(appInfo.constructDto());
     }
 
     void ApplicationMonitor::handleUsageEnded(Window window)
     {
         for (auto& appInfo : applications)
         {
-            if (represents(appInfo, window))
+            if (window == appInfo.getWindow())
             {
                 appInfo.setInactive();
                 usageEnded(appInfo.constructDto());

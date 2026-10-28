@@ -8,6 +8,7 @@ WindowStatistics::WindowStatistics(QWidget *parent)
     , ui(new Ui::WindowStatistics)
 {
     ui->setupUi(this);
+    setProgramIcon(QIcon(":gui/exe-file.svg"));
 }
 
 WindowStatistics::~WindowStatistics()
@@ -26,15 +27,18 @@ void WindowStatistics::setProgramName(const QString& name)
     ui->programLabel->setText(name);
 }
 
-QString WindowStatistics::getProgramIconPath() const
+QIcon WindowStatistics::getProgramIcon() const
 {
-    return programIconPath;
+    return programIcon;
 }
 
-void WindowStatistics::setProgramIconPath(const QString& path)
+void WindowStatistics::setProgramIcon(const QIcon& icon)
 {
-    programIconPath = path;
-    ui->programIcon->setPixmap(QIcon(path).pixmap(24, 24));
+    if(!icon.isNull())
+    {
+        programIcon = icon;
+        ui->programIcon->setPixmap(icon.pixmap(24, 24));
+    }
 }
 
 QString WindowStatistics::getWorkTime() const
@@ -56,16 +60,17 @@ QString WindowStatistics::getWorkTimeIconPath() const
 void WindowStatistics::setWorkTimeIconPath(const QString& path)
 {
     workTimeIconPath = path;
-    ui->workTimeIcon->setPixmap(QIcon(path).pixmap(24, 24));
+    const QIcon icon(path);
+    ui->workTimeIcon->setPixmap(icon.isNull() ? QPixmap{} : icon.pixmap(24, 24));
 }
 
-QString WindowStatistics::getStatus() const
+QString WindowStatistics::getTimeLeft() const
 {
-    return status;
+    return timeLeft;
 }
 
-void WindowStatistics::setStatus(const QString& stat)
+void WindowStatistics::setTimeLeft(const QString& time)
 {
-    status = stat;
-    ui->status->setText(status);
+    timeLeft = time;
+    ui->timeLeft->setText(time);
 }

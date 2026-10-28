@@ -17,15 +17,21 @@ add_library(core
     scanning/applicationscannerfactory.h
     scanning/applicationscannerfactory.cpp
 
-    scanning/linux/linuxapplicationscanner.h
-    scanning/linux/linuxapplicationscanner.cpp
-
-    scanning/win32/win32applicationscanner.h
-    scanning/win32/win32applicationscanner.cpp
-
     application/applicationservice.h
     application/applicationservice.cpp
 )
+
+if(WIN32)
+    target_sources(core PRIVATE
+        scanning/win32/win32applicationscanner.h
+        scanning/win32/win32applicationscanner.cpp
+    )
+elseif(LINUX)
+    target_sources(core PRIVATE
+        scanning/linux/linuxapplicationscanner.h
+        scanning/linux/linuxapplicationscanner.cpp
+    )
+endif()
 
 target_include_directories(
     core
@@ -35,7 +41,7 @@ target_include_directories(
 
 target_link_libraries(
     core
-    PRIVATE 
+    PUBLIC
         monitor
         persistence
 )
