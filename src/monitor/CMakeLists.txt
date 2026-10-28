@@ -29,7 +29,15 @@ elseif(UNIX AND NOT APPLE)
 
         target_compile_definitions(monitor PRIVATE SUN_USE_X11)
         target_link_libraries(monitor PRIVATE X11::X11)
+    else()
+        target_sources(monitor PRIVATE
+                fallback/fallbackmonitor.h
+        )
     endif()
+else()
+    target_sources(monitor PRIVATE
+            fallback/fallbackmonitor.h
+    )
 endif()
 
 target_link_libraries(monitor PUBLIC Qt6::Core Qt6::Gui)
