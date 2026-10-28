@@ -9,7 +9,7 @@ namespace sun::core
         return applicationDao.create(dto);
     }
   
-    QList<Application> ApplicationService::create(const QList<CreateApplicationDto> &dtos)
+    QList<Application> ApplicationService::create(const QList<CreateApplicationDto> &dtos) const
     {
         QList<Application> applications;
         for (const auto& dto : dtos)
