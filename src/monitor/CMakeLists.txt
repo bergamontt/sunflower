@@ -16,16 +16,20 @@ if(WIN32)
             win32/win32monitor.h
             win32/win32monitor.cpp
     )
-else()
-    target_sources(monitor PRIVATE
-            x11/x11window.h
-            x11/x11window.cpp
-            x11/x11monitor.h
-            x11/x11monitor.cpp
-    )
+elseif(UNIX AND NOT APPLE)
+    find_package(X11 QUIET)
 
-    find_package(X11 REQUIRED)
-    target_link_libraries(monitor PRIVATE X11::X11)
+    if(X11_FOUND)
+        target_sources(monitor PRIVATE
+                x11/x11window.h
+                x11/x11window.cpp
+                x11/x11monitor.h
+                x11/x11monitor.cpp
+        )
+
+        target_compile_definitions(monitor PRIVATE SUN_USE_X11)
+        target_link_libraries(monitor PRIVATE X11::X11)
+    endif()
 endif()
 
 target_link_libraries(monitor PUBLIC Qt6::Core Qt6::Gui)
