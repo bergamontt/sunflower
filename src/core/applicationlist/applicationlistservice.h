@@ -8,6 +8,7 @@ namespace sun::core
     {
     public:
         persistence::ApplicationList create(const persistence::CreateApplicationListDto& dto) const;
+        persistence::ApplicationList create(const persistence::CreateApplicationListDto& dto, const QList<int>& applicationIds) const;
         persistence::ApplicationList updateById(const persistence::UpdateApplicationListDto& dto) const;
         void deleteById(int id) const;
 

@@ -9,6 +9,16 @@ namespace sun::core
         return applicationListDao.create(dto);
     }
 
+    ApplicationList ApplicationListService::create(const CreateApplicationListDto& dto, const QList<int>& applicationIds) const
+    {
+        const ApplicationList applicationList = applicationListDao.create(dto);
+        for(const int applicationId : applicationIds)
+        {
+            applicationListDao.addApplication(applicationList.id, applicationId);
+        }
+        return applicationList;
+    }
+
     std::optional<ApplicationList> ApplicationListService::getById(int id) const
     {
         return applicationListDao.getById(id);
