@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sun::core::strict::text
+namespace sun::gui::strict::text
 {
     inline const auto success_window = "Success";
     inline const auto error_widnow = "Error";
@@ -12,4 +12,4 @@ namespace sun::core::strict::text
     inline const auto confirm_password_placeholder = "Confirm password...";
     inline const auto passwords_mismatch = "Passwords do not match.";
     inline const auto incorrect_current_password = "Incorrect current password.";
-} // sun::core::messages::strict
+} // sun::gui::messages::strict
