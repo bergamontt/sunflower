@@ -8,6 +8,7 @@
 #include "db/database.h"
 #include "monitoring/applicationmonitor.h"
 #include "scanning/applicationscanner.h"
+#include "scanning/applicationscannerfactory.h"
 #include "application/applicationservice.h"
 
 int main(int argc, char* argv[])
@@ -23,9 +24,10 @@ int main(int argc, char* argv[])
 
     sun::persistence::Database db(path);
 
-    sun::core::ApplicationScanner scanner;
+    std::unique_ptr<sun::core::ApplicationScanner> scanner = sun::core::createApplicationScanner();
+    QList<sun::persistence::CreateApplicationDto> applications = scanner->findAll();
+
     sun::core::ApplicationService applicationService;
-    QList<sun::persistence::CreateApplicationDto> applications = scanner.findAll();
     applicationService.create(applications); 
 
     Q_INIT_RESOURCE(gui);

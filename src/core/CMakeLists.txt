@@ -11,6 +11,16 @@ target_sources(core PUBLIC
         settings/settingskeys.h
         settings/lockpolicy.h
         settings/lockpolicy.cpp
+        
+        scanning/applicationscanner.h
+        scanning/applicationscannerfactory.h
+        scanning/applicationscannerfactory.cpp
+
+        scanning/linux/linuxapplicationscanner.h
+        scanning/linux/linuxapplicationscanner.cpp
+
+        scanning/win32/win32applicationscanner.h
+        scanning/win32/win32applicationscanner.cpp
 
         password/passwordservice.h
         password/passwordservice.cpp

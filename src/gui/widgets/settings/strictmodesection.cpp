@@ -6,8 +6,10 @@
 
 #include <QMessageBox>
 
+using namespace sun::gui;
+using namespace sun::gui::strict;
+
 using namespace sun::core;
-using namespace sun::core::strict;
 
 StrictModeSection::StrictModeSection(QWidget *parent) : 
     QFrame(parent),
