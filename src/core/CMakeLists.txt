@@ -10,28 +10,35 @@ target_link_libraries(
 target_sources(
     core
     PUBLIC
-        schedule/scheduleservice.h
-        schedule/scheduleservice.cpp
+    schedule/scheduleservice.h
+    schedule/scheduleservice.cpp
 
-        application/applicationservice.h
-        application/applicationservice.cpp
+    application/applicationservice.h
+    application/applicationservice.cpp
         
-        applicationlist/applicationlistservice.h
-        applicationlist/applicationlistservice.cpp
+    applicationlist/applicationlistservice.h
+    applicationlist/applicationlistservice.cpp
+       
+    monitoring/applicationmonitor.cpp
+    monitoring/applicationmonitor.h
+    monitoring/applicationinfo.h
+    monitoring/applicationinfo.cpp
+    monitoring/applicationmonitor.cpp
+    monitoring/applicationmonitor.h
+    monitoring/applicationinfo.h
+    monitoring/applicationinfo.cpp
         
-        monitoring/applicationmonitor.cpp
-        monitoring/applicationmonitor.h
-        monitoring/applicationinfo.h
-        monitoring/applicationinfo.cpp
-        
-        settings/settingsservice.h
-        settings/settingsservice.cpp
-        settings/settingskeys.h
-        settings/lockpolicy.h
-        settings/lockpolicy.cpp
+    settings/settingsservice.h
+    settings/settingsservice.cpp
+    settings/settingskeys.h
+    settings/lockpolicy.h
+    settings/lockpolicy.cpp
 
-        password/passwordservice.h
-        password/passwordservice.cpp
+    password/passwordservice.h
+    password/passwordservice.cpp
+
+    scanning/applicationscanner.h
+    scanning/applicationscanner.cpp
 )
 
 target_include_directories(

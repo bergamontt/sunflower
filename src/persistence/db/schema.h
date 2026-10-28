@@ -6,7 +6,9 @@ namespace sun::persistence::schema
         "CREATE TABLE IF NOT EXISTS application ( "
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "name TEXT NOT NULL, "
-        "process_name TEXT NOT NULL )";
+        "process_name TEXT NOT NULL, "
+        "icon TEXT, "
+        "source TEXT UNIQUE) ";
 
     inline const auto create_activity_table =
         "CREATE TABLE IF NOT EXISTS activity ( "

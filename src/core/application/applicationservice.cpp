@@ -2,22 +2,35 @@
 
 namespace sun::core
 {
-    sun::persistence::Application ApplicationService::create(const sun::persistence::CreateApplicationDto& dto) const
+    using namespace persistence;
+  
+    Application ApplicationService::create(const CreateApplicationDto& dto) const
     {
         return applicationDao.create(dto);
     }
+  
+    QList<Application> ApplicationService::create(const QList<CreateApplicationDto> &dtos)
+    {
+        QList<Application> applications;
+        for (const auto& dto : dtos)
+        {
+            Application application = create(dto);
+            applications.append(application);
+        }
+        return applications;
+    }
 
-    sun::persistence::Application ApplicationService::updateById(const sun::persistence::UpdateApplicationDto& dto) const
+    Application ApplicationService::updateById(const UpdateApplicationDto& dto) const
     {
         return applicationDao.updateById(dto);
     }
 
-    std::optional<sun::persistence::Application> ApplicationService::getById(int id) const
+    std::optional<Application> ApplicationService::getById(int id) const
     {
         return applicationDao.getById(id);
     }
 
-    QList<sun::persistence::Application> ApplicationService::getAll() const
+    QList<Application> ApplicationService::getAll() const
     {
         return applicationDao.getAll();
     }
