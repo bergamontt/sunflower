@@ -1,26 +1,22 @@
-
 #include "scheduleservice.h"
 
 namespace sun::core
 {
-    sun::persistence::Schedule ScheduleService::create(const sun::persistence::CreateScheduleDto& dto) const
+    using namespace persistence;
+
+    Schedule ScheduleService::create(const CreateScheduleDto& dto) const
     {
         return scheduleDao.create(dto);
     }
 
-    sun::persistence::Schedule ScheduleService::updateById(const sun::persistence::UpdateScheduleDto& dto) const
+    Schedule ScheduleService::updateById(const UpdateScheduleDto& dto) const
     {
         return scheduleDao.updateById(dto);
     }
 
-    sun::persistence::Schedule ScheduleService::updateIsActiveById(int id, bool isActive) const
+    Schedule ScheduleService::updateIsActiveById(int id, bool isActive) const
     {
         return scheduleDao.updateIsActiveById(id, isActive);
-    }
-
-    std::optional<sun::persistence::Schedule> ScheduleService::getById(int id) const
-    {
-        return scheduleDao.getById(id);
     }
 
     void ScheduleService::deleteById(int id) const
@@ -28,7 +24,12 @@ namespace sun::core
         scheduleDao.deleteById(id);
     }
 
-    QList<sun::persistence::Schedule> ScheduleService::getAll() const
+    std::optional<Schedule> ScheduleService::getById(int id) const
+    {
+        return scheduleDao.getById(id);
+    }
+
+    QList<Schedule> ScheduleService::getAll() const
     {
         return scheduleDao.getAll();
     }
@@ -48,7 +49,7 @@ namespace sun::core
         scheduleDao.removeAllApplicationLists(scheduleId);
     }
 
-    QList<sun::persistence::ApplicationList> ScheduleService::getAllApplicationLists(int scheduleId) const
+    QList<ApplicationList> ScheduleService::getAllApplicationLists(int scheduleId) const
     {
         return scheduleDao.getAllApplicationLists(scheduleId);
     }

@@ -20,11 +20,6 @@ namespace sun::core
         return applications;
     }
 
-    Application ApplicationService::updateById(const UpdateApplicationDto& dto) const
-    {
-        return applicationDao.updateById(dto);
-    }
-
     std::optional<Application> ApplicationService::getById(int id) const
     {
         return applicationDao.getById(id);
@@ -33,6 +28,11 @@ namespace sun::core
     QList<Application> ApplicationService::getAll() const
     {
         return applicationDao.getAll();
+    }
+
+    Application ApplicationService::updateById(const UpdateApplicationDto& dto) const
+    {
+        return applicationDao.updateById(dto);
     }
 
     void ApplicationService::deleteById(int id) const
