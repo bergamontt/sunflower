@@ -1,7 +1,8 @@
 #include "applicationshortlist.h"
-#include "application.h"
 #include "applicationlist.h"
 #include "ui_applicationshortlist.h"
+
+using namespace sun::persistence;
 
 ApplicationShortList::ApplicationShortList(QWidget *parent) :
     QWidget(parent),
@@ -21,58 +22,48 @@ void ApplicationShortList::resizeEvent(QResizeEvent *event)
     updateText();
 }
 
-void ApplicationShortList::setApplicationLists(QList<sun::persistence::ApplicationList> appicationLists)
+void ApplicationShortList::setApplicationLists(QList<ApplicationList> appicationLists)
 {
-    for(const sun::persistence::ApplicationList& applicationList : appicationLists) {
-        if(applicationList.name.has_value() && !applicationList.name->isEmpty()) {
+    listNames.clear();
+    for(const ApplicationList& applicationList : appicationLists)
+    {
+        if(applicationList.name.has_value() && !applicationList.name->isEmpty())
             listNames.append(*applicationList.name);
-        } else {
-            const QList<sun::persistence::Application>& applications = applicationListService.getAllApplications(applicationList.id);
-            for(const sun::persistence::Application& application : applications) {
-                applicationNames.append(application.name);
-            }
-        }
     }
     updateText();
 }
 
 void ApplicationShortList::updateText()
 {
-    QStringList names;
-
-    for (const QString &name : listNames) {
-        names.append(name);
+    if(listNames.empty())
+    {
+        ui->text->setText("No applications selected.");
+        return;
     }
+         
+    const int availableWidth = ui->text->contentsRect().width();
+    const QFontMetrics metrics(ui->text->font());
 
-    for (const QString &name : applicationNames) {
-        names.append(name);
-    }
+    for (int omitted = 0; omitted < listNames.size(); ++omitted) {
+        const int fitted = listNames.size() - omitted;
 
-    if(names.empty()) {
-         ui->text->setText("No applications selected.");
-    } else {
-        const int availableWidth = ui->text->contentsRect().width();
-        const QFontMetrics metrics(ui->text->font());
+        QString text = listNames.mid(0, fitted).join(", ");
 
-        for (int fitted = names.size(); fitted >= 0; --fitted) {
-            QString text = names.mid(0, fitted).join(", ");
-
-            const int omitted = names.size() - fitted;
-
-            if (omitted > 0) {
-                if (!text.isEmpty()) {
-                    text += ", ";
-                }
-
-                text += QString("+%1").arg(omitted);
-            }
-
-            if (metrics.horizontalAdvance(text) <= availableWidth) {
-                ui->text->setText(text);
-                return;
-            }
+        if (omitted > 0)
+        {
+            text += ", ";
+            text += QString("+%1").arg(omitted);
         }
 
-        ui->text->clear();
+        if (metrics.horizontalAdvance(text) <= availableWidth)
+        {
+            ui->text->setText(text);
+            return;
+        }
     }
+
+    if(listNames.size() == 1)
+        ui->text->setText("1 list");
+    else
+        ui->text->setText(QString("%1 lists").arg(listNames.size()));
 }

@@ -24,8 +24,7 @@ protected:
 
 private:
     Ui::ApplicationShortList *ui;
-    QList<QString> applicationNames;
-    QList<QString> listNames;
+    QStringList listNames;
 
     void updateText();
 
