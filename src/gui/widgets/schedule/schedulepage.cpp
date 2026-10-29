@@ -8,6 +8,8 @@
 #include "scheduledialog.h"
 #include <qnamespace.h>
 
+using namespace sun::persistence;
+
 SchedulePage::SchedulePage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SchedulePage)
@@ -16,12 +18,8 @@ SchedulePage::SchedulePage(QWidget *parent) :
     ui->scheduleList->setAlignment(Qt::AlignTop);
     loadSchedules();
 
-    connect(
-        ui->newScheduleButton,
-        &QPushButton::clicked,
-        this,
-        &SchedulePage::onCreateScheduleButtonClicked
-    );
+    connect(ui->newScheduleButton, &QPushButton::clicked,
+        this, &SchedulePage::onCreateScheduleButtonClicked);
 }
 
 SchedulePage::~SchedulePage()
@@ -31,49 +29,53 @@ SchedulePage::~SchedulePage()
 
 void SchedulePage::loadSchedules()
 { 
-    const QList<sun::persistence::Schedule> schedules = scheduleService.getAll();
-    for (const sun::persistence::Schedule& schedule : schedules) {
-        ScheduleItem* item = new ScheduleItem(this);
-        item->setObjectName("scheduleItem-" + QString::number(schedule.id));
+    const QList<Schedule> schedules = scheduleService.getAll();
+    for (const Schedule& schedule : schedules)
+        insertSchedule(schedule);
+}
 
-        QList<sun::persistence::ApplicationList> applicationlists = scheduleService.getAllApplicationLists(schedule.id);
-        item->setSchedule(schedule, applicationlists);
+void SchedulePage::insertSchedule(const Schedule& schedule)
+{
+    ScheduleItem* item = new ScheduleItem(this);
+    item->setObjectName("scheduleItem-" + QString::number(schedule.id));
 
-        connect(item, &ScheduleItem::deleteRequested, this, &SchedulePage::onDeleteScheduleRequested);
-        connect(item, &ScheduleItem::editRequested, this, &SchedulePage::onEditScheduleRequested);
+    QList<ApplicationList> applicationlists = scheduleService.getAllApplicationLists(schedule.id);
+    item->setSchedule(schedule, applicationlists);
 
-        ui->scheduleList->addWidget(item);
-    }
+    connect(item, &ScheduleItem::deleteRequested,
+        this, &SchedulePage::onDeleteScheduleRequested);
+
+    connect(item, &ScheduleItem::editRequested,
+        this, &SchedulePage::onEditScheduleRequested);
+
+    ui->scheduleList->addWidget(item);
 }
 
 void SchedulePage::onCreateScheduleButtonClicked()
 {
-    ScheduleDialog dialog(this);
-    if(dialog.exec() == QDialog::Accepted) {
-        sun::persistence::CreateScheduleDto scheduleDto = dialog.getSchedule();
-        sun::persistence::Schedule schedule = scheduleService.create(scheduleDto);
-        QList<sun::persistence::ApplicationList> applicationLists = dialog.getApplicationLists();
-        for(sun::persistence::ApplicationList applicationlist : applicationLists) {
+    ScheduleDialog* dialog = new ScheduleDialog(this);
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        CreateScheduleDto scheduleDto = dialog->getSchedule();
+        Schedule schedule = scheduleService.create(scheduleDto);
+
+        QList<ApplicationList> applicationLists = dialog->getApplicationLists();
+        for(ApplicationList applicationlist : applicationLists)
             scheduleService.addApplicationList(schedule.id, applicationlist.id);
-        }
-        ScheduleItem* item = new ScheduleItem(this);
-        item->setObjectName("scheduleItem-" + QString::number(schedule.id));
-        item->setSchedule(schedule, applicationLists);
-        connect(item, &ScheduleItem::deleteRequested, this, &SchedulePage::onDeleteScheduleRequested);
-        connect(item, &ScheduleItem::editRequested, this, &SchedulePage::onEditScheduleRequested);
-        ui->scheduleList->addWidget(item);
+
+        insertSchedule(schedule);
     }
 }
 
-void SchedulePage::onEditScheduleRequested(sun::persistence::Schedule schedule, QList<sun::persistence::ApplicationList> applicationLists)
+void SchedulePage::onEditScheduleRequested(Schedule schedule, QList<ApplicationList> applicationLists)
 {
-    ScheduleDialog scheduleDialog;
-    scheduleDialog.setSchedule(schedule, applicationLists);
+    ScheduleDialog* scheduleDialog = new ScheduleDialog(this);
+    scheduleDialog->setSchedule(schedule, applicationLists);
     
-    if(scheduleDialog.exec() == QDialog::Accepted) {
-        sun::persistence::CreateScheduleDto createScheduleDto = scheduleDialog.getSchedule();
-
-        sun::persistence::UpdateScheduleDto updateScheduleDto;
+    if(scheduleDialog->exec() == QDialog::Accepted)
+    {
+        const CreateScheduleDto& createScheduleDto = scheduleDialog->getSchedule();
+        UpdateScheduleDto updateScheduleDto;
         updateScheduleDto.id = schedule.id;
         updateScheduleDto.name = createScheduleDto.name;
         updateScheduleDto.type = createScheduleDto.type;
@@ -81,41 +83,12 @@ void SchedulePage::onEditScheduleRequested(sun::persistence::Schedule schedule, 
         updateScheduleDto.startsAt = createScheduleDto.startsAt;
         updateScheduleDto.endsAt = createScheduleDto.endsAt;
         updateScheduleDto.repeatAt = createScheduleDto.repeatAt;
+        QList<ApplicationList> newApplicationLists = scheduleDialog->getApplicationLists();
+        const Schedule& newSchedule = scheduleService.updateById(updateScheduleDto, newApplicationLists);
 
-        sun::persistence::Schedule newSchedule = scheduleService.updateById(updateScheduleDto);
-        QList<sun::persistence::ApplicationList> newApplicationLists = scheduleDialog.getApplicationLists();
-
-        for (const sun::persistence::ApplicationList applicationList : applicationLists) {
-            bool shouldKeep = false;
-
-            for (const sun::persistence::ApplicationList& newApplicationList : newApplicationLists) {
-                if (applicationList.id == newApplicationList.id) {
-                    shouldKeep = true;
-                    break;
-                }
-            }
-
-            if (!shouldKeep) {
-                scheduleService.removeApplicationList(schedule.id, applicationList.id);
-            }
-
-            for (const sun::persistence::ApplicationList& newApplicationList : newApplicationLists) {
-                bool alreadyExists = false;
-
-                for (const sun::persistence::ApplicationList& applicationList : applicationLists) {
-                    if (newApplicationList.id == applicationList.id) {
-                        alreadyExists = true;
-                        break;
-                    }
-                }
-
-                if (!alreadyExists) {
-                    scheduleService.addApplicationList(schedule.id, newApplicationList.id);
-                }
-            }
-        }
-        ScheduleItem *item = findChild<ScheduleItem *>("scheduleItem-" + QString::number(schedule.id));
-        if (item) item->setSchedule(newSchedule, newApplicationLists);
+        ScheduleItem *item = findChild<ScheduleItem*>("scheduleItem-" + QString::number(schedule.id));
+        if(item)
+            item->setSchedule(newSchedule, newApplicationLists);
     }
 }
 
@@ -128,6 +101,7 @@ void SchedulePage::onDeleteScheduleRequested(int scheduleId, QString scheduleNam
     {
         scheduleService.deleteById(scheduleId);
         QWidget *item = findChild<QWidget*>("scheduleItem-" + QString::number(scheduleId));
-        if (item) item->deleteLater();
+        if (item)
+            item->deleteLater();
     }
 }

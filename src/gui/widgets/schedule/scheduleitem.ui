@@ -148,19 +148,6 @@
       </widget>
      </item>
      <item>
-      <spacer name="scheduleItemFooterSpacer">
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
       <widget class="QLabel" name="scheduleStatus">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -189,7 +176,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
   <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
  </resources>
  <connections/>

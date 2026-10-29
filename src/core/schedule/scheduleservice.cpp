@@ -1,4 +1,5 @@
 #include "scheduleservice.h"
+#include "applicationlist.h"
 
 namespace sun::core
 {
@@ -12,6 +13,47 @@ namespace sun::core
     Schedule ScheduleService::updateById(const UpdateScheduleDto& dto) const
     {
         return scheduleDao.updateById(dto);
+    }
+
+        Schedule ScheduleService::updateById(const UpdateScheduleDto& dto, const QList<persistence::ApplicationList> newApplicationLists) const
+    {
+        const Schedule& newSchedule = scheduleDao.updateById(dto);
+
+        const QList<ApplicationList>& oldApplicationLists = scheduleDao.getAllApplicationLists(newSchedule.id);
+        for (const ApplicationList& oldApplicationList : oldApplicationLists)
+        {
+            bool shouldKeep = false;
+
+            for (const ApplicationList& newApplicationList : newApplicationLists)
+            {
+                if (oldApplicationList.id == newApplicationList.id)
+                {
+                    shouldKeep = true;
+                    break;
+                }
+            }
+
+            if (!shouldKeep)
+                scheduleDao.removeApplicationList(newSchedule.id, oldApplicationList.id);
+
+            for (const ApplicationList& newApplicationList : newApplicationLists) {
+                bool alreadyExists = false;
+
+                for (const ApplicationList& oldApplicationList : oldApplicationLists)
+                {
+                    if (newApplicationList.id == oldApplicationList.id)
+                    {
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+
+                if (!alreadyExists)
+                    scheduleDao.addApplicationList(newSchedule.id, newApplicationList.id);
+            }
+        }
+        
+        return newSchedule;
     }
 
     Schedule ScheduleService::updateIsActiveById(int id, bool isActive) const

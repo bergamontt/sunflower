@@ -27,6 +27,7 @@ private:
     Ui::SchedulePage *ui;
     sun::core::ScheduleService scheduleService;
     void loadSchedules();
+    void insertSchedule(const sun::persistence::Schedule& schedule);
 };
 
 #endif // SCHEDULEPAGE_H
