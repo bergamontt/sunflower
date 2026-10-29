@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "schedule.h"
 #include "applicationlist.h"
-#include "scheduleservice.h"
+#include "schedule/scheduleservice.h"
 
 namespace Ui {
 class ScheduleItem;

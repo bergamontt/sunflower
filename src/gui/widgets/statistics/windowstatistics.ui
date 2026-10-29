@@ -119,9 +119,9 @@
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="status">
+    <widget class="QLabel" name="timeLeft">
      <property name="text">
-      <string>Status</string>
+      <string>Time left</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>

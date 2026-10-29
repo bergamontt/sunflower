@@ -38,17 +38,27 @@ target_sources(
     password/passwordservice.cpp
 
     scanning/applicationscanner.h
-    scanning/applicationscanner.cpp
+    scanning/applicationscannerfactory.h
+    scanning/applicationscannerfactory.cpp
+
+    application/applicationservice.h
+    application/applicationservice.cpp
 )
+
+if(WIN32)
+    target_sources(core PRIVATE
+        scanning/win32/win32applicationscanner.h
+        scanning/win32/win32applicationscanner.cpp
+    )
+elseif(LINUX)
+    target_sources(core PRIVATE
+        scanning/linux/linuxapplicationscanner.h
+        scanning/linux/linuxapplicationscanner.cpp
+    )
+endif()
 
 target_include_directories(
     core
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/application
-        ${CMAKE_CURRENT_SOURCE_DIR}/applicationlist
-        ${CMAKE_CURRENT_SOURCE_DIR}/schedule
-        ${CMAKE_CURRENT_SOURCE_DIR}/monitoring
-        ${CMAKE_CURRENT_SOURCE_DIR}/settings
-        ${CMAKE_CURRENT_SOURCE_DIR}/password
 )

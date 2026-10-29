@@ -101,7 +101,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="statusLabel">
+        <widget class="QLabel" name="timeLeftLabel">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -109,7 +109,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Status</string>
+          <string>Time left</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignmentFlag::AlignCenter</set>

@@ -1,6 +1,6 @@
 #include "scheduleitem.h"
 #include "applicationlist.h"
-#include "scheduleservice.h"
+#include "schedule/scheduleservice.h"
 #include "ui_scheduleitem.h"
 
 using namespace sun::persistence;

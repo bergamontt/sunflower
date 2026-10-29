@@ -12,6 +12,8 @@ namespace sun::monitor::win32
     public:
         explicit Win32Monitor(QObject *parent = nullptr);
 
+        void startMonitoring() override;
+
         ~Win32Monitor() override;
 
     private:

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/kdewayland">
+        <file>scripts/monitor.js</file>
+        <file>scripts/blocker.js</file>
+    </qresource>
+</RCC>

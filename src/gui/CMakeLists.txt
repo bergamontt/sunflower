@@ -99,4 +99,5 @@ qt_add_resources(gui "gui"
         resources/plus.svg
         resources/settings.svg
         resources/on.svg
+        resources/exe-file.svg
 )

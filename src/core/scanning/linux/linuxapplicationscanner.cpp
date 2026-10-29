@@ -1,4 +1,4 @@
-#include "scanning/applicationscanner.h"
+#include "linuxapplicationscanner.h"
 
 #include <QSettings>
 #include <QStandardPaths>
@@ -9,7 +9,7 @@ namespace sun::core
 {
     using namespace sun::persistence;
 
-    QList<persistence::CreateApplicationDto> ApplicationScanner::findAll()
+    QList<persistence::CreateApplicationDto> LinuxApplicationScanner::doFindAll()
     {
         QList<CreateApplicationDto> applications;
         auto dirs = QStandardPaths::standardLocations(QStandardPaths::ApplicationsLocation);
@@ -30,7 +30,7 @@ namespace sun::core
         return applications;
     }
 
-    persistence::CreateApplicationDto ApplicationScanner::parseApplication(
+    persistence::CreateApplicationDto LinuxApplicationScanner::parseApplication(
         const QSettings &file, const QString& source
     ) {
         QString name = file.value("Name").toString();
@@ -39,12 +39,12 @@ namespace sun::core
         return {name, exec, icon, source};
     }
 
-    QString ApplicationScanner::parseSource(const QDir& dir, const QString& path)
+    QString LinuxApplicationScanner::parseSource(const QDir& dir, const QString& path)
     {
         return dir.relativeFilePath(path).replace('/', '-');
     }
 
-    bool ApplicationScanner::isApplicationHidden(const QSettings &file)
+    bool LinuxApplicationScanner::isApplicationHidden(const QSettings &file)
     {
         return file.value("NoDisplay").toBool() || file.value("Hidden").toBool();
     }

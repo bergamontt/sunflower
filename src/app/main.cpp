@@ -6,7 +6,9 @@
 #include "mainwindow.h"
 
 #include "db/database.h"
+#include "monitoring/applicationmonitor.h"
 #include "scanning/applicationscanner.h"
+#include "scanning/applicationscannerfactory.h"
 #include "application/applicationservice.h"
 
 int main(int argc, char* argv[])
@@ -22,9 +24,10 @@ int main(int argc, char* argv[])
 
     sun::persistence::Database db(path);
 
-    sun::core::ApplicationScanner scanner;
+    std::unique_ptr<sun::core::ApplicationScanner> scanner = sun::core::createApplicationScanner();
+    QList<sun::persistence::CreateApplicationDto> applications = scanner->findAll();
+
     sun::core::ApplicationService applicationService;
-    QList<sun::persistence::CreateApplicationDto> applications = scanner.findAll();
     applicationService.create(applications); 
 
     Q_INIT_RESOURCE(gui);
@@ -37,6 +40,32 @@ int main(int argc, char* argv[])
     }
 
     MainWindow window;
+
+    sun::core::ApplicationMonitor appMonitor;
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::applicationDiscovered,
+        window.getStatisticsPage(),
+        &StatisticsPage::handleApplicationDiscovered
+    );
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::usageStarted,
+        window.getStatisticsPage(),
+        &StatisticsPage::handleUsageStarted
+    );
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::usageEnded,
+        window.getStatisticsPage(),
+        &StatisticsPage::handleUsageEnded
+    );
+
+    appMonitor.discoverApplications();
+
     window.show();
 
     return app.exec();

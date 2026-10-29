@@ -1,7 +1,7 @@
 #include "applicationsdialog.h"
 #include "application.h"
 #include "applicationlist.h"
-#include "applicationlistservice.h"
+#include "applicationlist/applicationlistservice.h"
 #include "ui_applicationsdialog.h"
 
 #include <QListWidgetItem>

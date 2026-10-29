@@ -2,12 +2,26 @@
 #include "win32window.h"
 
 #include <memory>
+#include <unordered_map>
 
 using namespace std;
 
 namespace sun::monitor::win32
 {
     static unordered_map<HWINEVENTHOOK, Win32Monitor*> monitors;
+
+    static BOOL CALLBACK enumWindowsProc(WindowId id, LPARAM lParam)
+    {
+        auto* monitor = reinterpret_cast<Win32Monitor*>(lParam);
+
+        if (!IsWindowVisible(id))
+            return TRUE;
+
+        const auto window = make_shared<Win32WindowImpl>(id);
+        if (!window->getName().isEmpty())
+            monitor->usageStarted(Window(window));
+        return TRUE;
+    }
 
     void CALLBACK Win32Monitor::winEventProc(
         HWINEVENTHOOK hook,
@@ -23,11 +37,18 @@ namespace sun::monitor::win32
             return;
 
         const auto it = monitors.find(hook);
+
         if (it != monitors.end())
             it->second->processWin32Event(event, windowId);
     }
 
-    Win32Monitor::Win32Monitor(QObject* parent) : Monitor(parent)
+    Win32Monitor::Win32Monitor(QObject* parent)
+        : Monitor(parent),
+          createHook(nullptr),
+          destroyHook(nullptr)
+    {}
+
+    void Win32Monitor::startMonitoring()
     {
         createHook = SetWinEventHook(
             EVENT_OBJECT_CREATE,
@@ -36,7 +57,7 @@ namespace sun::monitor::win32
             winEventProc,
             0,
             0,
-            WINEVENT_OUTOFCONTEXT
+            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
         );
 
         destroyHook = SetWinEventHook(
@@ -46,7 +67,7 @@ namespace sun::monitor::win32
             winEventProc,
             0,
             0,
-            WINEVENT_OUTOFCONTEXT
+            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
         );
 
         if (createHook)
@@ -54,6 +75,8 @@ namespace sun::monitor::win32
 
         if (destroyHook)
             monitors[destroyHook] = this;
+
+        EnumWindows(enumWindowsProc, reinterpret_cast<LPARAM>(this));
     }
 
     Win32Monitor::~Win32Monitor()
@@ -71,13 +94,17 @@ namespace sun::monitor::win32
         }
     }
 
-    void Win32Monitor::processWin32Event(const DWORD event,WindowId windowId)
+    void Win32Monitor::processWin32Event(const DWORD event, WindowId windowId)
     {
         switch (event)
         {
         case EVENT_OBJECT_CREATE:
-            usageStarted(Window(make_shared<Win32WindowImpl>(windowId)));
+        {
+            auto window = make_shared<Win32WindowImpl>(windowId);
+            if (!window->getName().isEmpty())
+                usageStarted(Window(window));
             break;
+        }
 
         case EVENT_OBJECT_DESTROY:
             usageEnded(Window(make_shared<Win32WindowImpl>(windowId)));

@@ -17,6 +17,8 @@ namespace sun::monitor
     public:
         explicit Monitor(QObject* parent = nullptr) : QObject(parent) {}
 
+        virtual void startMonitoring() = 0;
+
     signals:
         void usageStarted(sun::monitor::Window window);
 

@@ -62,3 +62,8 @@ void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
         break;
     }
 }
+
+StatisticsPage* MainWindow::getStatisticsPage() const
+{
+    return ui->statisticsPage;
+}
