@@ -199,6 +199,11 @@ void ScheduleDialog::validateForm()
 {
     ui->doneButton->setDisabled(false);
 
-    if(ui->scheduleNameEdit->text().isEmpty()) ui->doneButton->setDisabled(true);
-    if(applicationLists.empty()) ui->doneButton->setDisabled(true);
+    if(ui->scheduleNameEdit->text().isEmpty())
+        ui->doneButton->setDisabled(true);
+    
+    if(applicationLists.empty())
+        ui->doneButton->setDisabled(true);
+    else
+        ui->addApplicationsButton->setIcon(QIcon(":/gui/edit.svg"));
 }
