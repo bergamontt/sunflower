@@ -66,7 +66,6 @@ namespace sun::core
         scheduleDaoPtr(make_shared<ScheduleDao>()),
         applicationListDaoPtr(make_shared<ApplicationListDao>()),
         activityDaoPtr(make_shared<ActivityDao>()),
-        activitySaveTimer(make_shared<QTimer>()),
         application(move(app))
     {
         QList<ApplicationList> appLists = applicationListDaoPtr->getAllByApplication(application.id);
@@ -74,12 +73,6 @@ namespace sun::core
             schedules.append(scheduleDaoPtr->getAllByApplicationList(appList.id));
         QList<Activity> activities = activityDaoPtr->getAllByApplicationId(application.id);
         priorActivities = activities;
-
-        QObject::connect(activitySaveTimer.get(), &QTimer::timeout, [this]()
-        {
-            updateCurrentActivityEnd();
-        });
-        activitySaveTimer->start(10'000);
     }
 
     ApplicationInfoDto ApplicationInfo::constructDto()

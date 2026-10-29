@@ -194,6 +194,7 @@ void StatisticsPage::handleUsageEnded(const ApplicationInfoDto& appInfo)
     updateApplication(appInfo);
     runningApplications.erase(appInfo.getId());
     refreshWidget(appInfo.getId());
+    refreshGraphs();
 }
 
 void StatisticsPage::updateApplication(const ApplicationInfoDto& appInfo)

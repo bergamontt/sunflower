@@ -75,10 +75,10 @@ namespace sun::core
 
         [[nodiscard]] ApplicationInfoDto constructDto();
 
+        void updateCurrentActivityEnd();
+
     private:
         std::chrono::seconds getTodayActivity();
-
-        void updateCurrentActivityEnd();
 
         std::shared_ptr<persistence::IScheduleDao> scheduleDaoPtr;
         std::shared_ptr<persistence::IApplicationListDao> applicationListDaoPtr;
@@ -90,7 +90,5 @@ namespace sun::core
         std::optional<persistence::Activity> currentActivity;
         QList<persistence::Schedule> schedules;
         std::map<int, std::shared_ptr<QTimer>> timers;
-
-        std::shared_ptr<QTimer> activitySaveTimer;
     };
 }

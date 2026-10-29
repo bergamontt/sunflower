@@ -46,7 +46,6 @@ private:
 
     QElapsedTimer clock;
     QTimer refreshTimer;
-    QTimer chartUpdateTimer;
 
     UsageBarChart* weeklyChart = nullptr;
     UsageBarChart* dailyChart = nullptr;

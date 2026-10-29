@@ -35,6 +35,8 @@ namespace sun::core
         void usageEnded(sun::core::ApplicationInfoDto application);
 
     private:
+        void updateActivities();
+
         std::unique_ptr<sun::monitor::Monitor> monitorPtr;
 
         std::unique_ptr<persistence::IApplicationDao> applicationDaoPtr;
@@ -43,5 +45,6 @@ namespace sun::core
         std::unique_ptr<persistence::IScheduleDao> scheduleDaoPtr;
 
         QList<std::shared_ptr<ApplicationInfo>> applications;
+        std::shared_ptr<QTimer> updateActivityTimer;
     };
 }
