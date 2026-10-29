@@ -54,6 +54,7 @@ void ApplicationsDialog::loadApplications()
 
         ui->applicationList->addItem(item);
     }
+    ui->applicationList->sortItems(Qt::AscendingOrder);
     validateForm();
 }
 

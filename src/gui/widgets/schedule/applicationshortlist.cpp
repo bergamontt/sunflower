@@ -1,6 +1,7 @@
 #include "applicationshortlist.h"
 #include "applicationlist.h"
 #include "ui_applicationshortlist.h"
+#include <qnamespace.h>
 
 using namespace sun::persistence;
 
@@ -30,6 +31,7 @@ void ApplicationShortList::setApplicationLists(QList<ApplicationList> appication
         if(applicationList.name.has_value() && !applicationList.name->isEmpty())
             listNames.append(*applicationList.name);
     }
+    listNames.sort(Qt::CaseSensitive);
     updateText();
 }
 

@@ -83,7 +83,10 @@ void ApplicationDialog::insertApplicationList(const ApplicationList& list)
     }
 
     listItem->setExpanded(false);
+    listItem->sortChildren(0, Qt::AscendingOrder);
+
     ui->title->setText("Choose applications to block");
+    ui->applicationTree->sortItems(0, Qt::AscendingOrder);
 }
 
 void ApplicationDialog::setUpAppListButtons(QTreeWidgetItem *listItem, const ApplicationList& list)
