@@ -18,32 +18,32 @@ namespace sun::core
 
     static optional<seconds> timeLeft(const optional<Schedule>& schedule, const seconds currentActivity)
     {
-        if (!schedule || !(schedule->repeatAt & currentDayOfWeek()))
+        if (!schedule || !(schedule->isActive) || !(schedule->repeatAt & currentDayOfWeek()))
             return nullopt;
 
         switch (schedule->type)
         {
         case Schedule::DailyLimit:
-            {
-                const auto limit = seconds(*schedule->dailyLimit);
-                return max(seconds::zero(), duration_cast<seconds>(limit) - currentActivity);
-            }
+        {
+            const auto limit = seconds(*schedule->dailyLimit);
+            return max(seconds::zero(), duration_cast<seconds>(limit) - currentActivity);
+        }
 
         case Schedule::TimeWindow:
-            {
-                const QTime now = QTime::currentTime();
-                const QTime startsAt = *schedule->startsAt;
-                const QTime endsAt = *schedule->endsAt;
-                const QTime midnight = QTime(23, 59, 59);
+        {
+            const QTime now = QTime::currentTime();
+            const QTime startsAt = *schedule->startsAt;
+            const QTime endsAt = *schedule->endsAt;
+            const QTime midnight = QTime(23, 59, 59);
 
-                if (startsAt <= now || now < endsAt)
-                    return seconds::zero();
+            if (startsAt <= now && now < endsAt)
+                return seconds::zero();
 
-                if (now < startsAt)
-                    seconds(now.secsTo(startsAt));
-                else
-                    return seconds(now.secsTo(midnight));
-            }
+            if (now < startsAt)
+                seconds(now.secsTo(startsAt));
+            else
+                return seconds(now.secsTo(midnight));
+        }
         }
 
         return nullopt;
