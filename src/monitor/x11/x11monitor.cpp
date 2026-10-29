@@ -84,18 +84,20 @@ namespace sun::monitor::x11
             switch (event.type)
             {
             case CreateNotify:
-                {
-                    WindowId windowId = event.xcreatewindow.window;
-                    usageStarted(Window(make_shared<X11WindowImpl>(windowId)));
-                    break;
-                }
+            {
+                WindowId windowId = event.xcreatewindow.window;
+                auto window = make_shared<X11WindowImpl>(windowId);
+                if (!window->getName().isEmpty())
+                    usageStarted(Window(window));
+                break;
+            }
 
             case DestroyNotify:
-                {
-                    WindowId windowId = event.xdestroywindow.window;
-                    usageEnded(Window(make_shared<X11WindowImpl>(windowId)));
-                    break;
-                }
+            {
+                WindowId windowId = event.xdestroywindow.window;
+                usageEnded(Window(make_shared<X11WindowImpl>(windowId)));
+                break;
+            }
 
             default:
                 break;

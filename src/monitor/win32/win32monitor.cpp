@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <QDebug>
 
 using namespace std;
 
@@ -17,7 +18,9 @@ namespace sun::monitor::win32
         if (!IsWindowVisible(id))
             return TRUE;
 
-        monitor->usageStarted(Window(make_shared<Win32WindowImpl>(id)));
+        const auto window = make_shared<Win32WindowImpl>(id);
+        if (!window->getName().isEmpty())
+            monitor->usageStarted(Window(window));
         return TRUE;
     }
 
@@ -97,8 +100,12 @@ namespace sun::monitor::win32
         switch (event)
         {
         case EVENT_OBJECT_CREATE:
-            usageStarted(Window(make_shared<Win32WindowImpl>(windowId)));
+        {
+            auto window = make_shared<Win32WindowImpl>(windowId);
+            if (!window->getName().isEmpty())
+                usageStarted(Window(window));
             break;
+        }
 
         case EVENT_OBJECT_DESTROY:
             usageEnded(Window(make_shared<Win32WindowImpl>(windowId)));
