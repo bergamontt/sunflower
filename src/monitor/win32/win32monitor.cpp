@@ -58,7 +58,7 @@ namespace sun::monitor::win32
             winEventProc,
             0,
             0,
-            WINEVENT_OUTOFCONTEXT
+            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
         );
 
         destroyHook = SetWinEventHook(
@@ -68,7 +68,7 @@ namespace sun::monitor::win32
             winEventProc,
             0,
             0,
-            WINEVENT_OUTOFCONTEXT
+            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
         );
 
         if (createHook)
