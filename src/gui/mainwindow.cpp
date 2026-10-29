@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     connect(trayIcon, &QSystemTrayIcon::activated, this, &MainWindow::iconActivated);
 
+    ui->navigationList->setCurrentRow(0);
     setWindowTitle("SunFlower");
     resize(1024, 640);
 }

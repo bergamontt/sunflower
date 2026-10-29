@@ -2,6 +2,11 @@
 #define APPLICATIONDIALOG_H
 
 #include <QDialog>
+#include <QTreeWidgetItem>
+
+#include "applicationlist.h"
+#include "applicationlist/applicationlistservice.h"
+#include "schedule/scheduleservice.h"
 
 namespace Ui {
 class ApplicationDialog;
@@ -15,8 +20,26 @@ public:
     explicit ApplicationDialog(QWidget *parent = nullptr);
     ~ApplicationDialog();
 
+    void setSelectedApplicationLists(const QList<sun::persistence::ApplicationList>& applicationLists);
+    QList<sun::persistence::ApplicationList> getSelectedApplicationLists() const;
+
+private slots:
+    void onNewListButtonClicked();
+
 private:
     Ui::ApplicationDialog *ui;
+    sun::core::ApplicationListService applicationListService;
+    sun::core::ScheduleService scheduleService;
+
+
+    void loadAllApplicationLists();
+    void insertApplicationList(const sun::persistence::ApplicationList& list);
+    void validateForm();
+
+    void setUpAppListButtons(QTreeWidgetItem* listItem, const sun::persistence::ApplicationList& list);
+    void onEditButtonClicked(const sun::persistence::ApplicationList& applicationList);
+    void onDeleteButtonClicked(int listId, QString listName);
+    void removeApplicationListItemById(int id);
 };
 
 #endif // APPLICATIONDIALOG_H
