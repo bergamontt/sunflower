@@ -60,13 +60,9 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
 
     ui->blockTypeContainer->setCurrentIndex(0);
 
-    ui->fromTime->setMinimumTime(QTime(0, 0));
-    ui->fromTime->setMaximumTime(QTime(23, 58));
-
-    ui->toTime->setMinimumTime(QTime(0, 1));
-    ui->toTime->setMaximumTime(QTime(23, 59));
-
-    ui->timeAllowed->setMinimumTime(QTime(0, 1));
+    ui->fromTime->setTimeRange(QTime(0, 0), QTime(23, 58));
+    ui->toTime->setTimeRange(QTime(0, 1), QTime(23, 59));
+    ui->timeAllowed->setTimeRange(QTime(0, 1), QTime(23, 59));
 
     QPushButton *buttons[] =
     {
