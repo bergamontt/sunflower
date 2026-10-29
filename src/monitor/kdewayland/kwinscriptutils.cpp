@@ -21,7 +21,7 @@ namespace sun::monitor::wayland::utils
         {
             auto bus = QDBusConnection::sessionBus();
             QString path = QString("/Scripting/Script%1").arg(scriptId);
-            auto msg = QDBusMessage::createMethodCall(SERVICE, path, SCRIPTING_INTERFACE, method);
+            auto msg = QDBusMessage::createMethodCall(SERVICE, path, SCRIPT_INTERFACE, method);
             auto reply = bus.call(msg);
         }
     }
@@ -53,6 +53,7 @@ namespace sun::monitor::wayland::utils
     int loadScript(const QString& path, const QString &name)
     {
         QDBusInterface scripting(SERVICE, SCRIPTING_PATH, SCRIPTING_INTERFACE, QDBusConnection::sessionBus());
+        scripting.call("unloadScript", name);
         QDBusReply<int> reply = scripting.call("loadScript", path, name);
         return reply.isValid() ? reply.value() : -1;
     }
