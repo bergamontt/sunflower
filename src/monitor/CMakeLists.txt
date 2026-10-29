@@ -42,6 +42,7 @@ elseif(UNIX AND NOT APPLE)
                 kdewayland/kdewaylandmonitor.cpp
                 kdewayland/kdewaylandwindow.h
                 kdewayland/kdewaylandwindow.cpp
+                kdewayland/kdewayland.qrc
         )
         target_compile_definitions(monitor PRIVATE SUN_USE_KDE_WAYLAND)
         target_link_libraries(monitor PRIVATE Qt6::DBus)
