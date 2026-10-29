@@ -36,6 +36,7 @@ private:
     void refreshWidgets();
     void refreshWidget(int id);
     void refreshGraphs();
+    void sortWidgets();
 
     Ui::StatisticsPage* ui;
 
