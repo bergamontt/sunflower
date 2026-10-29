@@ -6,10 +6,10 @@
 
 namespace sun::monitor::wayland
 {
-    class KdeWaylandWindow : public WindowImpl
+    class KdeWaylandWindowImpl : public WindowImpl
     {
     public:
-        KdeWaylandWindow(QString windowId, QString name);
+        KdeWaylandWindowImpl(QString windowId, QString name);
     public:
         QString getName() const override;
         void close() const override;

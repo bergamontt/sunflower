@@ -1,24 +1,33 @@
 #include "window.h"
-#include "kdewaylandwindow.h"
+#include "kdewayland/kdewaylandwindow.h"
+#include "kdewayland/kwinscriptutils.h"
 
 namespace sun::monitor::wayland
 {
-    KdeWaylandWindow::KdeWaylandWindow(QString windowId, QString name)
+    namespace
     {
+        const inline auto blocker_path = ":/kdewayland/scripts/blocker.js";
+        const inline auto blocker_prefix = "blocker_";
     }
 
-    QString KdeWaylandWindow::getName() const
+    KdeWaylandWindowImpl::KdeWaylandWindowImpl(QString windowId, QString name)
+        : windowId(std::move(windowId))
+        , name(std::move(name))
+    {}
+
+    QString KdeWaylandWindowImpl::getName() const
     {
-        return QString();
+        return name;
     }
 
-    void KdeWaylandWindow::close() const
+    void KdeWaylandWindowImpl::close() const
     {
+        utils::executeScript(blocker_path, blocker_prefix + windowId, {windowId});
     }
 
-    bool KdeWaylandWindow::operator==(const WindowImpl &other) const
+    bool KdeWaylandWindowImpl::operator==(const WindowImpl &other) const
     {
-        return false;
+        const auto* window = dynamic_cast<const KdeWaylandWindowImpl*>(&other);
+        return window && this->windowId == window->windowId;
     }
-
 } // sun::monitor::wayland
