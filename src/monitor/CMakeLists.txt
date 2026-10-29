@@ -34,6 +34,21 @@ elseif(UNIX AND NOT APPLE)
                 fallback/fallbackmonitor.h
         )
     endif()
+
+    find_package(Qt6 COMPONENTS DBus QUIET)
+    if(Qt6DBus_FOUND)
+        target_sources(monitor PRIVATE
+                kdewayland/kdewaylandmonitor.h
+                kdewayland/kdewaylandmonitor.cpp
+                kdewayland/kdewaylandwindow.h
+                kdewayland/kdewaylandwindow.cpp
+                kdewayland/kwinscriptutils.h
+                kdewayland/kwinscriptutils.cpp
+                kdewayland/kdewayland.qrc
+        )
+        target_compile_definitions(monitor PRIVATE SUN_USE_KDE_WAYLAND)
+        target_link_libraries(monitor PRIVATE Qt6::DBus)
+     endif()
 else()
     target_sources(monitor PRIVATE
             fallback/fallbackmonitor.h
