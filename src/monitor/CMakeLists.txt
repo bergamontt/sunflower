@@ -1,4 +1,4 @@
-add_library(monitor STATIC
+qt_add_library(monitor STATIC
         window.h
         monitor.h
         monitorfactory.h
@@ -44,10 +44,16 @@ elseif(UNIX AND NOT APPLE)
                 kdewayland/kdewaylandwindow.cpp
                 kdewayland/kwinscriptutils.h
                 kdewayland/kwinscriptutils.cpp
-                kdewayland/kdewayland.qrc
         )
         target_compile_definitions(monitor PRIVATE SUN_USE_KDE_WAYLAND)
         target_link_libraries(monitor PRIVATE Qt6::DBus)
+        qt_add_resources(monitor "kdewayland_resources"
+            PREFIX "/kdewayland"
+            BASE "kdewayland"
+            FILES
+                kdewayland/scripts/monitor.js
+                kdewayland/scripts/blocker.js
+        )
      endif()
 else()
     target_sources(monitor PRIVATE
