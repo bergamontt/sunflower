@@ -97,13 +97,19 @@ namespace sun::core
             }
         }
 
+        auto activities = priorActivities;
+        if (currentActivity) {
+            activities.append(*currentActivity);
+        }
+
         return ApplicationInfoDto(
             application.id,
             application.name,
             loadApplicationIcon(application.icon),
             todayActivity,
             secondsLeft,
-            minSchedule ? make_optional(minSchedule->type) : nullopt
+            minSchedule ? make_optional(minSchedule->type) : nullopt,
+            activities
         );
     }
 
