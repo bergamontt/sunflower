@@ -35,7 +35,6 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
             ui->blockTypeContainer->setCurrentIndex(0);
             ui->blockButton->setChecked(true);
             ui->limitButton->setChecked(false);
-            validateForm();
         });
 
     connect(ui->limitButton, &QPushButton::clicked, this, [this]() 
@@ -43,7 +42,6 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
             ui->blockTypeContainer->setCurrentIndex(1);
             ui->blockButton->setChecked(false);
             ui->limitButton->setChecked(true);
-            validateForm();
         });
 
     connect(ui->fromTime, &QTimeEdit::timeChanged, this, [this](const QTime &time) 
@@ -147,6 +145,7 @@ void ScheduleDialog::setSchedule(const Schedule& schedule, const QList<Applicati
     ui->fridayButton->setChecked(schedule.repeatAt & Schedule::Day::FRI);
     ui->saturdayButton->setChecked(schedule.repeatAt & Schedule::Day::SAT);
     ui->sundayButton->setChecked(schedule.repeatAt & Schedule::Day::SUN);
+    validateForm();
 };
 
 CreateScheduleDto ScheduleDialog::getSchedule() const
