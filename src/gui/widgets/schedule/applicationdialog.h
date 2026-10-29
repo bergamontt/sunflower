@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QTreeWidgetItem>
 
+#include "applicationlist.h"
 #include "applicationlist/applicationlistservice.h"
 
 namespace Ui {
@@ -31,6 +32,11 @@ private:
     void loadAllApplicationLists();
     void insertApplicationList(const sun::persistence::ApplicationList& list);
     void validateForm();
+
+    void setUpAppListButtons(QTreeWidgetItem* listItem, const sun::persistence::ApplicationList& list);
+    void onEditButtonClicked(const sun::persistence::ApplicationList& applicationList);
+    void onDeleteButtonClicked(int listId, QString listName);
+    void removeApplicationListItemById(int id);
 };
 
 #endif // APPLICATIONDIALOG_H

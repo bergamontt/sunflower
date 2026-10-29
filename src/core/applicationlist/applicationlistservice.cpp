@@ -11,7 +11,7 @@ namespace sun::core
 
     ApplicationList ApplicationListService::create(const CreateApplicationListDto& dto, const QList<int>& applicationIds) const
     {
-        const ApplicationList applicationList = applicationListDao.create(dto);
+        const ApplicationList& applicationList = applicationListDao.create(dto);
         for(const int applicationId : applicationIds)
         {
             applicationListDao.addApplication(applicationList.id, applicationId);
@@ -33,6 +33,38 @@ namespace sun::core
     {
         return applicationListDao.updateById(dto);
     }
+
+    ApplicationList ApplicationListService::updateById(const UpdateApplicationListDto& dto, const QList<int>& applicationIds) const
+    {
+        const ApplicationList& applicationList = applicationListDao.updateById(dto);
+        const QList<Application>& oldApplications = applicationListDao.getAllApplications(applicationList.id);
+
+        for (const Application& application : oldApplications)
+        {
+            if (!applicationIds.contains(application.id))
+                applicationListDao.removeApplication(applicationList.id, application.id);
+        }
+
+        for (int applicationId : applicationIds)
+        {
+            bool exists = false;
+
+            for (const Application& application : oldApplications)
+            {
+                if (application.id == applicationId)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists)
+                applicationListDao.addApplication(applicationList.id, applicationId);
+        }
+
+        return applicationList;
+    }
+
 
     void ApplicationListService::deleteById(int id) const
     {

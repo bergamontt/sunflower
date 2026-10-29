@@ -18,7 +18,9 @@ public:
     explicit ApplicationsDialog(QWidget *parent = nullptr);
     ~ApplicationsDialog();
 
-    sun::persistence::ApplicationList getApplicationList() const;
+    sun::persistence::ApplicationList getNewApplicationList() const;
+    sun::persistence::ApplicationList getEditedApplicationList() const;
+    void setApplicationList(const sun::persistence::ApplicationList& applicationList);
 
 private:
     Ui::ApplicationsDialog *ui;

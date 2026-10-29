@@ -2,7 +2,7 @@
 #include "applicationlist.h"
 #include "schedule.h"
 #include "scheduledialog.h"
-#include "deletescheduledialog.h"
+#include "deletedialog.h"
 #include "scheduleitem.h"
 #include "ui_schedulepage.h"
 #include "scheduledialog.h"
@@ -94,8 +94,8 @@ void SchedulePage::onEditScheduleRequested(Schedule schedule, QList<ApplicationL
 
 void SchedulePage::onDeleteScheduleRequested(int scheduleId, QString scheduleName)
 {
-    DeleteScheduleDialog* deleteDialog = new DeleteScheduleDialog(this);
-    deleteDialog->setSchedule(scheduleName);
+    DeleteDialog* deleteDialog = new DeleteDialog(this);
+    deleteDialog->setItem(scheduleName);
 
     if(deleteDialog->exec() == QDialog::Accepted)
     {

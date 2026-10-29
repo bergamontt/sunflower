@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DeleteScheduleDialog</class>
- <widget class="QDialog" name="DeleteScheduleDialog">
+ <class>DeleteDialog</class>
+ <widget class="QDialog" name="DeleteDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="dialogText">
      <property name="text">
-      <string>Are you sure you wish to delete ScheduleName schedule?</string>
+      <string>Are you sure you wish to delete this item?</string>
      </property>
     </widget>
    </item>
@@ -59,7 +59,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
   <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
  </resources>
  <connections/>

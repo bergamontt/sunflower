@@ -38,9 +38,9 @@ target_sources(
         widgets/schedule/scheduledialog.cpp
         widgets/schedule/scheduledialog.ui
 
-        widgets/schedule/deletescheduledialog.h
-        widgets/schedule/deletescheduledialog.cpp
-        widgets/schedule/deletescheduledialog.ui
+        widgets/schedule/deletedialog.h
+        widgets/schedule/deletedialog.cpp
+        widgets/schedule/deletedialog.ui
 
         widgets/schedule/applicationshortlist.h
         widgets/schedule/applicationshortlist.cpp

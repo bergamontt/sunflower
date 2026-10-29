@@ -57,7 +57,30 @@ void ApplicationsDialog::loadApplications()
     validateForm();
 }
 
-ApplicationList ApplicationsDialog::getApplicationList() const
+void ApplicationsDialog::setApplicationList(const ApplicationList& applicationList)
+{
+    ui->listName->setText(*applicationList.name);
+    ui->listName->setProperty("listId", applicationList.id);
+    const QList<Application>& applications = applicationListService.getAllApplications(applicationList.id);
+    for (int i = 0; i < ui->applicationList->count(); ++i)
+    {
+        QListWidgetItem *item = ui->applicationList->item(i);
+
+        for(const Application& application : applications)
+        {
+            if (item->data(AppId) == application.id)
+            {
+                item->setCheckState(Qt::Checked);
+                break;
+            }               
+        }
+    }
+
+    setWindowTitle("Edit \"" + *applicationList.name + "\" Application List");
+    validateForm();
+}
+
+ApplicationList ApplicationsDialog::getNewApplicationList() const
 {
     CreateApplicationListDto applicationListDto;
     applicationListDto.name = ui->listName->text();
@@ -72,6 +95,24 @@ ApplicationList ApplicationsDialog::getApplicationList() const
             applicationIds.append(item->data(AppId).toInt());
     }
     return applicationListService.create(applicationListDto, applicationIds);
+}
+
+ApplicationList ApplicationsDialog::getEditedApplicationList() const
+{
+    UpdateApplicationListDto applicationListDto;
+    applicationListDto.name = ui->listName->text();
+    applicationListDto.id = ui->listName->property("listId").toInt();
+
+    QList<int> applicationIds;
+
+    for (int i = 0; i < ui->applicationList->count(); ++i)
+    {
+        QListWidgetItem *item = ui->applicationList->item(i);
+
+        if (item->checkState() == Qt::Checked)
+            applicationIds.append(item->data(AppId).toInt());
+    }
+    return applicationListService.updateById(applicationListDto, applicationIds);
 }
 
 void ApplicationsDialog::validateForm()

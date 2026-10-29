@@ -1,9 +1,11 @@
 #include "applicationdialog.h"
 #include "applicationlist.h"
 #include "applicationsdialog.h"
+#include "deletedialog.h"
 #include "ui_applicationdialog.h"
 #include <optional>
 #include <qnamespace.h>
+#include <qpushbutton.h>
 #include <qtreewidget.h>
 
 using namespace sun::persistence;
@@ -18,6 +20,9 @@ ApplicationDialog::ApplicationDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("Create your first application list");
+
+    ui->applicationTree->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->applicationTree->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
     connect(ui->doneButton, &QPushButton::clicked,
         this, &QDialog::accept);
@@ -44,7 +49,7 @@ void ApplicationDialog::onNewListButtonClicked()
     ApplicationsDialog* applicationsDialog = new ApplicationsDialog(this);
     if(applicationsDialog->exec() == QDialog::Accepted)
     {
-        ApplicationList applicationList = applicationsDialog->getApplicationList();
+        ApplicationList applicationList = applicationsDialog->getNewApplicationList();
         insertApplicationList(applicationList);
     }
 }
@@ -68,6 +73,7 @@ void ApplicationDialog::insertApplicationList(const ApplicationList& list)
     listItem->setFlags(listItem->flags() | Qt::ItemIsUserCheckable);
     listItem->setCheckState(0, Qt::Unchecked);
     listItem->setData(0, ListId, list.id);
+    setUpAppListButtons(listItem, list);
 
     const QList<Application> applications = applicationListService.getAllApplications(list.id);
     for (const Application& application : applications)
@@ -78,6 +84,63 @@ void ApplicationDialog::insertApplicationList(const ApplicationList& list)
 
     listItem->setExpanded(false);
     ui->title->setText("Choose applications to block");
+}
+
+void ApplicationDialog::setUpAppListButtons(QTreeWidgetItem *listItem, const ApplicationList& list)
+{
+    auto *buttons = new QWidget();
+    auto *layout = new QHBoxLayout(buttons);
+    layout->setContentsMargins(0, 0, 0, 0);
+
+    auto *editButton = new QPushButton(QIcon(":/gui/edit.svg"), "");
+    connect(editButton, &QPushButton::clicked,
+        this, [this, list](){onEditButtonClicked(list);});
+    layout->addWidget(editButton);
+
+    auto *deleteButton = new QPushButton(QIcon(":/gui/delete.svg"), "");
+    connect(deleteButton, &QPushButton::clicked,
+        this, [this, list](){onDeleteButtonClicked(list.id, *list.name);} );
+    layout->addWidget(deleteButton);
+
+    ui->applicationTree->setItemWidget(listItem, 1, buttons);
+}
+
+void ApplicationDialog::onEditButtonClicked(const ApplicationList& list)
+{
+    ApplicationsDialog* dialog = new ApplicationsDialog(this);
+    dialog->setApplicationList(list);
+
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        const ApplicationList& updatedList = dialog->getEditedApplicationList();
+        removeApplicationListItemById(list.id);
+        insertApplicationList(updatedList);
+    }
+}
+
+void ApplicationDialog::onDeleteButtonClicked(int listId, QString listName)
+{
+    DeleteDialog* deleteDialog = new DeleteDialog(this);
+    deleteDialog->setItem(listName);
+
+    if(deleteDialog->exec() == QDialog::Accepted)
+    {
+        applicationListService.deleteById(listId);
+        removeApplicationListItemById(listId);
+    }
+}
+
+void ApplicationDialog::removeApplicationListItemById(int id)
+{
+    for (int i = 0; i < ui->applicationTree->topLevelItemCount(); ++i)
+    {
+        if(ui->applicationTree->topLevelItem(i)->data(0, ListId) == id)
+        {
+            delete ui->applicationTree->takeTopLevelItem(i);
+            break;
+        }
+    }
+    validateForm();
 }
 
 void ApplicationDialog::setSelectedApplicationLists(const QList<ApplicationList>& applicationLists)
