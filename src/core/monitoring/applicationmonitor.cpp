@@ -24,9 +24,11 @@ namespace sun::core
     {
         for (const auto& app : applicationDaoPtr->getAll())
         {
-            auto appInfo = ApplicationInfo(app);
-            applications.append(appInfo);
-            applicationDiscovered(appInfo.constructDto());
+            auto appInfo = std::make_shared<ApplicationInfo>(app);
+            auto dto = appInfo->constructDto();
+
+            applications.append(std::move(appInfo));
+            applicationDiscovered(dto);
         }
 
         QObject::connect(
@@ -57,12 +59,12 @@ namespace sun::core
             return;
         for (auto& appInfo : applications)
         {
-            if (window == appInfo.getWindow() || represents(appInfo, window))
+            if (window == appInfo->getWindow() || represents(*appInfo, window))
             {
-                appInfo.setWindow(window);
-                if (!appInfo.isActive())
-                    appInfo.setActive();
-                usageStarted(appInfo.constructDto());
+                appInfo->setWindow(window);
+                if (!appInfo->isActive())
+                    appInfo->setActive();
+                usageStarted(appInfo->constructDto());
                 return;
             }
         }
@@ -72,10 +74,10 @@ namespace sun::core
     {
         for (auto& appInfo : applications)
         {
-            if (window == appInfo.getWindow())
+            if (window == appInfo->getWindow())
             {
-                appInfo.setInactive();
-                usageEnded(appInfo.constructDto());
+                appInfo->setInactive();
+                usageEnded(appInfo->constructDto());
             }
         }
     }

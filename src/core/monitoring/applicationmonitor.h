@@ -42,6 +42,6 @@ namespace sun::core
         std::unique_ptr<persistence::IActivityDao> activityDaoPtr;
         std::unique_ptr<persistence::IScheduleDao> scheduleDaoPtr;
 
-        QList<ApplicationInfo> applications;
+        QList<std::shared_ptr<ApplicationInfo>> applications;
     };
 }
