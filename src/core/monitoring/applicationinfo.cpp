@@ -18,7 +18,7 @@ namespace sun::core
 
     static optional<seconds> timeLeft(const optional<Schedule>& schedule, const seconds currentActivity)
     {
-        if (!schedule || !(schedule->repeatAt & currentDayOfWeek()))
+        if (!schedule || !(schedule->isActive) || !(schedule->repeatAt & currentDayOfWeek()))
             return nullopt;
 
         switch (schedule->type)
@@ -36,8 +36,14 @@ namespace sun::core
                 const QTime endsAt = *schedule->endsAt;
                 const QTime midnight = QTime(23, 59, 59);
 
-                if (startsAt <= now || now < endsAt)
+                qDebug() << "now: " << now;
+                qDebug() << "starts: " << startsAt;
+                qDebug() << "ends: " << endsAt;
+
+                if (startsAt <= now && now < endsAt)
                     return seconds::zero();
+
+                qDebug() << "Not zero";
 
                 if (now < startsAt)
                     seconds(now.secsTo(startsAt));
