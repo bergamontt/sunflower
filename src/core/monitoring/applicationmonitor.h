@@ -18,14 +18,23 @@ namespace sun::core
         Q_OBJECT
 
     public:
-        explicit ApplicationMonitor(QObject* parent = nullptr);
+        static ApplicationMonitor& instance();
+
+        ApplicationMonitor(const ApplicationMonitor&) = delete;
+
+        ApplicationMonitor& operator=(const ApplicationMonitor&) = delete;
 
         void discoverApplications();
+
+    private:
+        explicit ApplicationMonitor(QObject* parent = nullptr);
 
     public slots:
         void handleUsageStarted(sun::monitor::Window window);
 
         void handleUsageEnded(sun::monitor::Window window);
+
+        void handleMonitoringRestart();
 
     signals:
         void applicationDiscovered(sun::core::ApplicationInfoDto application);

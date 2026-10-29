@@ -7,6 +7,7 @@
 #include "ui_schedulepage.h"
 #include "scheduledialog.h"
 #include <qnamespace.h>
+#include "monitoring/applicationmonitor.h"
 
 using namespace sun::persistence;
 
@@ -20,6 +21,13 @@ SchedulePage::SchedulePage(QWidget *parent) :
 
     connect(ui->newScheduleButton, &QPushButton::clicked,
         this, &SchedulePage::onCreateScheduleButtonClicked);
+
+    QObject::connect(
+        this,
+        &SchedulePage::restartMonitoring,
+        &sun::core::ApplicationMonitor::instance(),
+        &sun::core::ApplicationMonitor::handleMonitoringRestart
+    );
 }
 
 SchedulePage::~SchedulePage()
@@ -69,6 +77,7 @@ void SchedulePage::onCreateScheduleButtonClicked()
             scheduleService.addApplicationList(schedule.id, applicationlist.id);
 
         insertSchedule(schedule);
+        restartMonitoring();
     }
 }
 
@@ -97,6 +106,7 @@ void SchedulePage::onEditScheduleRequested(Schedule schedule, QList<ApplicationL
             item->setSchedule(newSchedule, newApplicationLists);
             sortSchedules();
         }
+        restartMonitoring();
     }
 }
 
@@ -111,6 +121,7 @@ void SchedulePage::onDeleteScheduleRequested(int scheduleId, QString scheduleNam
         QWidget *item = findChild<QWidget*>("scheduleItem-" + QString::number(scheduleId));
         if (item)
             item->deleteLater();
+        restartMonitoring();
     }
 }
 
@@ -118,6 +129,7 @@ void SchedulePage::onIsActiveChangeRequested(int scheduleId, bool isActive)
 {
     scheduleService.updateIsActiveById(scheduleId, isActive);
     sortSchedules();
+    restartMonitoring();
 }
 
 void SchedulePage::sortSchedules()

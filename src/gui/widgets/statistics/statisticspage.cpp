@@ -1,6 +1,7 @@
 #include "statisticspage.h"
 #include "ui_statisticspage.h"
 #include "windowstatistics.h"
+#include "monitoring/applicationmonitor.h"
 
 #include <QChartView>
 #include <QChart>
@@ -146,6 +147,29 @@ namespace
 StatisticsPage::StatisticsPage(QWidget* parent) : QWidget(parent), ui(new Ui::StatisticsPage)
 {
     ui->setupUi(this);
+
+    auto& appMonitor = sun::core::ApplicationMonitor::instance();
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::applicationDiscovered,
+        this,
+        &StatisticsPage::handleApplicationDiscovered
+    );
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::usageStarted,
+        this,
+        &StatisticsPage::handleUsageStarted
+    );
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::usageEnded,
+        this,
+        &StatisticsPage::handleUsageEnded
+    );
 
     weeklyChart = createBarChart(
         {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},

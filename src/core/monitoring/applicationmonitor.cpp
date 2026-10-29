@@ -12,6 +12,12 @@ namespace sun::core
     using namespace monitor;
     using namespace std::chrono;
 
+    ApplicationMonitor& ApplicationMonitor::instance()
+    {
+        static ApplicationMonitor monitor;
+        return monitor;
+    }
+
     ApplicationMonitor::ApplicationMonitor(QObject* parent) :
         QObject(parent),
         monitorPtr(sun::monitor::createMonitor()),
@@ -87,6 +93,18 @@ namespace sun::core
                 usageEnded(appInfo->constructDto());
             }
         }
+    }
+
+    void ApplicationMonitor::handleMonitoringRestart()
+    {
+        monitorPtr = sun::monitor::createMonitor();
+        for (const auto& application : applications)
+        {
+            application->updateCurrentActivityEnd();
+            application->setInactive();
+        }
+        applications.clear();
+        discoverApplications();
     }
 
     void ApplicationMonitor::updateActivities()
