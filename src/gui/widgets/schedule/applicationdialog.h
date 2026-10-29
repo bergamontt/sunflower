@@ -6,6 +6,7 @@
 
 #include "applicationlist.h"
 #include "applicationlist/applicationlistservice.h"
+#include "schedule/scheduleservice.h"
 
 namespace Ui {
 class ApplicationDialog;
@@ -28,6 +29,8 @@ private slots:
 private:
     Ui::ApplicationDialog *ui;
     sun::core::ApplicationListService applicationListService;
+    sun::core::ScheduleService scheduleService;
+
 
     void loadAllApplicationLists();
     void insertApplicationList(const sun::persistence::ApplicationList& list);

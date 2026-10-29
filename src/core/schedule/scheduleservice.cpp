@@ -1,5 +1,6 @@
 #include "scheduleservice.h"
 #include "applicationlist.h"
+#include "scheduledao.h"
 
 namespace sun::core
 {
@@ -63,6 +64,7 @@ namespace sun::core
 
     void ScheduleService::deleteById(int id) const
     {
+        scheduleDao.removeAllApplicationLists(id);
         scheduleDao.deleteById(id);
     }
 
@@ -89,6 +91,11 @@ namespace sun::core
     void ScheduleService::removeAllApplicationLists(int scheduleId) const
     {
         scheduleDao.removeAllApplicationLists(scheduleId);
+    }
+
+    QList<persistence::Schedule> ScheduleService::getAllByApplicationList(int listId) const
+    {
+        return scheduleDao.getAllByApplicationList(listId);
     }
 
     QList<ApplicationList> ScheduleService::getAllApplicationLists(int scheduleId) const

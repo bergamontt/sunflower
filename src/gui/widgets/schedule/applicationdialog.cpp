@@ -105,6 +105,12 @@ void ApplicationDialog::setUpAppListButtons(QTreeWidgetItem *listItem, const App
         this, [this, list](){onDeleteButtonClicked(list.id, *list.name);} );
     layout->addWidget(deleteButton);
 
+    if(!scheduleService.getAllByApplicationList(list.id).empty())
+    {
+        deleteButton->setDisabled(true);
+        deleteButton->setToolTip("Can't delete a list while there are schedules that use it");
+    }
+
     ui->applicationTree->setItemWidget(listItem, 1, buttons);
 }
 

@@ -68,6 +68,7 @@ namespace sun::core
 
     void ApplicationListService::deleteById(int id) const
     {
+        applicationListDao.removeAllApplications(id);
         applicationListDao.deleteById(id);
     }
 

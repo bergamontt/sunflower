@@ -20,6 +20,7 @@ namespace sun::core
         void addApplicationList(int scheduleId, int listId) const;
         void removeApplicationList(int scheduleId, int listId) const;
         void removeAllApplicationLists(int scheduleId) const;
+        QList<persistence::Schedule> getAllByApplicationList(int listId) const;
         QList<persistence::ApplicationList> getAllApplicationLists(int scheduleId) const;
 
     private:
