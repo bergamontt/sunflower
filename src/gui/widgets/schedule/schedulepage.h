@@ -21,6 +21,7 @@ public:
 private slots:
     void onEditScheduleRequested(sun::persistence::Schedule schedule, QList<sun::persistence::ApplicationList> applicationlists);
     void onDeleteScheduleRequested(int scheduleId, QString scheduleName);
+    void onIsActiveChangeRequested(int scheduleId, bool isActive);
     void onCreateScheduleButtonClicked();
 
 private:
@@ -28,6 +29,7 @@ private:
     sun::core::ScheduleService scheduleService;
     void loadSchedules();
     void insertSchedule(const sun::persistence::Schedule& schedule);
+    void sortSchedules();
 };
 
 #endif // SCHEDULEPAGE_H

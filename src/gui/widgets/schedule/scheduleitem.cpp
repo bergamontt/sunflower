@@ -1,6 +1,5 @@
 #include "scheduleitem.h"
 #include "applicationlist.h"
-#include "schedule/scheduleservice.h"
 #include "ui_scheduleitem.h"
 
 using namespace sun::persistence;
@@ -17,9 +16,11 @@ ScheduleItem::ScheduleItem(QWidget *parent) :
     connect(ui->deleteScheduleButton, &QPushButton::clicked, 
         this, [this]() {emit deleteRequested(schedule.id, schedule.name);});
 
-    connect(ui->onButton, &QPushButton::clicked, this, [this](){
-        scheduleService.updateIsActiveById(schedule.id, ui->onButton->isChecked());
-    });
+    connect(ui->onButton, &QPushButton::clicked,
+        this, [this](){
+            schedule.isActive = ui->onButton->isChecked();
+            emit isActiveChangeRequested(schedule.id, ui->onButton->isChecked());
+        });
 }
 
 ScheduleItem::~ScheduleItem()
@@ -60,4 +61,6 @@ void ScheduleItem::setSchedule(const Schedule& schedule, const QList<Application
         status = QString("%1 per day").arg(duration);
     }
     ui->scheduleStatus->setText(status);
+    if(!schedule.isActive)
+        ui->onButton->setChecked(false);
 }

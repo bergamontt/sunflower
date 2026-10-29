@@ -32,12 +32,14 @@ void SchedulePage::loadSchedules()
     const QList<Schedule> schedules = scheduleService.getAll();
     for (const Schedule& schedule : schedules)
         insertSchedule(schedule);
+    sortSchedules();
 }
 
 void SchedulePage::insertSchedule(const Schedule& schedule)
 {
     ScheduleItem* item = new ScheduleItem(this);
     item->setObjectName("scheduleItem-" + QString::number(schedule.id));
+    item->setProperty("scheduleName", schedule.name);
 
     QList<ApplicationList> applicationlists = scheduleService.getAllApplicationLists(schedule.id);
     item->setSchedule(schedule, applicationlists);
@@ -47,6 +49,9 @@ void SchedulePage::insertSchedule(const Schedule& schedule)
 
     connect(item, &ScheduleItem::editRequested,
         this, &SchedulePage::onEditScheduleRequested);
+
+    connect(item, &ScheduleItem::isActiveChangeRequested,
+        this, &SchedulePage::onIsActiveChangeRequested);
 
     ui->scheduleList->addWidget(item);
 }
@@ -88,7 +93,10 @@ void SchedulePage::onEditScheduleRequested(Schedule schedule, QList<ApplicationL
 
         ScheduleItem *item = findChild<ScheduleItem*>("scheduleItem-" + QString::number(schedule.id));
         if(item)
+        {
             item->setSchedule(newSchedule, newApplicationLists);
+            sortSchedules();
+        }
     }
 }
 
@@ -104,4 +112,36 @@ void SchedulePage::onDeleteScheduleRequested(int scheduleId, QString scheduleNam
         if (item)
             item->deleteLater();
     }
+}
+
+void SchedulePage::onIsActiveChangeRequested(int scheduleId, bool isActive)
+{
+    scheduleService.updateIsActiveById(scheduleId, isActive);
+    sortSchedules();
+}
+
+void SchedulePage::sortSchedules()
+{
+    QList<ScheduleItem*> scheduleItems;
+
+    while (ui->scheduleList->count() > 0)
+    {
+        QLayoutItem *item = ui->scheduleList->takeAt(0);
+
+        if (ScheduleItem *scheduleItem = qobject_cast<ScheduleItem*>(item->widget()))
+        {
+            scheduleItems.append(scheduleItem);
+        }
+
+        delete item;
+    }
+
+    std::sort(scheduleItems.begin(), scheduleItems.end(),
+        [](ScheduleItem *a, ScheduleItem *b)
+        {
+            return *a < *b;
+        });
+
+    for (ScheduleItem *scheduleItem : scheduleItems)
+        ui->scheduleList->addWidget(scheduleItem);
 }
