@@ -1,13 +1,16 @@
 #include "applicationshortlist.h"
 #include "applicationlist.h"
+#include "applicationlist/applicationlistservice.h"
 #include "ui_applicationshortlist.h"
 #include <qnamespace.h>
 
 using namespace sun::persistence;
+using namespace sun::core;
 
 ApplicationShortList::ApplicationShortList(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ApplicationShortList)
+    ui(new Ui::ApplicationShortList),
+    applicationListService(std::make_unique<ApplicationListService>())
 {
     ui->setupUi(this);
 }

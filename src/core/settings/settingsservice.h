@@ -1,13 +1,13 @@
 #pragma once
 
-#include "lockpolicy.h"
+#include "settings/isettingsservice.h"
 
 namespace sun::core
 {
-    class SettingsService
+    class SettingsService : public ISettingsService
     {
-    public:
-        LockPolicy lockPolicy() const;
-        void setLockPolicy(const LockPolicy& policy);
+    private:
+        LockPolicy doLockPolicy() const override;
+        void doSetLockPolicy(const LockPolicy& policy) override;
     };
 }

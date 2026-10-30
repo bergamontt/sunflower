@@ -1,27 +1,23 @@
 #pragma once
 
-#include "applicationlistdao.h"
+#include "applicationlist/iapplicationlistservice.h"
 
 namespace sun::core
 {
-    class ApplicationListService
+    class ApplicationListService : public IApplicationListService
     {
-    public:
-        persistence::ApplicationList create(const persistence::CreateApplicationListDto& dto) const;
-        persistence::ApplicationList create(const persistence::CreateApplicationListDto& dto, const QList<int>& applicationIds) const;
-        persistence::ApplicationList updateById(const persistence::UpdateApplicationListDto& dto) const;
-        persistence::ApplicationList updateById(const persistence::UpdateApplicationListDto& dto, const QList<int>& applicationIds) const;
-        void deleteById(int id) const;
-
-        std::optional<persistence::ApplicationList> getById(int id) const;
-        QList<persistence::ApplicationList> getAll() const;
-
-        void addApplication(int listId, int applicationId) const;
-        void removeApplication(int listId, int applicationId) const;
-        void removeAllApplications(int listId) const;
-        QList<persistence::Application> getAllApplications(int listId) const;
-
     private:
+        persistence::ApplicationList doCreate(const persistence::CreateApplicationListDto& dto) const override;
+        persistence::ApplicationList doCreate(const persistence::CreateApplicationListDto& dto, const QList<int>& applicationIds) const override;
+        persistence::ApplicationList doUpdateById(const persistence::UpdateApplicationListDto& dto) const override;
+        persistence::ApplicationList doUpdateById(const persistence::UpdateApplicationListDto& dto, const QList<int>& applicationIds) const override;
+        void doDeleteById(int id) const override;
+        std::optional<persistence::ApplicationList> doGetById(int id) const override;
+        QList<persistence::ApplicationList> doGetAll() const override;
+        void doAddApplication(int listId, int applicationId) const override;
+        void doRemoveApplication(int listId, int applicationId) const override;
+        void doRemoveAllApplications(int listId) const override;
+        QList<persistence::Application> doGetAllApplications(int listId) const override;
         persistence::ApplicationListDao applicationListDao;
     };
 } // namespace sun::core

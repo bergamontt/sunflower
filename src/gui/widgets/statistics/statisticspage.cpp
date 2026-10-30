@@ -1,6 +1,7 @@
 #include "statisticspage.h"
 #include "ui_statisticspage.h"
 #include "windowstatistics.h"
+#include "monitoring/applicationmonitor.h"
 
 #include <QChartView>
 #include <QChart>
@@ -13,7 +14,10 @@
 #include <QMargins>
 #include <QVBoxLayout>
 #include <QTimeZone>
+#include <QSystemTrayIcon>
+#include <QApplication>
 
+using namespace std;
 using namespace std::chrono;
 using namespace sun::core;
 using namespace sun::persistence;
@@ -122,7 +126,7 @@ namespace
 
     void mergeIntervals(QList<Interval>& intervals)
     {
-        std::sort(
+        sort(
             intervals.begin(),
             intervals.end(),
             [](const Interval& a, const Interval& b) { return a.start < b.start; }
@@ -139,13 +143,36 @@ namespace
                 merged.last().end = interval.end;
             }
         }
-        intervals = std::move(merged);
+        intervals = move(merged);
     };
 }
 
 StatisticsPage::StatisticsPage(QWidget* parent) : QWidget(parent), ui(new Ui::StatisticsPage)
 {
     ui->setupUi(this);
+
+    auto& appMonitor = sun::core::ApplicationMonitor::instance();
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::applicationDiscovered,
+        this,
+        &StatisticsPage::handleApplicationDiscovered
+    );
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::usageStarted,
+        this,
+        &StatisticsPage::handleUsageStarted
+    );
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::usageEnded,
+        this,
+        &StatisticsPage::handleUsageEnded
+    );
 
     weeklyChart = createBarChart(
         {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
@@ -178,6 +205,7 @@ void StatisticsPage::handleApplicationDiscovered(const ApplicationInfoDto& appIn
 {
     updateApplication(appInfo);
     refreshWidget(appInfo.getId());
+    sortWidgets();
     refreshGraphs();
 }
 
@@ -186,6 +214,7 @@ void StatisticsPage::handleUsageStarted(const ApplicationInfoDto& appInfo)
     runningApplications.insert(appInfo.getId());
     updateApplication(appInfo);
     refreshWidget(appInfo.getId());
+    sortWidgets();
     refreshGraphs();
 }
 
@@ -194,6 +223,11 @@ void StatisticsPage::handleUsageEnded(const ApplicationInfoDto& appInfo)
     updateApplication(appInfo);
     runningApplications.erase(appInfo.getId());
     refreshWidget(appInfo.getId());
+    refreshGraphs();
+
+    const auto timeLeft = appInfo.getTimeLeft();
+    if (timeLeft && *timeLeft == seconds::zero())
+        sendTimeoutNotificaion(appInfo);
 }
 
 void StatisticsPage::updateApplication(const ApplicationInfoDto& appInfo)
@@ -214,6 +248,32 @@ void StatisticsPage::updateApplication(const ApplicationInfoDto& appInfo)
     }
 
     refreshWidget(id);
+}
+
+void StatisticsPage::sendTimeoutNotificaion(const sun::core::ApplicationInfoDto& appInfo)
+{
+    if (!QSystemTrayIcon::isSystemTrayAvailable())
+        return;
+
+    auto* trayIcon = new QSystemTrayIcon(appInfo.getIcon(), this);
+
+    trayIcon->show();
+    trayIcon->showMessage(
+        "Time limit reached",
+        QString("Your allowed time for %1 has ended.")
+            .arg(appInfo.getName()),
+        QSystemTrayIcon::Warning,
+        5000
+    );
+
+    connect(
+        trayIcon,
+        &QSystemTrayIcon::messageClicked,
+        trayIcon,
+        &QObject::deleteLater
+    );
+
+    QTimer::singleShot(6000, trayIcon, &QObject::deleteLater);
 }
 
 void StatisticsPage::refreshWidgets()
@@ -238,10 +298,10 @@ void StatisticsPage::refreshWidget(const int id)
     const auto elapsedMs = clock.elapsed() - receivedAtMs.at(id);
     const seconds elapsed(elapsedMs / 1000);
 
-    seconds activity = app.getTodayActivity();
+    optional<seconds> activity = app.getTodayActivity();
 
-    if (running)
-        activity += elapsed;
+    if (running && activity)
+        *activity += elapsed;
 
     auto left = app.getTimeLeft();
 
@@ -249,25 +309,24 @@ void StatisticsPage::refreshWidget(const int id)
     {
         if (app.getScheduleType() == Schedule::Type::TimeWindow)
         {
-            left = std::max(seconds::zero(), *left - elapsed);
+            left = max(seconds::zero(), *left - elapsed);
         }
-        else if (app.getScheduleType() == Schedule::Type::DailyLimit
-                 && running)
+        else if (app.getScheduleType() == Schedule::Type::DailyLimit && running)
         {
-            left = std::max(seconds::zero(), *left - elapsed);
+            left = max(seconds::zero(), *left - elapsed);
         }
     }
 
     widget->setProgramName(app.getName());
     widget->setProgramIcon(app.getIcon());
-    widget->setWorkTime(activity == seconds::zero() ? QString{} : formatDuration(activity));
+    widget->setWorkTime(activity ? formatDuration(*activity) : QString());
     widget->setTimeLeft(left ? formatDuration(*left) : QString{});
 
     QString iconPath;
 
-    if (activity > seconds::zero())
+    if (activity)
     {
-        if (left.has_value() && *left == seconds::zero())
+        if (left && *left == seconds::zero())
             iconPath = ":gui/alarm-yellow.svg";
         else if (running)
             iconPath = ":gui/play-green.svg";
@@ -288,8 +347,8 @@ void StatisticsPage::refreshGraphs()
     const QDate monday = today.addDays(1 - today.dayOfWeek());
     const QDateTime now = QDateTime::currentDateTime();
 
-    std::array<seconds, 7> weeklyUsage{};
-    std::array<seconds, 8> dailyUsage{};
+    array<seconds, 7> weeklyUsage{};
+    array<seconds, 8> dailyUsage{};
 
     QList<Interval> weeklyIntervals;
     QList<Interval> dailyIntervals;
@@ -306,8 +365,8 @@ void StatisticsPage::refreshGraphs()
             if (!start.isValid() || !end.isValid() || end <= start)
                 continue;
 
-            const QDate firstDate = std::max(start.date(), monday);
-            const QDate lastDate = std::min(end.date(), today);
+            const QDate firstDate = max(start.date(), monday);
+            const QDate lastDate = min(end.date(), today);
 
             for (QDate date = firstDate; date <= lastDate; date = date.addDays(1))
             {
@@ -319,8 +378,8 @@ void StatisticsPage::refreshGraphs()
                     : QDateTime(
                         date.addDays(1), QTime(0, 0), start.timeZone());
 
-                const QDateTime intervalStart = std::max(start, dayStart);
-                const QDateTime intervalEnd = std::min(end, dayEnd);
+                const QDateTime intervalStart = max(start, dayStart);
+                const QDateTime intervalEnd = min(end, dayEnd);
 
                 if (intervalEnd <= intervalStart)
                     continue;
@@ -344,7 +403,7 @@ void StatisticsPage::refreshGraphs()
         {
             const QDate date = cursor.date();
             const QDateTime nextDay(date.addDays(1), QTime(0, 0), cursor.timeZone());
-            const QDateTime segmentEnd = std::min(interval.end, nextDay);
+            const QDateTime segmentEnd = min(interval.end, nextDay);
             weeklyUsage[date.dayOfWeek() - 1] += seconds(cursor.secsTo(segmentEnd));
             cursor = segmentEnd;
         }
@@ -363,7 +422,7 @@ void StatisticsPage::refreshGraphs()
                 QTime(nextBucketHour % 24, 0),
                 cursor.timeZone()
             ).addDays(nextBucketHour / 24);
-            const QDateTime segmentEnd = std::min(interval.end, nextBoundary);
+            const QDateTime segmentEnd = min(interval.end, nextBoundary);
             dailyUsage[bucket] += seconds(cursor.secsTo(segmentEnd));
             cursor = segmentEnd;
         }
@@ -387,16 +446,55 @@ void StatisticsPage::refreshGraphs()
         dailyValues.append(dailyUsage[i].count() / 60.0);
     }
 
-    const qreal weeklyMax = std::max<qreal>(
+    const qreal weeklyMax = max<qreal>(
         1.0,
-        std::ceil(*std::max_element(
+        ceil(*max_element(
             weeklyValues.begin(), weeklyValues.end())));
 
-    const qreal dailyMax = std::max<qreal>(
+    const qreal dailyMax = max<qreal>(
         180.0,
-        std::ceil(*std::max_element(
+        ceil(*max_element(
             dailyValues.begin(), dailyValues.end()) / 30.0) * 30.0);
 
     updateChart(weeklyChart, weeklyCategories, weeklyValues, weeklyMax);
     updateChart(dailyChart, dailyCategories, dailyValues, dailyMax);
+}
+
+void StatisticsPage::sortWidgets()
+{
+    vector<int> ids;
+    ids.reserve(applications.size());
+
+    for (const auto& [id, appInfo] : applications)
+        ids.push_back(id);
+
+    sort(ids.begin(), ids.end(), [this](const int lhs, const int rhs)
+    {
+        const bool lhsRunning = runningApplications.contains(lhs);
+        const bool rhsRunning = runningApplications.contains(rhs);
+
+        if (lhsRunning != rhsRunning)
+            return lhsRunning;
+
+        const QString& lhsName = applications.at(lhs).getName();
+        const QString& rhsName = applications.at(rhs).getName();
+
+        const int comparison = QString::compare(
+            lhsName,
+            rhsName,
+            Qt::CaseInsensitive
+        );
+
+        if (comparison != 0)
+            return comparison < 0;
+
+        return lhs < rhs;
+    });
+
+    for (int i = 0; i < static_cast<int>(ids.size()); ++i)
+    {
+        auto* widget = widgets.at(ids[i]);
+        ui->windowsList->removeWidget(widget);
+        ui->windowsList->insertWidget(i, widget);
+    }
 }

@@ -21,7 +21,7 @@ namespace sun::core
             int id,
             QString name,
             QIcon icon,
-            const std::chrono::seconds activity,
+            const std::optional<std::chrono::seconds> activity,
             const std::optional<std::chrono::seconds> left,
             const std::optional<persistence::Schedule::Type> scheduleType,
             QList<persistence::Activity> activityHistory
@@ -37,7 +37,7 @@ namespace sun::core
 
         [[nodiscard]] QIcon getIcon() const { return icon; }
 
-        [[nodiscard]] std::chrono::seconds getTodayActivity() const { return todayActivity; }
+        [[nodiscard]] std::optional<std::chrono::seconds> getTodayActivity() const { return todayActivity; }
 
         [[nodiscard]] std::optional<std::chrono::seconds> getTimeLeft() const { return timeLeft; }
 
@@ -50,7 +50,7 @@ namespace sun::core
         QString name;
         QIcon icon;
 
-        std::chrono::seconds todayActivity;
+        std::optional<std::chrono::seconds> todayActivity;
         std::optional<std::chrono::seconds> timeLeft;
         std::optional<persistence::Schedule::Type> scheduleType;
         QList<persistence::Activity> activityHistory;
@@ -75,10 +75,10 @@ namespace sun::core
 
         [[nodiscard]] ApplicationInfoDto constructDto();
 
-    private:
-        std::chrono::seconds getTodayActivity();
-
         void updateCurrentActivityEnd();
+
+    private:
+        std::optional<std::chrono::seconds> getTodayActivity();
 
         std::shared_ptr<persistence::IScheduleDao> scheduleDaoPtr;
         std::shared_ptr<persistence::IApplicationListDao> applicationListDaoPtr;
@@ -90,7 +90,5 @@ namespace sun::core
         std::optional<persistence::Activity> currentActivity;
         QList<persistence::Schedule> schedules;
         std::map<int, std::shared_ptr<QTimer>> timers;
-
-        std::shared_ptr<QTimer> activitySaveTimer;
     };
 }

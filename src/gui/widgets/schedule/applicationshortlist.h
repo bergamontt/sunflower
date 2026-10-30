@@ -2,8 +2,9 @@
 #define APPLICATIONSHORTLIST_H
 
 #include <QWidget>
+#include <memory>
 #include "applicationlist/applicationlist.h"
-#include "applicationlist/applicationlistservice.h"
+#include "applicationlist/iapplicationlistservice.h"
 
 namespace Ui {
 class ApplicationShortList;
@@ -28,7 +29,7 @@ private:
 
     void updateText();
 
-    sun::core::ApplicationListService applicationListService;
+    std::unique_ptr<sun::core::IApplicationListService> applicationListService;
 };
 
 #endif // APPLICATIONSHORTLIST_H

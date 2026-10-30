@@ -33,9 +33,11 @@ public slots:
 
 private:
     void updateApplication(const sun::core::ApplicationInfoDto& appInfo);
+    void sendTimeoutNotificaion(const sun::core::ApplicationInfoDto& appInfo);
     void refreshWidgets();
     void refreshWidget(int id);
     void refreshGraphs();
+    void sortWidgets();
 
     Ui::StatisticsPage* ui;
 
@@ -46,7 +48,6 @@ private:
 
     QElapsedTimer clock;
     QTimer refreshTimer;
-    QTimer chartUpdateTimer;
 
     UsageBarChart* weeklyChart = nullptr;
     UsageBarChart* dailyChart = nullptr;

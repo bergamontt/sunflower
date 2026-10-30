@@ -3,8 +3,10 @@
 
 #include <QFrame>
 
-#include "settings/settingsservice.h"
-#include "password/passwordservice.h"
+#include <memory>
+
+#include "settings/isettingsservice.h"
+#include "password/ipasswordservice.h"
 
 namespace Ui {
 class StrictModeSection;
@@ -20,8 +22,8 @@ public:
 
 private:
     Ui::StrictModeSection *ui;
-    sun::core::SettingsService settingsService;
-    sun::core::PasswordService passwordService;
+    std::unique_ptr<sun::core::ISettingsService> settingsService;
+    std::unique_ptr<sun::core::IPasswordService> passwordService;
 
 private slots:
     void onLockTypeChanged(int index);

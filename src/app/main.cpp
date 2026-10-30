@@ -3,6 +3,8 @@
 #include <QDir>
 #include <QStandardPaths>
 
+#include <memory>
+
 #include "mainwindow.h"
 
 #include "db/database.h"
@@ -27,8 +29,8 @@ int main(int argc, char* argv[])
     std::unique_ptr<sun::core::ApplicationScanner> scanner = sun::core::createApplicationScanner();
     QList<sun::persistence::CreateApplicationDto> applications = scanner->findAll();
 
-    sun::core::ApplicationService applicationService;
-    applicationService.create(applications); 
+    std::unique_ptr<sun::core::IApplicationService> applicationService = std::make_unique<sun::core::ApplicationService>();
+    applicationService->create(applications);
 
     Q_INIT_RESOURCE(gui);
     QFile styleFile(":/gui/style.qss");
@@ -41,30 +43,7 @@ int main(int argc, char* argv[])
 
     MainWindow window;
 
-    sun::core::ApplicationMonitor appMonitor;
-
-    QObject::connect(
-        &appMonitor,
-        &sun::core::ApplicationMonitor::applicationDiscovered,
-        window.getStatisticsPage(),
-        &StatisticsPage::handleApplicationDiscovered
-    );
-
-    QObject::connect(
-        &appMonitor,
-        &sun::core::ApplicationMonitor::usageStarted,
-        window.getStatisticsPage(),
-        &StatisticsPage::handleUsageStarted
-    );
-
-    QObject::connect(
-        &appMonitor,
-        &sun::core::ApplicationMonitor::usageEnded,
-        window.getStatisticsPage(),
-        &StatisticsPage::handleUsageEnded
-    );
-
-    appMonitor.discoverApplications();
+    sun::core::ApplicationMonitor::instance().discoverApplications();
 
     window.show();
 

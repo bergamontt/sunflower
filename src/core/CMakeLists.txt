@@ -10,12 +10,15 @@ target_link_libraries(
 target_sources(
     core
     PUBLIC
+    schedule/ischeduledservice.h
     schedule/scheduleservice.h
     schedule/scheduleservice.cpp
 
+    application/iapplicationservice.h
     application/applicationservice.h
     application/applicationservice.cpp
         
+    applicationlist/iapplicationlistservice.h
     applicationlist/applicationlistservice.h
     applicationlist/applicationlistservice.cpp
        
@@ -28,12 +31,14 @@ target_sources(
     monitoring/applicationinfo.h
     monitoring/applicationinfo.cpp
         
+    settings/isettingsservice.h
     settings/settingsservice.h
     settings/settingsservice.cpp
     settings/settingskeys.h
     settings/lockpolicy.h
     settings/lockpolicy.cpp
 
+    password/ipasswordservice.h
     password/passwordservice.h
     password/passwordservice.cpp
 

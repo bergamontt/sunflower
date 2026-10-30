@@ -12,13 +12,20 @@ namespace sun::core
     using namespace monitor;
     using namespace std::chrono;
 
+    ApplicationMonitor& ApplicationMonitor::instance()
+    {
+        static ApplicationMonitor monitor;
+        return monitor;
+    }
+
     ApplicationMonitor::ApplicationMonitor(QObject* parent) :
         QObject(parent),
         monitorPtr(sun::monitor::createMonitor()),
         applicationDaoPtr(make_unique<ApplicationDao>()),
         applicationListDaoPtr(make_unique<ApplicationListDao>()),
         activityDaoPtr(make_unique<ActivityDao>()),
-        scheduleDaoPtr(make_unique<ScheduleDao>()) {}
+        scheduleDaoPtr(make_unique<ScheduleDao>()),
+        updateActivityTimer(make_shared<QTimer>()) {}
 
     void ApplicationMonitor::discoverApplications()
     {
@@ -46,6 +53,12 @@ namespace sun::core
         );
 
         monitorPtr->startMonitoring();
+
+        QObject::connect(updateActivityTimer.get(), &QTimer::timeout, [this]()
+        {
+            updateActivities();
+        });
+        updateActivityTimer->start(10'000);
     }
 
     static bool represents(const ApplicationInfo& app, const Window& window)
@@ -79,6 +92,28 @@ namespace sun::core
                 appInfo->setInactive();
                 usageEnded(appInfo->constructDto());
             }
+        }
+    }
+
+    void ApplicationMonitor::handleMonitoringRestart()
+    {
+        monitorPtr = sun::monitor::createMonitor();
+        for (const auto& application : applications)
+        {
+            application->updateCurrentActivityEnd();
+            application->setInactive();
+        }
+        applications.clear();
+        discoverApplications();
+    }
+
+    void ApplicationMonitor::updateActivities()
+    {
+        for (const auto& application : applications)
+        {
+            application->updateCurrentActivityEnd();
+            if(application->isActive())
+                usageStarted(application->constructDto());
         }
     }
 }

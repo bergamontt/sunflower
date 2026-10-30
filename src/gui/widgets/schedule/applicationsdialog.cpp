@@ -1,5 +1,6 @@
 #include "applicationsdialog.h"
 #include "application.h"
+#include "application/applicationservice.h"
 #include "applicationlist.h"
 #include "applicationlist/applicationlistservice.h"
 #include "ui_applicationsdialog.h"
@@ -9,6 +10,8 @@
 #include <qpushbutton.h>
 
 using namespace sun::persistence;
+using namespace sun::core;
+
 namespace
 {
     constexpr int AppId = Qt::UserRole;
@@ -29,7 +32,9 @@ static QIcon loadApplicationIcon(const QString& name)
 
 ApplicationsDialog::ApplicationsDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ApplicationsDialog)
+    ui(new Ui::ApplicationsDialog),
+    applicationService(std::make_unique<ApplicationService>()),
+    applicationListService(std::make_unique<ApplicationListService>())
 {
     ui->setupUi(this);
     setWindowTitle("New Application List");
@@ -56,7 +61,7 @@ ApplicationsDialog::~ApplicationsDialog()
 
 void ApplicationsDialog::loadApplications()
 {
-    const QList<Application>& applications = applicationService.getAll();
+    const QList<Application>& applications = applicationService->getAll();
     for(const Application& application : applications)
     {
         QListWidgetItem *item = new QListWidgetItem(application.name);
@@ -76,7 +81,7 @@ void ApplicationsDialog::setApplicationList(const ApplicationList& applicationLi
 {
     ui->listName->setText(*applicationList.name);
     ui->listName->setProperty("listId", applicationList.id);
-    const QList<Application>& applications = applicationListService.getAllApplications(applicationList.id);
+    const QList<Application>& applications = applicationListService->getAllApplications(applicationList.id);
     for (int i = 0; i < ui->applicationList->count(); ++i)
     {
         QListWidgetItem *item = ui->applicationList->item(i);
@@ -109,7 +114,7 @@ ApplicationList ApplicationsDialog::getNewApplicationList() const
         if (item->checkState() == Qt::Checked)
             applicationIds.append(item->data(AppId).toInt());
     }
-    return applicationListService.create(applicationListDto, applicationIds);
+    return applicationListService->create(applicationListDto, applicationIds);
 }
 
 ApplicationList ApplicationsDialog::getEditedApplicationList() const
@@ -127,7 +132,7 @@ ApplicationList ApplicationsDialog::getEditedApplicationList() const
         if (item->checkState() == Qt::Checked)
             applicationIds.append(item->data(AppId).toInt());
     }
-    return applicationListService.updateById(applicationListDto, applicationIds);
+    return applicationListService->updateById(applicationListDto, applicationIds);
 }
 
 void ApplicationsDialog::validateForm()
