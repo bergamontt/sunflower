@@ -76,9 +76,12 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="statisticsPageContainer">
+       <property name="widgetClass" stdset="0">
+        <string>background</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="StatisticsPage" name="statisticsPage" native="true"/>
