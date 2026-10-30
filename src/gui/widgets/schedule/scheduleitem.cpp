@@ -1,6 +1,8 @@
 #include "scheduleitem.h"
 #include "applicationlist.h"
 #include "ui_scheduleitem.h"
+#include <qabstractitemview.h>
+#include <qstyle.h>
 
 using namespace sun::persistence;
 
@@ -17,10 +19,7 @@ ScheduleItem::ScheduleItem(QWidget *parent) :
         this, [this]() {emit deleteRequested(schedule.id, schedule.name);});
 
     connect(ui->onButton, &QPushButton::clicked,
-        this, [this](){
-            schedule.isActive = ui->onButton->isChecked();
-            emit isActiveChangeRequested(schedule.id, ui->onButton->isChecked());
-        });
+        this, &ScheduleItem::onIsActiveStatusChanged);
 }
 
 ScheduleItem::~ScheduleItem()
@@ -63,4 +62,21 @@ void ScheduleItem::setSchedule(const Schedule& schedule, const QList<Application
     ui->scheduleStatus->setText(status);
     if(!schedule.isActive)
         ui->onButton->setChecked(false);
+}
+
+void ScheduleItem::onIsActiveStatusChanged()
+{
+    schedule.isActive = ui->onButton->isChecked();
+    setProperty("scheduleItemClass", schedule.isActive ? "isActive" : "isNotActive");
+    style()->unpolish(this);
+    style()->polish(this);
+
+    for (auto *child : findChildren<QWidget*>()) {
+        child->style()->unpolish(child);
+        child->style()->polish(child);
+        child->update();
+    }
+
+    update();
+    emit isActiveChangeRequested(schedule.id, ui->onButton->isChecked());
 }

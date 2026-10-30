@@ -38,10 +38,7 @@ void ApplicationShortList::setApplicationLists(QList<ApplicationList> appication
 void ApplicationShortList::updateText()
 {
     if(listNames.empty())
-    {
-        ui->text->setText("No applications selected.");
         return;
-    }
          
     const int availableWidth = ui->text->contentsRect().width();
     const QFontMetrics metrics(ui->text->font());

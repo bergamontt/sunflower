@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>652</width>
-    <height>463</height>
+    <height>380</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,6 +37,12 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLineEdit" name="scheduleNameEdit">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
      <property name="text">
       <string>New Schedule</string>
      </property>
@@ -50,18 +56,23 @@
      <property name="spacing">
       <number>0</number>
      </property>
-     <item>
-      <widget class="QLabel" name="applicationsContainerTitle">
-       <property name="text">
-        <string>Applications</string>
-       </property>
-       <property name="labelClass" stdset="0">
-        <string>h3</string>
-       </property>
-      </widget>
-     </item>
+     <property name="leftMargin">
+      <number>5</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>5</number>
+     </property>
+     <property name="bottomMargin">
+      <number>10</number>
+     </property>
      <item>
       <layout class="QHBoxLayout" name="applicationsActionContainer">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <item>
         <widget class="ApplicationShortList" name="applicationShortList" native="true">
          <property name="sizePolicy">
@@ -70,15 +81,27 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="shortlistClass" stdset="0">
+          <string>scheduleDialog</string>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="addApplicationsButton">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
           <string/>
@@ -86,6 +109,12 @@
          <property name="icon">
           <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
            <normaloff>:/gui/plus.svg</normaloff>:/gui/plus.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
          </property>
          <property name="buttonClass" stdset="0">
           <string>add</string>
@@ -98,15 +127,51 @@
    </item>
    <item>
     <widget class="QGroupBox" name="blockTypeChooser">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
      </property>
      <property name="groupBoxClass" stdset="0">
       <string>default</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="leftMargin">
+       <number>8</number>
+      </property>
+      <property name="topMargin">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>8</number>
+      </property>
+      <property name="bottomMargin">
+       <number>8</number>
+      </property>
       <item>
        <widget class="QPushButton" name="blockButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Block</string>
         </property>
@@ -120,6 +185,15 @@
       </item>
       <item>
        <widget class="QPushButton" name="limitButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Limit</string>
         </property>
@@ -152,7 +226,20 @@
         </spacer>
        </item>
        <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>from</string>
+         </property>
+         <property name="labelClass" stdset="0">
+          <string>h3</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QTimeEdit" name="fromTime">
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
          <property name="time">
           <time>
            <hour>10</hour>
@@ -168,7 +255,7 @@
        <item>
         <widget class="QLabel" name="dash">
          <property name="text">
-          <string>-</string>
+          <string>to</string>
          </property>
          <property name="labelClass" stdset="0">
           <string>h3</string>
@@ -177,6 +264,9 @@
        </item>
        <item>
         <widget class="QTimeEdit" name="toTime">
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
          <property name="time">
           <time>
            <hour>18</hour>
@@ -220,7 +310,20 @@
         </spacer>
        </item>
        <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>to</string>
+         </property>
+         <property name="labelClass" stdset="0">
+          <string>h3</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QTimeEdit" name="timeAllowed">
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
          <property name="time">
           <time>
            <hour>1</hour>
@@ -236,7 +339,7 @@
        <item>
         <widget class="QLabel" name="perDayLabel">
          <property name="text">
-          <string>per day</string>
+          <string>a day</string>
          </property>
          <property name="labelClass" stdset="0">
           <string>h3</string>
@@ -277,6 +380,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Mon</string>
         </property>
@@ -298,6 +404,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="text">
          <string>Tue</string>
@@ -321,6 +430,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Wed</string>
         </property>
@@ -342,6 +454,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="text">
          <string>Thu</string>
@@ -365,6 +480,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Fri</string>
         </property>
@@ -387,6 +505,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Sat</string>
         </property>
@@ -406,6 +527,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Sun</string>
         </property>
@@ -422,8 +546,29 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="scheduleDialogFooter">
+     <property name="leftMargin">
+      <number>5</number>
+     </property>
+     <property name="rightMargin">
+      <number>5</number>
+     </property>
      <item>
       <widget class="QPushButton" name="cancelButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -450,6 +595,21 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
        <property name="text">
         <string>Done</string>
        </property>
@@ -475,7 +635,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
   <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
  </resources>
  <connections/>

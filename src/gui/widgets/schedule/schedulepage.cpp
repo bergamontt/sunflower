@@ -7,6 +7,7 @@
 #include "ui_schedulepage.h"
 #include "scheduledialog.h"
 #include <qnamespace.h>
+#include <qstyle.h>
 
 using namespace sun::persistence;
 
@@ -33,6 +34,11 @@ void SchedulePage::loadSchedules()
     for (const Schedule& schedule : schedules)
         insertSchedule(schedule);
     sortSchedules();
+    for (QWidget *widget : ui->scheduleList->findChildren<QWidget*>()) {
+        widget->style()->unpolish(widget);
+        widget->style()->polish(widget);
+        widget->update();
+    }
 }
 
 void SchedulePage::insertSchedule(const Schedule& schedule)
@@ -53,6 +59,8 @@ void SchedulePage::insertSchedule(const Schedule& schedule)
     connect(item, &ScheduleItem::isActiveChangeRequested,
         this, &SchedulePage::onIsActiveChangeRequested);
 
+    item->setProperty("scheduleItemClass", schedule.isActive ? "isActive" : "isNotActive");
+    item->setAttribute(Qt::WA_StyledBackground, true);
     ui->scheduleList->addWidget(item);
 }
 
@@ -69,6 +77,7 @@ void SchedulePage::onCreateScheduleButtonClicked()
             scheduleService.addApplicationList(schedule.id, applicationlist.id);
 
         insertSchedule(schedule);
+        sortSchedules();
     }
 }
 
@@ -88,6 +97,7 @@ void SchedulePage::onEditScheduleRequested(Schedule schedule, QList<ApplicationL
         updateScheduleDto.startsAt = createScheduleDto.startsAt;
         updateScheduleDto.endsAt = createScheduleDto.endsAt;
         updateScheduleDto.repeatAt = createScheduleDto.repeatAt;
+        updateScheduleDto.isActive = createScheduleDto.isActive;
         QList<ApplicationList> newApplicationLists = scheduleDialog->getApplicationLists();
         const Schedule& newSchedule = scheduleService.updateById(updateScheduleDto, newApplicationLists);
 

@@ -22,7 +22,7 @@ public:
     bool operator<(const ScheduleItem& other) const
     {
         if(schedule.isActive != other.schedule.isActive)
-            return schedule.isActive < other.schedule.isActive;
+            return schedule.isActive > other.schedule.isActive;
         return schedule.name < other.schedule.name;
     }
 
@@ -30,6 +30,8 @@ private:
     Ui::ScheduleItem *ui;
     sun::persistence::Schedule schedule;
     QList<sun::persistence::ApplicationList> applicationLists;
+
+    void onIsActiveStatusChanged();
 
 signals:
     void editRequested(const sun::persistence::Schedule& schedule, const QList<sun::persistence::ApplicationList>& applicationLists);
