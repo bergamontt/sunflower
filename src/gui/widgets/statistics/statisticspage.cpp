@@ -1,6 +1,7 @@
 #include "statisticspage.h"
 #include "ui_statisticspage.h"
 #include "windowstatistics.h"
+#include "monitoring/applicationmonitor.h"
 
 #include <QChartView>
 #include <QChart>
@@ -147,6 +148,29 @@ StatisticsPage::StatisticsPage(QWidget* parent) : QWidget(parent), ui(new Ui::St
 {
     ui->setupUi(this);
 
+    auto& appMonitor = sun::core::ApplicationMonitor::instance();
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::applicationDiscovered,
+        this,
+        &StatisticsPage::handleApplicationDiscovered
+    );
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::usageStarted,
+        this,
+        &StatisticsPage::handleUsageStarted
+    );
+
+    QObject::connect(
+        &appMonitor,
+        &sun::core::ApplicationMonitor::usageEnded,
+        this,
+        &StatisticsPage::handleUsageEnded
+    );
+
     weeklyChart = createBarChart(
         {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
         {0, 0, 0, 0, 0, 0, 0},
@@ -178,6 +202,7 @@ void StatisticsPage::handleApplicationDiscovered(const ApplicationInfoDto& appIn
 {
     updateApplication(appInfo);
     refreshWidget(appInfo.getId());
+    sortWidgets();
     refreshGraphs();
 }
 
@@ -186,6 +211,7 @@ void StatisticsPage::handleUsageStarted(const ApplicationInfoDto& appInfo)
     runningApplications.insert(appInfo.getId());
     updateApplication(appInfo);
     refreshWidget(appInfo.getId());
+    sortWidgets();
     refreshGraphs();
 }
 
@@ -194,6 +220,7 @@ void StatisticsPage::handleUsageEnded(const ApplicationInfoDto& appInfo)
     updateApplication(appInfo);
     runningApplications.erase(appInfo.getId());
     refreshWidget(appInfo.getId());
+    refreshGraphs();
 }
 
 void StatisticsPage::updateApplication(const ApplicationInfoDto& appInfo)
@@ -399,4 +426,43 @@ void StatisticsPage::refreshGraphs()
 
     updateChart(weeklyChart, weeklyCategories, weeklyValues, weeklyMax);
     updateChart(dailyChart, dailyCategories, dailyValues, dailyMax);
+}
+
+void StatisticsPage::sortWidgets()
+{
+    std::vector<int> ids;
+    ids.reserve(applications.size());
+
+    for (const auto& [id, appInfo] : applications)
+        ids.push_back(id);
+
+    std::sort(ids.begin(), ids.end(), [this](const int lhs, const int rhs)
+    {
+        const bool lhsRunning = runningApplications.contains(lhs);
+        const bool rhsRunning = runningApplications.contains(rhs);
+
+        if (lhsRunning != rhsRunning)
+            return lhsRunning;
+
+        const QString& lhsName = applications.at(lhs).getName();
+        const QString& rhsName = applications.at(rhs).getName();
+
+        const int comparison = QString::compare(
+            lhsName,
+            rhsName,
+            Qt::CaseInsensitive
+        );
+
+        if (comparison != 0)
+            return comparison < 0;
+
+        return lhs < rhs;
+    });
+
+    for (int i = 0; i < static_cast<int>(ids.size()); ++i)
+    {
+        auto* widget = widgets.at(ids[i]);
+        ui->windowsList->removeWidget(widget);
+        ui->windowsList->insertWidget(i, widget);
+    }
 }

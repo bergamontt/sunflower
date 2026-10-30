@@ -41,30 +41,7 @@ int main(int argc, char* argv[])
 
     MainWindow window;
 
-    sun::core::ApplicationMonitor appMonitor;
-
-    QObject::connect(
-        &appMonitor,
-        &sun::core::ApplicationMonitor::applicationDiscovered,
-        window.getStatisticsPage(),
-        &StatisticsPage::handleApplicationDiscovered
-    );
-
-    QObject::connect(
-        &appMonitor,
-        &sun::core::ApplicationMonitor::usageStarted,
-        window.getStatisticsPage(),
-        &StatisticsPage::handleUsageStarted
-    );
-
-    QObject::connect(
-        &appMonitor,
-        &sun::core::ApplicationMonitor::usageEnded,
-        window.getStatisticsPage(),
-        &StatisticsPage::handleUsageEnded
-    );
-
-    appMonitor.discoverApplications();
+    sun::core::ApplicationMonitor::instance().discoverApplications();
 
     window.show();
 

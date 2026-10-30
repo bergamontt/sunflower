@@ -24,6 +24,9 @@ private slots:
     void onIsActiveChangeRequested(int scheduleId, bool isActive);
     void onCreateScheduleButtonClicked();
 
+signals:
+    void restartMonitoring();
+
 private:
     Ui::SchedulePage *ui;
     sun::core::ScheduleService scheduleService;
