@@ -1,13 +1,13 @@
 #pragma once
 
-#include <QString>
+#include "password/ipasswordservice.h"
 
 namespace sun::core
 {
-    class PasswordService
+    class PasswordService : public IPasswordService
     {
-    public:
-        QString hash(const QString& password) const;
-        bool matchPasswords(const QString &password, const QString& repeatPassword) const;
+    private:
+        QString doHash(const QString& password) const override;
+        bool doMatchPasswords(const QString &password, const QString& repeatPassword) const override;
     };
 } // namespace sun::core

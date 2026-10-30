@@ -6,17 +6,17 @@ namespace sun::core
 {
     using namespace persistence;
 
-    Schedule ScheduleService::create(const CreateScheduleDto& dto) const
+    Schedule ScheduleService::doCreate(const CreateScheduleDto& dto) const
     {
         return scheduleDao.create(dto);
     }
 
-    Schedule ScheduleService::updateById(const UpdateScheduleDto& dto) const
+    Schedule ScheduleService::doUpdateById(const UpdateScheduleDto& dto) const
     {
         return scheduleDao.updateById(dto);
     }
 
-        Schedule ScheduleService::updateById(const UpdateScheduleDto& dto, const QList<persistence::ApplicationList> newApplicationLists) const
+    Schedule ScheduleService::doUpdateById(const UpdateScheduleDto& dto, const QList<persistence::ApplicationList> newApplicationLists) const
     {
         const Schedule& newSchedule = scheduleDao.updateById(dto);
 
@@ -57,48 +57,48 @@ namespace sun::core
         return newSchedule;
     }
 
-    Schedule ScheduleService::updateIsActiveById(int id, bool isActive) const
+    Schedule ScheduleService::doUpdateIsActiveById(int id, bool isActive) const
     {
         return scheduleDao.updateIsActiveById(id, isActive);
     }
 
-    void ScheduleService::deleteById(int id) const
+    void ScheduleService::doDeleteById(int id) const
     {
         scheduleDao.removeAllApplicationLists(id);
         scheduleDao.deleteById(id);
     }
 
-    std::optional<Schedule> ScheduleService::getById(int id) const
+    std::optional<Schedule> ScheduleService::doGetById(int id) const
     {
         return scheduleDao.getById(id);
     }
 
-    QList<Schedule> ScheduleService::getAll() const
+    QList<Schedule> ScheduleService::doGetAll() const
     {
         return scheduleDao.getAll();
     }
 
-    void ScheduleService::addApplicationList(int scheduleId, int listId) const
+    void ScheduleService::doAddApplicationList(int scheduleId, int listId) const
     {
         scheduleDao.addApplicationList(scheduleId, listId);
     }
 
-    void ScheduleService::removeApplicationList(int scheduleId, int listId) const
+    void ScheduleService::doRemoveApplicationList(int scheduleId, int listId) const
     {
         scheduleDao.removeApplicationList(scheduleId, listId);
     }
 
-    void ScheduleService::removeAllApplicationLists(int scheduleId) const
+    void ScheduleService::doRemoveAllApplicationLists(int scheduleId) const
     {
         scheduleDao.removeAllApplicationLists(scheduleId);
     }
 
-    QList<persistence::Schedule> ScheduleService::getAllByApplicationList(int listId) const
+    QList<persistence::Schedule> ScheduleService::doGetAllByApplicationList(int listId) const
     {
         return scheduleDao.getAllByApplicationList(listId);
     }
 
-    QList<ApplicationList> ScheduleService::getAllApplicationLists(int scheduleId) const
+    QList<ApplicationList> ScheduleService::doGetAllApplicationLists(int scheduleId) const
     {
         return scheduleDao.getAllApplicationLists(scheduleId);
     }

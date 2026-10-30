@@ -4,9 +4,11 @@
 #include <QDialog>
 #include <QTreeWidgetItem>
 
+#include <memory>
+
 #include "applicationlist.h"
-#include "applicationlist/applicationlistservice.h"
-#include "schedule/scheduleservice.h"
+#include "applicationlist/iapplicationlistservice.h"
+#include "schedule/ischeduledservice.h"
 
 namespace Ui {
 class ApplicationDialog;
@@ -28,8 +30,8 @@ private slots:
 
 private:
     Ui::ApplicationDialog *ui;
-    sun::core::ApplicationListService applicationListService;
-    sun::core::ScheduleService scheduleService;
+    std::unique_ptr<sun::core::IApplicationListService> applicationListService;
+    std::unique_ptr<sun::core::IScheduleService> scheduleService;
 
 
     void loadAllApplicationLists();

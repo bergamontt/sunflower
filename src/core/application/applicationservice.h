@@ -1,24 +1,18 @@
 #pragma once
 
-#include "application/applicationdao.h"
-
-#include <QList>
+#include "application/iapplicationservice.h"
 
 namespace sun::core
 {
-    class ApplicationService
+    class ApplicationService : public IApplicationService
     {
-    public:
-        persistence::Application create(const persistence::CreateApplicationDto& dto) const;
-        QList<persistence::Application> create(const QList<persistence::CreateApplicationDto>& dtos) const;
-      
-        std::optional<persistence::Application> getById(int id) const;
-        QList<persistence::Application> getAll() const;
-      
-        persistence::Application updateById(const persistence::UpdateApplicationDto& dto) const;
-        void deleteById(int id) const;
-      
     private:
+        persistence::Application doCreate(const persistence::CreateApplicationDto& dto) const override;
+        QList<persistence::Application> doCreate(const QList<persistence::CreateApplicationDto>& dtos) const override;
+        std::optional<persistence::Application> doGetById(int id) const override;
+        QList<persistence::Application> doGetAll() const override;
+        persistence::Application doUpdateById(const persistence::UpdateApplicationDto& dto) const override;
+        void doDeleteById(int id) const override;
         persistence::ApplicationDao applicationDao;
     };
 } // sun::core

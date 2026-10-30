@@ -4,12 +4,12 @@ namespace sun::core
 {
     using namespace persistence;
 
-    ApplicationList ApplicationListService::create(const CreateApplicationListDto& dto) const
+    ApplicationList ApplicationListService::doCreate(const CreateApplicationListDto& dto) const
     {
         return applicationListDao.create(dto);
     }
 
-    ApplicationList ApplicationListService::create(const CreateApplicationListDto& dto, const QList<int>& applicationIds) const
+    ApplicationList ApplicationListService::doCreate(const CreateApplicationListDto& dto, const QList<int>& applicationIds) const
     {
         const ApplicationList& applicationList = applicationListDao.create(dto);
         for(const int applicationId : applicationIds)
@@ -19,22 +19,22 @@ namespace sun::core
         return applicationList;
     }
 
-    std::optional<ApplicationList> ApplicationListService::getById(int id) const
+    std::optional<ApplicationList> ApplicationListService::doGetById(int id) const
     {
         return applicationListDao.getById(id);
     }
 
-    QList<ApplicationList> ApplicationListService::getAll() const
+    QList<ApplicationList> ApplicationListService::doGetAll() const
     {
         return applicationListDao.getAll();
     }
 
-    ApplicationList ApplicationListService::updateById(const UpdateApplicationListDto& dto) const
+    ApplicationList ApplicationListService::doUpdateById(const UpdateApplicationListDto& dto) const
     {
         return applicationListDao.updateById(dto);
     }
 
-    ApplicationList ApplicationListService::updateById(const UpdateApplicationListDto& dto, const QList<int>& applicationIds) const
+    ApplicationList ApplicationListService::doUpdateById(const UpdateApplicationListDto& dto, const QList<int>& applicationIds) const
     {
         const ApplicationList& applicationList = applicationListDao.updateById(dto);
         const QList<Application>& oldApplications = applicationListDao.getAllApplications(applicationList.id);
@@ -66,28 +66,28 @@ namespace sun::core
     }
 
 
-    void ApplicationListService::deleteById(int id) const
+    void ApplicationListService::doDeleteById(int id) const
     {
         applicationListDao.removeAllApplications(id);
         applicationListDao.deleteById(id);
     }
 
-    void ApplicationListService::addApplication(int listId, int applicationId) const
+    void ApplicationListService::doAddApplication(int listId, int applicationId) const
     {
         applicationListDao.addApplication(listId, applicationId);
     }
 
-    void ApplicationListService::removeApplication(int listId, int applicationId) const
+    void ApplicationListService::doRemoveApplication(int listId, int applicationId) const
     {
         applicationListDao.removeApplication(listId, applicationId);
     }
 
-    void ApplicationListService::removeAllApplications(int listId) const
+    void ApplicationListService::doRemoveAllApplications(int listId) const
     {
         applicationListDao.removeAllApplications(listId);
     }
 
-    QList<Application> ApplicationListService::getAllApplications(int listId) const
+    QList<Application> ApplicationListService::doGetAllApplications(int listId) const
     {
         return applicationListDao.getAllApplications(listId);
     }

@@ -5,7 +5,7 @@
 
 namespace sun::core
 {   
-    LockPolicy SettingsService::lockPolicy() const
+    LockPolicy SettingsService::doLockPolicy() const
     {
         QSettings settings;
         settings.beginGroup(settings::restrictions);
@@ -24,7 +24,7 @@ namespace sun::core
         }
     }
 
-    void SettingsService::setLockPolicy(const LockPolicy& policy)
+    void SettingsService::doSetLockPolicy(const LockPolicy& policy)
     {
         QSettings settings;
         settings.beginGroup(settings::restrictions);

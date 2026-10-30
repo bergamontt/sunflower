@@ -1,4 +1,6 @@
 #include "strictmodesection.h"
+#include "password/passwordservice.h"
+#include "settings/settingsservice.h"
 #include "ui_strictmodesection.h"
 
 #include "strictmodeutils.h"
@@ -13,7 +15,9 @@ using namespace sun::core;
 
 StrictModeSection::StrictModeSection(QWidget *parent) : 
     QFrame(parent),
-    ui(new Ui::StrictModeSection)
+    ui(new Ui::StrictModeSection),
+    settingsService(std::make_unique<SettingsService>()),
+    passwordService(std::make_unique<PasswordService>())
 {
     ui->setupUi(this);
     
@@ -40,14 +44,14 @@ void StrictModeSection::onLockTypeChanged(int index)
     switch (selectedType)
     {
         case LockType::None:
-            settingsService.setLockPolicy(LockPolicy::none());
+            settingsService->setLockPolicy(LockPolicy::none());
             break;
         case LockType::Delay:
-            settingsService.setLockPolicy(LockPolicy::delay(ui->delaySpinBox->value()));
+            settingsService->setLockPolicy(LockPolicy::delay(ui->delaySpinBox->value()));
             break;
         case LockType::Password:
         {
-            auto policy = settingsService.lockPolicy();
+            auto policy = settingsService->lockPolicy();
             updatePasswordSettings(!policy.hash().isEmpty());
             break;
         }
@@ -56,7 +60,7 @@ void StrictModeSection::onLockTypeChanged(int index)
 
 void StrictModeSection::onSaveClicked()
 {
-    auto currentPolicy = settingsService.lockPolicy();
+    auto currentPolicy = settingsService->lockPolicy();
     bool hasPassword = !currentPolicy.hash().isEmpty();
 
     auto targetPassword = hasPassword 
@@ -68,8 +72,8 @@ void StrictModeSection::onSaveClicked()
         return;
     }
 
-    QString targetHash = passwordService.hash(*targetPassword);
-    settingsService.setLockPolicy(LockPolicy::password(targetHash));
+    QString targetHash = passwordService->hash(*targetPassword);
+    settingsService->setLockPolicy(LockPolicy::password(targetHash));
 
     clearPasswordInputs();
     updatePasswordSettings(true);
@@ -81,7 +85,7 @@ void StrictModeSection::onDelayChanged(int seconds)
 {
     if (indexToLockType(ui->strictModeComboBox->currentIndex()) == LockType::Delay)
     {
-        settingsService.setLockPolicy(LockPolicy::delay(seconds));
+        settingsService->setLockPolicy(LockPolicy::delay(seconds));
     }
 }
 
@@ -108,7 +112,7 @@ void StrictModeSection::loadCurrentSettings()
     QSignalBlocker comboBlocker(ui->strictModeComboBox);
     QSignalBlocker spinBlocker(ui->delaySpinBox);
    
-    auto policy = settingsService.lockPolicy();
+    auto policy = settingsService->lockPolicy();
     int targetIndex = lockTypeToIndex(policy.lockType());
     
     ui->strictModeComboBox->setCurrentIndex(targetIndex);
@@ -128,7 +132,7 @@ std::optional<QString> StrictModeSection::handleCreatePassword()
 {
     QString password = ui->passwordLineEdit->text();
     QString repeatPassword = ui->repeatPasswordLineEdit->text();
-    if (!passwordService.matchPasswords(password, repeatPassword))
+    if (!passwordService->matchPasswords(password, repeatPassword))
     {
         QMessageBox::warning(this, text::error_widnow, text::passwords_mismatch);
         return std::nullopt;
@@ -139,7 +143,7 @@ std::optional<QString> StrictModeSection::handleCreatePassword()
 std::optional<QString> StrictModeSection::handleUpdatePassword(const QString& currentHash)
 {
     QString currentEnteredPassword = ui->passwordLineEdit->text();
-    QString hash = passwordService.hash(currentEnteredPassword);
+    QString hash = passwordService->hash(currentEnteredPassword);
     if (hash != currentHash)
     {
         QMessageBox::warning(this, text::error_widnow, text::incorrect_current_password);
@@ -149,7 +153,7 @@ std::optional<QString> StrictModeSection::handleUpdatePassword(const QString& cu
     QString newPassword = ui->newPasswordLineEdit->text();
     QString repeatPassword = ui->repeatPasswordLineEdit->text();
 
-    if (!passwordService.matchPasswords(newPassword, repeatPassword))
+    if (!passwordService->matchPasswords(newPassword, repeatPassword))
     {
         QMessageBox::warning(this, text::error_widnow, text::passwords_mismatch);
         return std::nullopt;

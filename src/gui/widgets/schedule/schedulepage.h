@@ -2,9 +2,12 @@
 #define SCHEDULEPAGE_H
 
 #include <QWidget>
+
+#include <memory>
+
 #include "applicationlist.h"
 #include "schedule.h"
-#include "schedule/scheduleservice.h"
+#include "schedule/ischeduledservice.h"
 
 namespace Ui {
 class SchedulePage;
@@ -29,7 +32,7 @@ signals:
 
 private:
     Ui::SchedulePage *ui;
-    sun::core::ScheduleService scheduleService;
+    std::unique_ptr<sun::core::IScheduleService> scheduleService;
     void loadSchedules();
     void insertSchedule(const sun::persistence::Schedule& schedule);
     void sortSchedules();

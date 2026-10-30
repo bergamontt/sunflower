@@ -4,7 +4,7 @@
 
 namespace sun::core
 {
-    QString PasswordService::hash(const QString &password) const
+    QString PasswordService::doHash(const QString &password) const
     {
         const QByteArray hashBytes = QCryptographicHash::hash(
             password.toUtf8(), 
@@ -13,7 +13,7 @@ namespace sun::core
         return QString::fromUtf8(hashBytes.toHex());
     }
 
-    bool PasswordService::matchPasswords(const QString &password, const QString& repeatPassword) const
+    bool PasswordService::doMatchPasswords(const QString &password, const QString& repeatPassword) const
     {
         if (password.trimmed().isEmpty())
         {
