@@ -1,4 +1,5 @@
-add_library(gui STATIC)
+add_library(gui STATIC
+        widgets/settings/passwordconfirmation.h widgets/settings/passwordconfirmation.cpp widgets/settings/passwordconfirmation.ui)
 
 target_link_libraries(
     gui 
