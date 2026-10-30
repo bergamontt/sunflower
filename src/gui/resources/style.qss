@@ -38,6 +38,15 @@ QLabel[labelClass="h3"] {
     font-family: 'Instrument Sans';
 }
 
+QTreeWidget[treeClass="appLists"]::item,
+QListWidget[listClass="appList"]::item,
+QLabel[labelClass="h4"] {
+    font-style: normal;
+    font-size: 18px;
+    color: #000000;
+    font-family: 'Instrument Sans';
+}
+
 QComboBox[comboClass="default"] {
     padding: 10px;
     background: #C5C8CB;

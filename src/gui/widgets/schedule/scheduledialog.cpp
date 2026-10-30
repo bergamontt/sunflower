@@ -62,6 +62,7 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
     ui->fromTime->setTimeRange(QTime(0, 0), QTime(23, 58));
     ui->toTime->setTimeRange(QTime(0, 1), QTime(23, 59));
     ui->timeAllowed->setTimeRange(QTime(0, 1), QTime(23, 59));
+    ui->timeAllowed->setDisplayFormat("HH:mm");
 
     QPushButton *buttons[] =
     {
