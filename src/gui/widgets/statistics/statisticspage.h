@@ -33,6 +33,7 @@ public slots:
 
 private:
     void updateApplication(const sun::core::ApplicationInfoDto& appInfo);
+    void sendTimeoutNotificaion(const sun::core::ApplicationInfoDto& appInfo);
     void refreshWidgets();
     void refreshWidget(int id);
     void refreshGraphs();
