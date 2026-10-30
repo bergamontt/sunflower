@@ -32,6 +32,8 @@ int main(int argc, char* argv[])
     std::unique_ptr<sun::core::IApplicationService> applicationService = std::make_unique<sun::core::ApplicationService>();
     applicationService->create(applications);
 
+    MainWindow window;
+
     Q_INIT_RESOURCE(gui);
     QFile styleFile(":/gui/style.qss");
     if (styleFile.open(QFile::ReadOnly | QFile::Text))
@@ -40,8 +42,6 @@ int main(int argc, char* argv[])
         app.setStyleSheet(styles);
         styleFile.close();
     }
-
-    MainWindow window;
 
     sun::core::ApplicationMonitor::instance().discoverApplications();
 
