@@ -312,7 +312,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>to</string>
+          <string>up to</string>
          </property>
          <property name="labelClass" stdset="0">
           <string>h3</string>
