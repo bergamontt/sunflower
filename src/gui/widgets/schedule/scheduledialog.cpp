@@ -4,6 +4,7 @@
 #include "schedule.h"
 #include "ui_scheduledialog.h"
 #include <qdialog.h>
+#include <qnamespace.h>
 #include <qpushbutton.h>
 
 #include <QButtonGroup>
@@ -97,7 +98,7 @@ ScheduleDialog::ScheduleDialog(QWidget *parent) :
         widget->update();
     }
 
-    resize(435, 463);
+    resize(435, 400);
 }
 
 ScheduleDialog::~ScheduleDialog()
@@ -187,6 +188,7 @@ CreateScheduleDto ScheduleDialog::getSchedule() const
     if (ui->sundayButton->isChecked())
         schedule.repeatAt |= Schedule::Day::SUN;
 
+    schedule.isActive = true;
     return schedule;
 }
 
@@ -198,12 +200,14 @@ QList<ApplicationList> ScheduleDialog::getApplicationLists() const
 void ScheduleDialog::validateForm()
 {
     ui->doneButton->setDisabled(false);
+    ui->doneButton->setCursor(Qt::PointingHandCursor);
 
-    if(ui->scheduleNameEdit->text().isEmpty())
+    if(ui->scheduleNameEdit->text().isEmpty()
+        || applicationLists.empty())
+    {
         ui->doneButton->setDisabled(true);
-    
-    if(applicationLists.empty())
-        ui->doneButton->setDisabled(true);
+        ui->doneButton->setCursor(Qt::ArrowCursor);
+    }
     else
         ui->addApplicationsButton->setIcon(QIcon(":/gui/edit.svg"));
 }

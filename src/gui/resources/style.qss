@@ -1,3 +1,4 @@
+QDialog[dialogClass="background"],
 QWidget[widgetClass="background"] {
     background: #C5C8CB;
 }
@@ -72,12 +73,23 @@ QComboBox[comboClass="default"] QAbstractItemView {
 }
 
 QLineEdit[lineClass="default"] {
-    padding: 10px;
+    padding: 5px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #030303;
+    font-size: 24px;
+    font-family: 'Instrument Sans';
+}
+
+QLineEdit[lineClass="default"]:focus {
     background: #F3F3F3;
     border: 1px solid #3A3C45;
-    border-radius: 15px;
-    color: #3A3C45;
-    font-family: 'Instrument Sans';
+}
+
+QLineEdit[lineClass="default"]:hover {
+    background: #F3F3F3;
+    border: 1px solid #3A3C45;
 }
 
 QPushButton[buttonClass="green"] {
@@ -93,7 +105,7 @@ QPushButton[buttonClass="green"] {
 }
 
 QPushButton[buttonClass="green"]:hover {
-    background: #00796d
+    background: #00796d;
 }
 
 QScrollArea[areaClass="backgound"] {
@@ -125,11 +137,12 @@ QListWidget[listClass="sidebar"]::item:selected {
 QGroupBox[groupBoxClass="default"] {
     padding: 5px;
     background: #AAAEB4;
-    border-radius: 25px;
+    border-radius: 30px;
     color: #3A3C45;
 }
 
-QGroupBox[groupBoxClass="default"] QPushButton:checked {
+QGroupBox[groupBoxClass="default"] QPushButton:checked,
+QGroupBox[groupBoxClass="default"] QPushButton:checked:hover {
     background: #EAECF0;
 }
 
@@ -142,20 +155,46 @@ QGroupBox[groupBoxClass="default"] QPushButton {
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
-    line-height: 24px;
+}
+
+QGroupBox[groupBoxClass="default"] QPushButton:hover {
+    background: #8e9296;
+}
+
+QPushButton[buttonClass="editAppList"],
+QPushButton[buttonClass="deleteAppList"] {
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+QPushButton[buttonClass="editAppList"]:hover {
+    background-color: #F8DF79;
+}
+
+QPushButton[buttonClass="deleteAppList"]:hover {
+    background-color: #E57979;
 }
 
 QPushButton[buttonClass="add"] {
-    padding: 10px;
-    width: 1em;
-    height: 1em;
-    background: #009081;
-    border-radius: 20px;
+    padding: 0px;
+    margin: 0px;
+    background-color: #009081;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+QPushButton[buttonClass="add"]:hover {
+    background-color: #00796d;
 }
 
 QGroupBox[groupBoxClass="week"] {
     background: #C5C8CB;
     padding: 10px;
+    border: none;
 }
 
 QPushButton[buttonClass="day"] {
@@ -187,14 +226,13 @@ QPushButton[buttonClass="day"] {
 }
 
 QPushButton[buttonClass="cancel"] {
-    padding: 10px;
+    padding: 0px;
     background: #C5C8CB;
-    border-radius: 20px;
+    border-radius: 10px;
     font-family: 'Instrument Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
-    line-height: 20px;
     color: #030303;
 }
 
@@ -202,23 +240,43 @@ QPushButton[buttonClass="cancel"]:hover {
     background-color: #AAAEB4;
 }
 
+QPushButton[buttonClass="delete"],
 QPushButton[buttonClass="create"] {
-    padding: 10px;
-    background: #AAAEB4;
-    border-radius: 20px;
+    padding: 0px;
+    border-radius: 10px;
     font-family: 'Instrument Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
-    line-height: 20px;
-    color: #030303;
+    color: #F3F3F3;
+}
+
+QPushButton[buttonClass="create"] {
+    background-color: #009081;
+}
+
+QPushButton[buttonClass="delete"] {
+    background-color: #E57979;
+}
+
+QPushButton[buttonClass="create"]:hover {
+    background: #00796d;
+}
+
+QPushButton[buttonClass="delete"]:hover {
+    background-color: #af0606;
+}
+
+QPushButton[buttonClass="create"]:disabled {
+    background: #AAAEB4;
+    color: #3A3C45;
 }
 
 QTimeEdit[timeClass="default"] {
     padding: 10px;
     background: #AAAEB4;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     font-family: 'Instrument Sans';
     font-weight: 500;
     font-size: 16px;
@@ -228,4 +286,98 @@ QTimeEdit[timeClass="default"] {
 QTimeEdit[timeClass="default"]::up-button,
 QTimeEdit[timeClass="default"]::down-button {
     width: 0px;
+}
+
+ScheduleItem[scheduleItemClass="isActive"] {
+    background-color: #F3F3F3;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+ScheduleItem[scheduleItemClass="isNotActive"] {
+    background-color: #EAECF0;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+QPushButton[buttonClass="onSchedule"],
+QPushButton[buttonClass="editSchedule"], 
+QPushButton[buttonClass="deleteSchedule"] {
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+}
+
+QPushButton[buttonClass="deleteSchedule"]:hover {
+    background: #E57979;
+}
+
+QPushButton[buttonClass="editSchedule"]:hover {
+    background: #F8DF79;
+}
+
+QPushButton[buttonClass="onSchedule"]:checked {
+    background: #C7F3DE;
+}
+
+QPushButton[buttonClass="onSchedule"]:hover,
+QPushButton[buttonClass="onSchedule"]:checked:hover {
+    background: #00C8B3;
+}
+
+ScheduleItem[scheduleItemClass="isNotActive"] QLabel[labelClass="h2"],
+ScheduleItem[scheduleItemClass="isNotActive"] QLabel[labelClass="h3"] {
+    color: #878B91;
+}
+
+QListWidget[listClass="appList"],
+QTreeWidget[treeClass="appLists"] {
+    background: transparent;
+}
+
+QListWidget[listClass="appList"]::indicator,
+QTreeWidget[treeClass="appLists"]::indicator {
+    background: white;
+}
+
+QListWidget[listClass="appList"]::indicator:hover,
+QTreeWidget[treeClass="appLists"]::indicator:hover {
+    border: 1px solid #23242a;
+}
+
+QListWidget[listClass="appList"]::indicator:checked,
+QTreeWidget[treeClass="appLists"]::indicator:checked {
+    background: #009081;
+    border: 2px solid white;
+}
+
+#scheduleScrollAreaContents,
+#scheduleScrollArea {
+    background: transparent;
+}
+
+QScrollBar::up-arrow,
+QScrollBar::down-arrow,
+QScrollBar::left-arrow,
+QScrollBar::right-arrow,
+QScrollBar::add-line,
+QScrollBar::sub-line {
+    width: 0px;
+    height: 0px;
+    background: transparent;
+    border: none;
+}
+
+QScrollBar:vertical {
+    width: 8px;
+    background: #8e9296;
+    margin: 0px;
+    border: none;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:vertical {
+    background: #3A3C45;
+    border-radius: 4px;
+    min-height: 30px;
 }

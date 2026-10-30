@@ -13,11 +13,35 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="dialogClass" stdset="0">
+   <string>background</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>10</number>
+   </property>
    <item>
     <widget class="QLabel" name="dialogText">
      <property name="text">
       <string>Are you sure you wish to delete this item?</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="labelClass" stdset="0">
+      <string>h3</string>
      </property>
     </widget>
    </item>
@@ -25,8 +49,26 @@
     <layout class="QHBoxLayout" name="dialogFooter">
      <item>
       <widget class="QPushButton" name="cancelButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="text">
         <string>Cancel</string>
+       </property>
+       <property name="buttonClass" stdset="0">
+        <string>cancel</string>
        </property>
       </widget>
      </item>
@@ -45,12 +87,30 @@
      </item>
      <item>
       <widget class="QPushButton" name="deleteButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="text">
         <string>Delete</string>
        </property>
        <property name="icon">
         <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
          <normaloff>:/gui/delete.svg</normaloff>:/gui/delete.svg</iconset>
+       </property>
+       <property name="buttonClass" stdset="0">
+        <string>delete</string>
        </property>
       </widget>
      </item>

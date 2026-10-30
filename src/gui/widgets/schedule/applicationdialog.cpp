@@ -6,6 +6,7 @@
 #include "ui_applicationdialog.h"
 #include "schedule/scheduleservice.h"
 #include <optional>
+#include <qicon.h>
 #include <qnamespace.h>
 #include <qpushbutton.h>
 #include <qtreewidget.h>
@@ -18,6 +19,19 @@ namespace
     constexpr int ListId = Qt::UserRole;
 }
 
+static QIcon loadApplicationIcon(const QString& name)
+{
+    QIcon icon = QIcon::fromTheme(name);
+    if (!icon.isNull())
+        return icon;
+
+    icon = QIcon(name);
+    if (!icon.isNull())
+        return icon;
+
+    return QIcon(":/gui/exe-file.svg");
+}
+
 ApplicationDialog::ApplicationDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ApplicationDialog),
@@ -25,7 +39,8 @@ ApplicationDialog::ApplicationDialog(QWidget *parent) :
     scheduleService(std::make_unique<ScheduleService>())
 {
     ui->setupUi(this);
-    setWindowTitle("Create your first application list");
+    setWindowTitle("Application lists");
+    ui->title->setText("Create your first application list");
 
     ui->applicationTree->header()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->applicationTree->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
@@ -85,6 +100,7 @@ void ApplicationDialog::insertApplicationList(const ApplicationList& list)
     for (const Application& application : applications)
     {
         QTreeWidgetItem* applicationItem = new QTreeWidgetItem(listItem);
+        applicationItem->setIcon(0, loadApplicationIcon(application.icon));
         applicationItem->setText(0, application.name);
     }
 
@@ -99,14 +115,19 @@ void ApplicationDialog::setUpAppListButtons(QTreeWidgetItem *listItem, const App
 {
     auto *buttons = new QWidget();
     auto *layout = new QHBoxLayout(buttons);
+    buttons->setProperty("widgetClass", "background");
     layout->setContentsMargins(0, 0, 0, 0);
 
     auto *editButton = new QPushButton(QIcon(":/gui/edit.svg"), "");
+    editButton->setProperty("buttonClass", "editAppList");
+    editButton->setMinimumSize(20, 20);
     connect(editButton, &QPushButton::clicked,
         this, [this, list](){onEditButtonClicked(list);});
     layout->addWidget(editButton);
 
     auto *deleteButton = new QPushButton(QIcon(":/gui/delete.svg"), "");
+    deleteButton->setProperty("buttonClass", "deleteAppList");
+    deleteButton->setMinimumSize(20, 20);
     connect(deleteButton, &QPushButton::clicked,
         this, [this, list](){onDeleteButtonClicked(list.id, *list.name);} );
     layout->addWidget(deleteButton);
@@ -114,6 +135,7 @@ void ApplicationDialog::setUpAppListButtons(QTreeWidgetItem *listItem, const App
     if(!scheduleService->getAllByApplicationList(list.id).empty())
     {
         deleteButton->setDisabled(true);
+        deleteButton->setCursor(Qt::ArrowCursor);
         deleteButton->setToolTip("Can't delete a list while there are schedules that use it");
     }
 
@@ -211,6 +233,7 @@ QList<ApplicationList> ApplicationDialog::getSelectedApplicationLists() const
 void ApplicationDialog::validateForm()
 {
     ui->doneButton->setDisabled(false);
+    ui->doneButton->setCursor(Qt::PointingHandCursor);
 
     int numChecked = 0;
     for (int i = 0; i < ui->applicationTree->topLevelItemCount(); ++i)
@@ -218,5 +241,10 @@ void ApplicationDialog::validateForm()
         if (ui->applicationTree->topLevelItem(i)->checkState(0) == Qt::Checked)
             ++numChecked;
     }
-    if(numChecked == 0) ui->doneButton->setDisabled(true);
+    if(numChecked == 0)
+    {
+        ui->doneButton->setCursor(Qt::ArrowCursor);
+        ui->doneButton->setDisabled(true);
+    }
+    
 }
