@@ -3,15 +3,49 @@ QWidget[widgetClass="background"] {
     background: #C5C8CB;
 }
 
+QWidget[widgetClass="transparent"] {
+    background: transparent;
+}
+
 QScrollArea[areaClass="background"] {
     background: #C5C8CB;
     border: none;
+}
+
+QScrollArea[areaClass="applicationList"] {
+    background: #EAECF0;
+    border: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+QScrollArea[areaClass="applicationList"] QScrollBar:vertical {
+    background: #B5BAC2;
+}
+
+QScrollArea[areaClass="applicationList"] QScrollBar::handle:vertical {
+    background: #A5A8AD;
+}
+
+QScrollArea[areaClass="applicationList"] QScrollBar::handle:vertical:hover {
+    background: #828891;
 }
 
 QFrame[frameClass="section"] {
     padding: 10px;
     background: #EAECF0;
     border-radius: 20px;
+}
+
+QFrame[frameClass="header"] {
+    background: #AAAEB4;
+    border: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 QLabel[labelClass="h1"] {
@@ -34,6 +68,22 @@ QLabel[labelClass="h3"] {
     font-style: normal;
     font-size: 20px;
     line-height: 24px;
+    color: #000000;
+    font-family: 'Instrument Sans';
+}
+
+QLabel[labelClass="h4"] {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    font-family: 'Instrument Sans';
+}
+
+QLabel[labelClass="h5"] {
+    font-style: normal;
+    font-size: 15px;
+    line-height: 18px;
     color: #000000;
     font-family: 'Instrument Sans';
 }

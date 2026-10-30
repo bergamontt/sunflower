@@ -63,6 +63,7 @@ namespace
         chart->addSeries(series);
         chart->legend()->hide();
         chart->setMargins(QMargins(4, 4, 4, 4));
+        chart->setBackgroundRoundness(10);
         chart->setAnimationOptions(QChart::NoAnimation);
 
         auto* axisX = new QBarCategoryAxis();
@@ -77,11 +78,19 @@ namespace
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
 
+        axisX->setLabelsColor(Qt::black);
+        axisY->setLabelsColor(Qt::black);
+
+        axisX->setTitleBrush(Qt::black);
+        axisY->setTitleBrush(Qt::black);
+
         auto* view = new QChartView(chart);
         view->setRenderHint(QPainter::Antialiasing);
         view->setSizePolicy(
             QSizePolicy::Expanding,
             QSizePolicy::Expanding);
+        view->setBackgroundBrush(Qt::NoBrush);
+        view->viewport()->setAutoFillBackground(false);
 
         return new UsageBarChart{
             view,

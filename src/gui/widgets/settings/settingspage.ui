@@ -28,14 +28,20 @@
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
+     <property name="areaClass" stdset="0">
+      <string>background</string>
+     </property>
      <widget class="QWidget" name="settingsScrollAreaContents">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>812</width>
-        <height>628</height>
+        <width>804</width>
+        <height>620</height>
        </rect>
+      </property>
+      <property name="widgetClass" stdset="0">
+       <string>background</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
