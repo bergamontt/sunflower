@@ -7,6 +7,7 @@ namespace sun::core
     class IPasswordService
     {
     public:
+        virtual ~IPasswordService() = default;
         QString hash(const QString& password) const;
         bool matchPasswords(const QString& password, const QString& repeatPassword) const;
     private:

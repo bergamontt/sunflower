@@ -1,10 +1,12 @@
 #ifndef APPLICATIONSDIALOG_H
 #define APPLICATIONSDIALOG_H
 
-#include "application/applicationservice.h"
-#include "applicationlist/applicationlistservice.h"
+#include "application/iapplicationservice.h"
+#include "applicationlist/iapplicationlistservice.h"
 #include "applicationlist.h"
 #include <QDialog>
+
+#include <memory>
 
 namespace Ui {
 class ApplicationsDialog;
@@ -24,8 +26,8 @@ public:
 
 private:
     Ui::ApplicationsDialog *ui;
-    sun::core::ApplicationService applicationService;
-    sun::core::ApplicationListService applicationListService;
+    std::unique_ptr<sun::core::IApplicationService> applicationService;
+    std::unique_ptr<sun::core::IApplicationListService> applicationListService;
 
     void loadApplications();
     void validateForm();

@@ -9,6 +9,7 @@ namespace sun::core
     class IApplicationService
     {
     public:
+        virtual ~IApplicationService() = default;
         persistence::Application create(const persistence::CreateApplicationDto& dto) const;
         QList<persistence::Application> create(const QList<persistence::CreateApplicationDto>& dtos) const;
         std::optional<persistence::Application> getById(int id) const;

@@ -7,6 +7,7 @@ namespace sun::core
     class ISettingsService
     {
     public:
+        virtual ~ISettingsService() = default;
         LockPolicy lockPolicy() const;
         void setLockPolicy(const LockPolicy& policy);
     private:

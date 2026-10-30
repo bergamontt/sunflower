@@ -7,6 +7,7 @@ namespace sun::core
     class IScheduleService
     {
     public:
+        virtual ~IScheduleService() = default;
         persistence::Schedule create(const persistence::CreateScheduleDto& dto) const;
         persistence::Schedule updateById(const persistence::UpdateScheduleDto& dto) const;
         persistence::Schedule updateById(const persistence::UpdateScheduleDto& dto, const QList<persistence::ApplicationList> newApplicationLists) const;

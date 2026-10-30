@@ -7,6 +7,7 @@ namespace sun::core
     class IApplicationListService
     {
     public:
+        virtual ~IApplicationListService() = default;
         persistence::ApplicationList create(const persistence::CreateApplicationListDto& dto) const;
         persistence::ApplicationList create(const persistence::CreateApplicationListDto& dto, const QList<int>& applicationIds) const;
         persistence::ApplicationList updateById(const persistence::UpdateApplicationListDto& dto) const;

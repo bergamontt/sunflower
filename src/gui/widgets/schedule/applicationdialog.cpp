@@ -1,14 +1,18 @@
 #include "applicationdialog.h"
 #include "applicationlist.h"
+#include "applicationlist/applicationlistservice.h"
 #include "applicationsdialog.h"
 #include "deletedialog.h"
 #include "ui_applicationdialog.h"
+#include "schedule/scheduleservice.h"
 #include <optional>
 #include <qnamespace.h>
 #include <qpushbutton.h>
 #include <qtreewidget.h>
 
 using namespace sun::persistence;
+using namespace sun::core;
+
 namespace
 {
     constexpr int ListId = Qt::UserRole;
@@ -16,7 +20,9 @@ namespace
 
 ApplicationDialog::ApplicationDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ApplicationDialog)
+    ui(new Ui::ApplicationDialog),
+    applicationListService(std::make_unique<ApplicationListService>()),
+    scheduleService(std::make_unique<ScheduleService>())
 {
     ui->setupUi(this);
     setWindowTitle("Create your first application list");
@@ -57,7 +63,7 @@ void ApplicationDialog::onNewListButtonClicked()
 void ApplicationDialog::loadAllApplicationLists()
 {
     ui->applicationTree->clear();
-    QList<ApplicationList> allApplicationLists = applicationListService.getAll();
+    QList<ApplicationList> allApplicationLists = applicationListService->getAll();
 
     for (const ApplicationList& list : allApplicationLists)
     {
@@ -75,7 +81,7 @@ void ApplicationDialog::insertApplicationList(const ApplicationList& list)
     listItem->setData(0, ListId, list.id);
     setUpAppListButtons(listItem, list);
 
-    const QList<Application> applications = applicationListService.getAllApplications(list.id);
+    const QList<Application> applications = applicationListService->getAllApplications(list.id);
     for (const Application& application : applications)
     {
         QTreeWidgetItem* applicationItem = new QTreeWidgetItem(listItem);
@@ -105,7 +111,7 @@ void ApplicationDialog::setUpAppListButtons(QTreeWidgetItem *listItem, const App
         this, [this, list](){onDeleteButtonClicked(list.id, *list.name);} );
     layout->addWidget(deleteButton);
 
-    if(!scheduleService.getAllByApplicationList(list.id).empty())
+    if(!scheduleService->getAllByApplicationList(list.id).empty())
     {
         deleteButton->setDisabled(true);
         deleteButton->setToolTip("Can't delete a list while there are schedules that use it");
@@ -134,7 +140,7 @@ void ApplicationDialog::onDeleteButtonClicked(int listId, QString listName)
 
     if(deleteDialog->exec() == QDialog::Accepted)
     {
-        applicationListService.deleteById(listId);
+        applicationListService->deleteById(listId);
         removeApplicationListItemById(listId);
     }
 }
