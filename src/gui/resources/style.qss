@@ -126,6 +126,15 @@ QComboBox[comboClass="default"] QAbstractItemView {
 }
 
 QLineEdit[lineClass="default"] {
+    padding: 10px;
+    background: #F3F3F3;
+    border: 1px solid #3A3C45;
+    border-radius: 15px;
+    color: #3A3C45;
+    font-family: 'Instrument Sans';
+}
+
+QLineEdit[lineClass="schedulePage"] {
     padding: 5px;
     background: transparent;
     border: 1px solid transparent;
@@ -135,12 +144,12 @@ QLineEdit[lineClass="default"] {
     font-family: 'Instrument Sans';
 }
 
-QLineEdit[lineClass="default"]:focus {
+QLineEdit[lineClass="schedulePage"]:focus {
     background: #F3F3F3;
     border: 1px solid #3A3C45;
 }
 
-QLineEdit[lineClass="default"]:hover {
+QLineEdit[lineClass="schedulePage"]:hover {
     background: #F3F3F3;
     border: 1px solid #3A3C45;
 }
