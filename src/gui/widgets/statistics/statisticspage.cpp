@@ -479,11 +479,11 @@ void StatisticsPage::sortWidgets()
 
     sort(ids.begin(), ids.end(), [this](const int lhs, const int rhs)
     {
-        const bool lhsRunning = runningApplications.contains(lhs);
-        const bool rhsRunning = runningApplications.contains(rhs);
+        const auto lhsTime = applications.at(lhs).getTodayActivity();
+        const auto rhsTime = applications.at(rhs).getTodayActivity();
 
-        if (lhsRunning != rhsRunning)
-            return lhsRunning;
+        if (lhsTime != rhsTime)
+            return lhsTime > rhsTime;
 
         const QString& lhsName = applications.at(lhs).getName();
         const QString& rhsName = applications.at(rhs).getName();
@@ -493,11 +493,7 @@ void StatisticsPage::sortWidgets()
             rhsName,
             Qt::CaseInsensitive
         );
-
-        if (comparison != 0)
-            return comparison < 0;
-
-        return lhs < rhs;
+        return comparison < 0;
     });
 
     for (int i = 0; i < static_cast<int>(ids.size()); ++i)
