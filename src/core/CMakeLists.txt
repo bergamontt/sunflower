@@ -5,6 +5,7 @@ target_link_libraries(
     PUBLIC
         monitor
         persistence
+        Qt6::Widgets
 )
 
 target_sources(
