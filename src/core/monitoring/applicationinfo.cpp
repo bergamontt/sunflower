@@ -126,19 +126,20 @@ namespace sun::core
 
     std::optional<seconds> ApplicationInfo::getTodayActivity()
     {
-        if (priorActivities.isEmpty() && !currentActivity)
-            return nullopt;
-
         const auto now = QDateTime::currentDateTime();
         const auto midnight = QDateTime(QDate::currentDate(), QTime(0, 0));
         seconds total = seconds::zero();
+        bool hasActivityToday = false;
 
         const auto addActivity = [&](const Activity& activity)
         {
             const auto start = max(activity.startedAt, midnight);
             const auto end = min(activity.endedAt.value_or(now), now);
             if (start < end)
+            {
                 total += seconds(start.secsTo(end));
+                hasActivityToday = true;
+            }
         };
 
         for (const auto& activity : priorActivities)
@@ -146,6 +147,9 @@ namespace sun::core
 
         if (currentActivity)
             addActivity(*currentActivity);
+
+        if (!hasActivityToday)
+            return nullopt;
 
         return total;
     }
