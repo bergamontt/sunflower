@@ -48,6 +48,9 @@ target_sources(
 
     application/applicationservice.h
     application/applicationservice.cpp
+
+    utils/iconlookup.h
+    utils/iconlookup.cpp
 )
 
 if(WIN32)

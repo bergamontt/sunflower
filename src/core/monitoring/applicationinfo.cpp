@@ -1,4 +1,5 @@
 #include "applicationinfo.h"
+#include "utils/iconlookup.h"
 
 #include <algorithm>
 #include <limits>
@@ -52,19 +53,6 @@ namespace sun::core
         return nullopt;
     }
 
-    static QIcon loadApplicationIcon(const QString& name)
-    {
-        QIcon icon = QIcon::fromTheme(name);
-        if (!icon.isNull())
-            return icon;
-
-        icon = QIcon(name);
-        if (!icon.isNull())
-            return icon;
-
-        return QIcon();
-    }
-
     ApplicationInfo::ApplicationInfo(persistence::Application app) :
         scheduleDaoPtr(make_shared<ScheduleDao>()),
         applicationListDaoPtr(make_shared<ApplicationListDao>()),
@@ -101,7 +89,7 @@ namespace sun::core
         return ApplicationInfoDto(
             application.id,
             application.name,
-            loadApplicationIcon(application.icon),
+            utils::loadApplicationIcon(application.icon),
             todayActivity,
             secondsLeft,
             minSchedule ? make_optional(minSchedule->type) : nullopt,
