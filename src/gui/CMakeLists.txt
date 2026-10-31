@@ -101,4 +101,6 @@ qt_add_resources(gui "gui"
         resources/settings.svg
         resources/on.svg
         resources/exe-file.svg
+        resources/down-arrow.svg
+        resources/up-arrow.svg
 )

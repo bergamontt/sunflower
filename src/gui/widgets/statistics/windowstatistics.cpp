@@ -2,6 +2,7 @@
 #include "ui_windowstatistics.h"
 
 #include <QIcon>
+#include <QStyle>
 
 WindowStatistics::WindowStatistics(QWidget *parent)
     : QWidget(parent)
