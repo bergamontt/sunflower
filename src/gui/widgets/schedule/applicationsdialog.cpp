@@ -3,6 +3,7 @@
 #include "application/applicationservice.h"
 #include "applicationlist.h"
 #include "applicationlist/applicationlistservice.h"
+#include "utils/iconlookup.h"
 #include "ui_applicationsdialog.h"
 
 #include <QListWidgetItem>
@@ -15,19 +16,6 @@ using namespace sun::core;
 namespace
 {
     constexpr int AppId = Qt::UserRole;
-}
-
-static QIcon loadApplicationIcon(const QString& name)
-{
-    QIcon icon = QIcon::fromTheme(name);
-    if (!icon.isNull())
-        return icon;
-
-    icon = QIcon(name);
-    if (!icon.isNull())
-        return icon;
-
-    return QIcon(":/gui/exe-file.svg");
 }
 
 ApplicationsDialog::ApplicationsDialog(QWidget *parent) :
@@ -66,7 +54,7 @@ void ApplicationsDialog::loadApplications()
     {
         QListWidgetItem *item = new QListWidgetItem(application.name);
 
-        item->setIcon(loadApplicationIcon(application.icon));
+        item->setIcon(sun::core::utils::loadApplicationIcon(application.icon));
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Unchecked);
         item->setData(AppId, application.id);

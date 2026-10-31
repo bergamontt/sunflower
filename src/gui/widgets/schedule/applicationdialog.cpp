@@ -5,6 +5,7 @@
 #include "deletedialog.h"
 #include "ui_applicationdialog.h"
 #include "schedule/scheduleservice.h"
+#include "utils/iconlookup.h"
 #include <optional>
 #include <qicon.h>
 #include <qnamespace.h>
@@ -17,19 +18,6 @@ using namespace sun::core;
 namespace
 {
     constexpr int ListId = Qt::UserRole;
-}
-
-static QIcon loadApplicationIcon(const QString& name)
-{
-    QIcon icon = QIcon::fromTheme(name);
-    if (!icon.isNull())
-        return icon;
-
-    icon = QIcon(name);
-    if (!icon.isNull())
-        return icon;
-
-    return QIcon(":/gui/exe-file.svg");
 }
 
 ApplicationDialog::ApplicationDialog(QWidget *parent) :
@@ -100,7 +88,7 @@ void ApplicationDialog::insertApplicationList(const ApplicationList& list)
     for (const Application& application : applications)
     {
         QTreeWidgetItem* applicationItem = new QTreeWidgetItem(listItem);
-        applicationItem->setIcon(0, loadApplicationIcon(application.icon));
+        applicationItem->setIcon(0, sun::core::utils::loadApplicationIcon(application.icon));
         applicationItem->setText(0, application.name);
     }
 
