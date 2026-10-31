@@ -39,6 +39,9 @@ private:
     void clearPasswordInputs();
     std::optional<QString> handleCreatePassword();
     std::optional<QString> handleUpdatePassword(const QString& currentHash);
+
+private:
+    int previousComboIndex = 0;
 };
 
 #endif // STRICTMODESECTION_H

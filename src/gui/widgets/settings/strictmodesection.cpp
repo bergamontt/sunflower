@@ -2,6 +2,7 @@
 #include "password/passwordservice.h"
 #include "settings/settingsservice.h"
 #include "ui_strictmodesection.h"
+#include "passwordconfirmation.h"
 
 #include "strictmodeutils.h"
 #include "strictmodetext.h"
@@ -21,7 +22,7 @@ StrictModeSection::StrictModeSection(QWidget *parent) :
 {
     ui->setupUi(this);
     
-    connect(ui->strictModeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+    connect(ui->strictModeComboBox, QOverload<int>::of(&QComboBox::activated),
             this, &StrictModeSection::onLockTypeChanged);
     
     connect(ui->delaySpinBox, QOverload<int>::of(&QSpinBox::valueChanged),
@@ -39,6 +40,15 @@ StrictModeSection::~StrictModeSection()
 
 void StrictModeSection::onLockTypeChanged(int index)
 {
+    if (!PasswordConfirmation::confirm(this))
+    {
+        QSignalBlocker blocker(ui->strictModeComboBox);
+        ui->strictModeComboBox->setCurrentIndex(previousComboIndex);
+        return;
+    }
+
+    previousComboIndex = index;
+
     updateSettingsSectionSize(index);
     auto selectedType = indexToLockType(index);
     switch (selectedType)
@@ -115,6 +125,7 @@ void StrictModeSection::loadCurrentSettings()
     auto policy = settingsService->lockPolicy();
     int targetIndex = lockTypeToIndex(policy.lockType());
     
+    previousComboIndex = targetIndex;
     ui->strictModeComboBox->setCurrentIndex(targetIndex);
 
     bool hasPassword = !policy.hash().isEmpty();

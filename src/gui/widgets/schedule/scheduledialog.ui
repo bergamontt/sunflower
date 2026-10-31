@@ -47,7 +47,7 @@
       <string>New Schedule</string>
      </property>
      <property name="lineClass" stdset="0">
-      <string>default</string>
+      <string>schedulePage</string>
      </property>
     </widget>
    </item>

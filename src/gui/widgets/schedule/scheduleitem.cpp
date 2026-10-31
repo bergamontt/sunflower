@@ -1,6 +1,7 @@
 #include "scheduleitem.h"
 #include "applicationlist.h"
 #include "ui_scheduleitem.h"
+#include "passwordconfirmation.h"
 #include <qabstractitemview.h>
 #include <qstyle.h>
 
@@ -66,6 +67,15 @@ void ScheduleItem::setSchedule(const Schedule& schedule, const QList<Application
 
 void ScheduleItem::onIsActiveStatusChanged()
 {
+    if (schedule.isActive && !ui->onButton->isChecked())
+    {
+        if (!PasswordConfirmation::confirm(this))
+        {
+            ui->onButton->setChecked(true);
+            return;
+        }
+    }
+
     schedule.isActive = ui->onButton->isChecked();
     setProperty("scheduleItemClass", schedule.isActive ? "isActive" : "isNotActive");
     style()->unpolish(this);

@@ -10,6 +10,7 @@
 #include <qnamespace.h>
 #include <qstyle.h>
 #include "monitoring/applicationmonitor.h"
+#include "passwordconfirmation.h"
 
 using namespace sun::persistence;
 using namespace sun::core;
@@ -95,6 +96,11 @@ void SchedulePage::onCreateScheduleButtonClicked()
 
 void SchedulePage::onEditScheduleRequested(Schedule schedule, QList<ApplicationList> applicationLists)
 {
+    if (!PasswordConfirmation::confirm(this))
+    {
+        return;
+    }
+
     ScheduleDialog* scheduleDialog = new ScheduleDialog(this);
     scheduleDialog->setSchedule(schedule, applicationLists);
     
@@ -130,6 +136,10 @@ void SchedulePage::onDeleteScheduleRequested(int scheduleId, QString scheduleNam
 
     if(deleteDialog->exec() == QDialog::Accepted)
     {
+        if (!PasswordConfirmation::confirm(this))
+        {
+            return;
+        }
         scheduleService->deleteById(scheduleId);
         QWidget *item = findChild<QWidget*>("scheduleItem-" + QString::number(scheduleId));
         if (item)
