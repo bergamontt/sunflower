@@ -60,7 +60,7 @@
         <string>New</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../build/src/gui/.qt/rcc/gui.qrc">
+        <iconset resource="../../../../build/Desktop_Debug/src/gui/.qt/rcc/gui.qrc">
          <normaloff>:/gui/plus.svg</normaloff>:/gui/plus.svg</iconset>
        </property>
        <property name="buttonClass" stdset="0">
@@ -75,13 +75,16 @@
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
+     <property name="areaClass" stdset="0">
+      <string>background</string>
+     </property>
      <widget class="QWidget" name="scheduleScrollAreaContents">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>804</width>
-        <height>585</height>
+        <width>808</width>
+        <height>580</height>
        </rect>
       </property>
       <property name="scrollAreaClass" stdset="0">
@@ -114,7 +117,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../../build/src/gui/.qt/rcc/gui.qrc"/>
+  <include location="../../../../build/Desktop_Debug/src/gui/.qt/rcc/gui.qrc"/>
  </resources>
  <connections/>
 </ui>
