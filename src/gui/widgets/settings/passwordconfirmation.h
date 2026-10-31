@@ -20,6 +20,8 @@ public:
     explicit PasswordConfirmation(QWidget *parent = nullptr);
     ~PasswordConfirmation();
 
+    static bool confirm(QWidget *parent = nullptr);
+
 private slots:
     void onConfirm();
 

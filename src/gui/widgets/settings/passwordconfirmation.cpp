@@ -22,6 +22,17 @@ PasswordConfirmation::~PasswordConfirmation()
     delete ui;
 }
 
+bool PasswordConfirmation::confirm(QWidget *parent)
+{
+    static sun::core::SettingsService settings;
+    if (settings.lockPolicy().lockType() != sun::core::LockType::Password)
+    {
+        return true;
+    }
+    PasswordConfirmation dialog(parent);
+    return dialog.exec() == QDialog::Accepted;
+}
+
 void PasswordConfirmation::onConfirm()
 {
     const QString savedHash = settingService->lockPolicy().hash();
